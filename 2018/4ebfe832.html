@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="kBGM6zmK4yGaRcpq">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZhi+Mang+Xing:300,300italic,400,400italic,700,700italic%7CMa+Shan+Zheng:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;blog.peoplevip.cn&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:true,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;hide&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:true,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:true,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:3,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script>
+<meta name="description" content="前言因为安装多版本 opencv 中一些手残操作，导致执行了   1sudo rm -rf &#x2F;* 结果嘛，….连带着 Windows 系统也进不去了，进入 BIOS 发现引导全没了，最后用微 pe 修复了 Windows 的引导，Ubuntu 系统由于不会用备份，只能重装了这里记录一下重装后的一系列问题，为了方便，会记录在多篇文章里">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重装 Ubuntu 后的一些优化问题">
+<meta property="og:url" content="http://blog.peoplevip.cn/2018/4ebfe832.html">
+<meta property="og:site_name" content="tsvico的博客">
+<meta property="og:description" content="前言因为安装多版本 opencv 中一些手残操作，导致执行了   1sudo rm -rf &#x2F;* 结果嘛，….连带着 Windows 系统也进不去了，进入 BIOS 发现引导全没了，最后用微 pe 修复了 Windows 的引导，Ubuntu 系统由于不会用备份，只能重装了这里记录一下重装后的一系列问题，为了方便，会记录在多篇文章里">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.linuxidc.com/upload/2016_05/16050322106462.png">
+<meta property="og:image" content="http://www.linuxidc.com/upload/2016_09/160913081877362.png">
+<meta property="og:image" content="http://www.linuxidc.com/upload/2016_09/160913081877363.png">
+<meta property="og:image" content="http://ws4.sinaimg.cn/large/006NPPBTly1ftkt7jfh1kj31hc0xck9g.jpg">
+<meta property="article:published_time" content="2018-07-23T17:09:17.000Z">
+<meta property="article:modified_time" content="2021-07-16T05:47:01.208Z">
+<meta property="article:author" content="tsvico">
+<meta property="article:tag" content="ubuntu">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.linuxidc.com/upload/2016_05/16050322106462.png">
+
+
+<link rel="canonical" href="http://blog.peoplevip.cn/2018/4ebfe832.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;blog.peoplevip.cn&#x2F;2018&#x2F;4ebfe832.html&quot;,&quot;path&quot;:&quot;2018&#x2F;4ebfe832.html&quot;,&quot;title&quot;:&quot;重装 Ubuntu 后的一些优化问题&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>重装 Ubuntu 后的一些优化问题 | tsvico的博客</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">tsvico的博客</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">好的代码像粥一样，都是用时间熬出来的</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">34</span></a></li>
+        <li class="menu-item menu-item-工具"><a href="/tools/" rel="section"><i class="fa fa-wrench fa-fw"></i>工具</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">61</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ubuntu16-04%E5%BC%80%E6%9C%BA%E5%8A%A8%E7%94%BB%E6%B6%88%E5%A4%B1%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">Ubuntu16.04 开机动画消失问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%BD%91%E6%98%93163%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="nav-number">3.</span> <span class="nav-text">使用网易 163 数据源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%B8%E8%BD%BD%E4%B8%8D%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E4%B8%8E%E7%BE%8E%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">卸载不常用软件与美化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E6%B8%85%E7%90%86%E7%AF%87"><span class="nav-number">4.1.</span> <span class="nav-text">系统清理篇</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E6%9B%B4%E6%96%B0"><span class="nav-number">4.1.1.</span> <span class="nav-text">系统更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%B8%E8%BD%BDlibreOffice"><span class="nav-number">4.1.2.</span> <span class="nav-text">卸载 libreOffice</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4Amazon%E7%9A%84%E9%93%BE%E6%8E%A5"><span class="nav-number">4.1.3.</span> <span class="nav-text">删除 Amazon 的链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E4%B8%8D%E5%B8%B8%E7%94%A8%E7%9A%84%E8%BD%AF%E4%BB%B6"><span class="nav-number">4.1.4.</span> <span class="nav-text">删除不常用的软件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="nav-number">4.2.</span> <span class="nav-text">软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#unity-tweak-tool"><span class="nav-number">4.2.1.</span> <span class="nav-text">unity-tweak-tool</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flatabulous%E4%B8%BB%E9%A2%98"><span class="nav-number">4.2.2.</span> <span class="nav-text">Flatabulous 主题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#wps"><span class="nav-number">4.2.3.</span> <span class="nav-text">wps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#chrome"><span class="nav-number">4.2.4.</span> <span class="nav-text">chrome</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gnome%E6%A1%8C%E9%9D%A2"><span class="nav-number">5.</span> <span class="nav-text">gnome 桌面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E9%94%99%E8%AF%AF%E6%8A%A5%E5%91%8A"><span class="nav-number">6.</span> <span class="nav-text">关闭错误报告</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#grub%E5%BC%95%E5%AF%BC%E7%95%8C%E9%9D%A2"><span class="nav-number">7.</span> <span class="nav-text">grub 引导界面</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="tsvico"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">tsvico</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Rzdmljbw==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;tsvico"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOnRzeHlnd2pAMTYzLmNvbQ==" title="E-Mail → mailto:tsxygwj@163.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vdHN2aWNv" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;tsvico">博客园</span>
+        </li>
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Rzdmljbw==" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;tsvico">CSDN</span>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Rzdmljbw==" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.peoplevip.cn/2018/4ebfe832.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="tsvico">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tsvico的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          重装 Ubuntu 后的一些优化问题
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-07-23 17:09:17" itemprop="dateCreated datePublished" datetime="2018-07-23T17:09:17+00:00">2018-07-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-07-16 05:47:01" itemprop="dateModified" datetime="2021-07-16T05:47:01+00:00">2021-07-16</time>
+      </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/2018/4ebfe832.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/4ebfe832.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>因为安装多版本 opencv 中一些手残操作，导致执行了  </p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rm -rf /*</span><br></pre></td></tr></tbody></table></figure>
+<p>结果嘛，….<br>连带着 Windows 系统也进不去了，进入 <code>BIOS</code> 发现引导全没了，最后用微 pe 修复了 Windows 的引导，Ubuntu 系统由于不会用备份，只能重装了<br>这里记录一下重装后的一系列问题，为了方便，会记录在多篇文章里</p>
+<a id="more"></a>
+<h2 id="Ubuntu16-04开机动画消失问题"><a href="#Ubuntu16-04开机动画消失问题" class="headerlink" title="Ubuntu16.04开机动画消失问题"></a>Ubuntu16.04 开机动画消失问题</h2><p>在安装 Ubuntu 16.04 LTS 后开机动画没有了（应该不是偶然现象），黑屏一段时间后直接进入登录页面<br>参考了别人的一些方法，完美解决<br>切换用户</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su</span><br></pre></td></tr></tbody></table></figure>
+<p>如果刚使用系统这个密码是随机的，可以用</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd</span><br></pre></td></tr></tbody></table></figure>
+<p>根据提示设置 root 用户的密码</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> /etc/initramfs-tools/conf.d</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ls</span></span><br></pre></td></tr></tbody></table></figure>
+<p>查看是否有名为 <code>splash</code> 的文件，没有则创建，输入 FRAMEBUFFER=y<br>使用命令则为</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo FRAMEBUFFER=y &gt;&gt; splash</span><br></pre></td></tr></tbody></table></figure>
+<p>然后执行</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update-initramfs -u</span><br></pre></td></tr></tbody></table></figure>
+<p>重启即可</p>
+<h2 id="使用网易163数据源"><a href="#使用网易163数据源" class="headerlink" title="使用网易163数据源"></a>使用网易 163 数据源</h2><p>图形化更新：打开软件与更新 - Ubuntu 软件 - 下载自，选择国内的服务器<br>也可以像我一样手动更改 163 数据源</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">备份一下</span></span><br><span class="line">sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</span><br></pre></td></tr></tbody></table></figure>
+<p>编辑新文件</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /etc/apt/sources.list</span><br></pre></td></tr></tbody></table></figure>
+<p>将之前内容全部删除，粘贴以下内容（仅适用于 Ubuntu16）</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.163.com/ubuntu/ xenial main restricted universe multiverse</span><br><span class="line">deb http://mirrors.163.com/ubuntu/ xenial-security main restricted universe multiverse</span><br><span class="line">deb http://mirrors.163.com/ubuntu/ xenial-updates main restricted universe multiverse</span><br><span class="line">deb http://mirrors.163.com/ubuntu/ xenial-proposed main restricted universe multiverse</span><br><span class="line">deb http://mirrors.163.com/ubuntu/ xenial-backports main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.163.com/ubuntu/ xenial main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.163.com/ubuntu/ xenial-security main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.163.com/ubuntu/ xenial-updates main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.163.com/ubuntu/ xenial-proposed main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.163.com/ubuntu/ xenial-backports main restricted universe multiverse</span><br></pre></td></tr></tbody></table></figure>
+<p>最后更新一下</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="卸载不常用软件与美化"><a href="#卸载不常用软件与美化" class="headerlink" title="卸载不常用软件与美化"></a>卸载不常用软件与美化</h2><h3 id="系统清理篇"><a href="#系统清理篇" class="headerlink" title="系统清理篇"></a>系统清理篇</h3><h4 id="系统更新"><a href="#系统更新" class="headerlink" title="系统更新"></a>系统更新</h4><p>安装完系统之后，需要更新一些补丁。Ctrl+Alt+T 调出终端，执行一下代码：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update </span><br><span class="line">sudo apt upgrade12</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="卸载libreOffice"><a href="#卸载libreOffice" class="headerlink" title="卸载libreOffice"></a>卸载 libreOffice</h4><p>libreoffice 事 ubuntu 自带的开源 office 软件，体验效果不如 windows 上的 office，于是选择用 WPS 来替代（wps 的安装后面会提到）</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove libreoffice-common  1</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="删除Amazon的链接"><a href="#删除Amazon的链接" class="headerlink" title="删除Amazon的链接"></a>删除 Amazon 的链接</h4><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove unity-webapps-common </span><br></pre></td></tr></tbody></table></figure>
+<h4 id="删除不常用的软件"><a href="#删除不常用的软件" class="headerlink" title="删除不常用的软件"></a>删除不常用的软件</h4><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove thunderbird totem rhythmbox empathy brasero simple-scan gnome-mahjongg aisleriot </span><br><span class="line">sudo apt-get remove gnome-mines cheese transmission-common gnome-orca webbrowser-app gnome-sudoku  landscape-client-ui-install  </span><br><span class="line"></span><br><span class="line">sudo apt-get remove onboard deja-dup 1234</span><br></pre></td></tr></tbody></table></figure>
+<p>做完上面这些，系统应该干净了，下面我们来安装一些必要的软件。</p>
+<h3 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h3><h4 id="unity-tweak-tool"><a href="#unity-tweak-tool" class="headerlink" title="unity-tweak-tool"></a>unity-tweak-tool</h4><p>调整 Unity 桌面环境，还是推荐使用 Unity Tweak Tool，这是一个非常好用的 Unity 图形化管理工具，可以修改工作区数量、热区等。</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install unity-tweak-tool</span><br></pre></td></tr></tbody></table></figure>
+<p>安装完后界面如下：</p>
+<p><img data-src="http://www.linuxidc.com/upload/2016_05/16050322106462.png" alt="img"></p>
+<p>Ubuntu 16.04 中安装 Unity Tweak Tool  <span class="exturl" data-url="aHR0cDovL3d3dy5saW51eGlkYy5jb20vTGludXgvMjAxNi0wNS8xMzA5NTEuaHRt">http://www.linuxidc.com/Linux/2016-05/130951.htm<i class="fa fa-external-link-alt"></i></span></p>
+<h4 id="Flatabulous主题"><a href="#Flatabulous主题" class="headerlink" title="Flatabulous主题"></a>Flatabulous 主题</h4><p>Flatabulous 主题是一款 ubuntu 下扁平化主题，也是我试过众多主题中最喜欢的一个！最终效果如上述图所示。</p>
+<p>执行以下命令安装 Flatabulous 主题：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:noobslab/themes</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install flatabulous-theme123</span><br></pre></td></tr></tbody></table></figure>
+<p>该主题有配套的图标，安装方式如下：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:noobslab/icons</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install ultra-flat-icons123</span><br></pre></td></tr></tbody></table></figure>
+<p>安装完成后，打开 unity-tweak-tool 软件，修改主题和图标：</p>
+<p>进入 Theme，修改为 Flatabulous</p>
+<p><img data-src="http://www.linuxidc.com/upload/2016_09/160913081877362.png" alt="img"></p>
+<p>在此界面下进入 Icons 栏，修改为 Ultra-flat:</p>
+<p><img data-src="http://www.linuxidc.com/upload/2016_09/160913081877363.png" alt="img"></p>
+<p>到这里主题和图标都变为扁平化主题 Flatabulous，看起来比较美观了，当然，还需要修改一些细节，例如终端的配色以及样式。</p>
+<h4 id="wps"><a href="#wps" class="headerlink" title="wps"></a>wps</h4><p>去 wps 官网下载 wps for linux。</p>
+<p>下载后，打开终端，运行一下命令</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i wps-office_10.1.0.5672~a21_amd64.deb</span><br></pre></td></tr></tbody></table></figure>
+<p>如果缺少依赖包，可以先执行一下命令 (后面的软件安装过程中如出现依赖包问题，一样可以采用这种方式解决)</p>
+<p>sudo apt-get install -f</p>
+<p>Ubuntu 14.04 安装 WPS  <span class="exturl" data-url="aHR0cDovL3d3dy5saW51eGlkYy5jb20vTGludXgvMjAxNC0wNC8xMDA0OTkuaHRt">http://www.linuxidc.com/Linux/2014-04/100499.htm<i class="fa fa-external-link-alt"></i></span></p>
+<p>Ubuntu 14.04 64 位安装 WPS（成功解决没有 ia32-libs 的问题）  <span class="exturl" data-url="aHR0cDovL3d3dy5saW51eGlkYy5jb20vTGludXgvMjAxNC0wNS8xMDE2MDMuaHRt">http://www.linuxidc.com/Linux/2014-05/101603.htm<i class="fa fa-external-link-alt"></i></span></p>
+<h4 id="chrome"><a href="#chrome" class="headerlink" title="chrome"></a>chrome</h4><p>去 chrome 官网下载 linux 版的 chrome。</p>
+<p>执行一下命令，</p>
+<p>sudo dpkg -i google-chrome-stable_current_amd64.deb<br>Ubuntu 16.04 下安装 64 位谷歌 Chrome 浏览器  <span class="exturl" data-url="aHR0cDovL3d3dy5saW51eGlkYy5jb20vTGludXgvMjAxNi0wNS8xMzEwOTYuaHRt">http://www.linuxidc.com/Linux/2016-05/131096.htm<i class="fa fa-external-link-alt"></i></span></p>
+<p>Ubuntu 16.04 中为 Chromium、Chrome、Firefox 安装 Flash 播放器插件  <span class="exturl" data-url="aHR0cDovL3d3dy5saW51eGlkYy5jb20vTGludXgvMjAxNi0wNS8xMzEwOTguaHRt">http://www.linuxidc.com/Linux/2016-05/131098.htm<i class="fa fa-external-link-alt"></i></span></p>
+<h2 id="gnome桌面"><a href="#gnome桌面" class="headerlink" title="gnome桌面"></a>gnome 桌面</h2><p>这里使用了 gnome 桌面</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get  install gnome</span><br></pre></td></tr></tbody></table></figure>
+<p>一些常用的插件</p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vMTUvYWx0ZXJuYXRldGFiLw==">AlternateTab<i class="fa fa-external-link-alt"></i></span> Alt+Tab 切换应用 </li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vOTcvY292ZXJmbG93LWFsdC10YWIv">Coverflow Alt-Tab<i class="fa fa-external-link-alt"></i></span> 功能与 AlternateTab 相同，但提供了一个更酷炫的界面 </li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vNi9hcHBsaWNhdGlvbnMtbWVudS8=">Applications Menu<i class="fa fa-external-link-alt"></i></span> 顶栏显示应用菜单，我比较少用，但刚从 Windows 切换过来的或许需要 </li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vMTYvYXV0by1tb3ZlLXdpbmRvd3Mv">Auto Move Windows<i class="fa fa-external-link-alt"></i></span> 当应用创建窗口时自动移动到某个特定的工作空间 </li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vNTE3L2NhZmZlaW5lLw==">Caffeine<i class="fa fa-external-link-alt"></i></span> 取消自动锁屏 </li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vNzc5L2NsaXBib2FyZC1pbmRpY2F0b3Iv">Clipboard Indicator<i class="fa fa-external-link-alt"></i></span> 剪贴板管理 </li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vMzA3L2Rhc2gtdG8tZG9jay8=">Dash to Dock<i class="fa fa-external-link-alt"></i></span> 不解释 </li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vNjkwL2Vhc3lzY3JlZW5jYXN0Lw==">EasyScreenCast<i class="fa fa-external-link-alt"></i></span> 屏幕录像，做演示时比较方便 </li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vMTExMi9zY3JlZW5zaG90LXRvb2wv">Screenshot Tool<i class="fa fa-external-link-alt"></i></span> 屏幕截图工具，也具有一些简单的图片编辑功能 </li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vOTA2L3NvdW5kLW91dHB1dC1kZXZpY2UtY2hvb3Nlci8=">Sound Input &amp; Output Device Chooser<i class="fa fa-external-link-alt"></i></span> 更为方便地调节音量 </li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vNTg3L2dub21vZG9yby8=">Gnomodoro <i class="fa fa-external-link-alt"></i></span>简易番茄钟 </li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vNTMvcG9tb2Rvcm8v">Pomodoro<i class="fa fa-external-link-alt"></i></span> 增强的番茄钟，推荐使用。严格来说，它已经不是扩展了，作者现在将它做成了一个本地应用。对于 Debian，新的安装方法如下 </li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo aptitude install gnome-shell-pomodoro1</span><br></pre></td></tr></tbody></table></figure>
+<p>其他发行版的请参考<span class="exturl" data-url="aHR0cDovL2dub21lcG9tb2Rvcm8ub3JnLw==">官网<i class="fa fa-external-link-alt"></i></span>相关说明 </p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vNTQ1L2hpZGUtdG9wLWJhci8=">Hide Top Bar<i class="fa fa-external-link-alt"></i></span> 全屏时自动隐藏顶栏 </li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vMzYvbG9jay1rZXlzLw==">Lock Keys<i class="fa fa-external-link-alt"></i></span> 顶栏显示 Numlock 和 Capslock 的状态 </li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vMTA0L25ldHNwZWVkLw==">NetSpeed<i class="fa fa-external-link-alt"></i></span> 顶栏显示网速，喜欢简洁的<span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vMTA4NS9zaW1wbGUtbmV0LXNwZWVkLw=="> Simple net speed<i class="fa fa-external-link-alt"></i></span>也非常不错 </li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vNzUwL29wZW53ZWF0aGVyLw==">OpenWeather<i class="fa fa-external-link-alt"></i></span> 顶栏显示天气情况，gnome 自带的 weather 不支持顶栏显示，用起来不方便 </li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vOC9wbGFjZXMtc3RhdHVzLWluZGljYXRvci8=">Places Status Indicator<i class="fa fa-external-link-alt"></i></span> 为一些常用目录提供快速入口 </li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vMTIwL3N5c3RlbS1tb25pdG9yLw==">system-monitor<i class="fa fa-external-link-alt"></i></span> 顶栏显示 CPU、内存、网速、温度、电池电量等信息，安装前需要解决依赖，在 Debian 上方法如下 </li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo aptitude install gir1.2-gtop-2.0 gir1.2-networkmanager-1.01</span><br></pre></td></tr></tbody></table></figure>
+<p>如果你觉得它依赖不好解决，也可以使用另外一个具有相似功能的<span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vMTA2NC9zeXN0ZW0tbW9uaXRvci8="> System Monitor<i class="fa fa-external-link-alt"></i></span> </p>
+<ul>
+<li><p><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vNTg0L3Rhc2tiYXIv">TaskBar<i class="fa fa-external-link-alt"></i></span> 类似于 Windows 任务栏，提供了可选的预览功能，可定制选项多 </p>
+</li>
+<li><p><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vNTcwL3RvZG90eHQv">Todo.txt<i class="fa fa-external-link-alt"></i></span> GTD 应用，顶栏显示比较醒目 </p>
+</li>
+<li><p><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vMTAzMS90b3BpY29ucy8=">TopIcons Plus<i class="fa fa-external-link-alt"></i></span> 顶栏显示应用图标，输入法切换的时候特别有用 </p>
+</li>
+<li><p><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vMTkvdXNlci10aGVtZXMv">User Themes<i class="fa fa-external-link-alt"></i></span> 从本地安装 shell 主题 </p>
+</li>
+<li><p><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vNjAyL3dpbmRvdy1saXN0Lw==">Window List<i class="fa fa-external-link-alt"></i></span> 在屏幕底部显示窗口列表，提供类似于 Windows 任务栏的功能，习惯 Windows 的可以考虑用这个过渡一下 </p>
+</li>
+<li><p><span class="exturl" data-url="aHR0cHM6Ly9leHRlbnNpb25zLmdub21lLm9yZy9leHRlbnNpb24vMjEvd29ya3NwYWNlLWluZGljYXRvci8=">Workspace Indicator<i class="fa fa-external-link-alt"></i></span> 在顶栏显示当前所处的工作空间</p>
+<h2 id="关闭错误报告"><a href="#关闭错误报告" class="headerlink" title="关闭错误报告"></a>关闭错误报告</h2><p>用了 ubuntu16.04 日常弹出错误报告，贼鸡烦人，还是屏蔽了吧。 </p>
+</li>
+</ul>
+<ul>
+<li>临时关闭<br><code>sudo service apport stop</code><br>这个会在重启系统后失效。</li>
+<li>永久关闭 。<br><code>sudo gedit /etc/default/apport</code><br>修改 enabled=0 ，重启生效</li>
+<li>永久性的移除错误报告功能<br><code>sudo apt-get purge apport</code></li>
+</ul>
+<h2 id="grub引导界面"><a href="#grub引导界面" class="headerlink" title="grub引导界面"></a>grub 引导界面</h2><p>引导界面黑呼呼的，这里美化一下</p>
+<p><img data-src="http://ws4.sinaimg.cn/large/006NPPBTly1ftkt7jfh1kj31hc0xck9g.jpg" alt="image"></p>
+<p><span class="exturl" data-url="aHR0cDovL3RpZWJhLmJhaWR1LmNvbS9wLzM3NTc4MTI5MzI=">原地址<i class="fa fa-external-link-alt"></i></span></p>
+<hr>
+<p> 下载地址：<span class="exturl" data-url="aHR0cDovL2p1bXAuYmRpbWcuY29tL3NhZmVjaGVjay9pbmRleD91cmw9eCtaNW1NYkdQQXZWSWx3WmVQU3QwQjN0RXFFRldiQzR0T2F0RnhrQzZjS2FuZlhmeklES3JncDZkbUFxVW0vNkpEdmdXOFZCcnYyRHc3cWNRY0t0eHA1ZGs4SllNdmg3bFVnNG04WmpQcWVXWGZkaUV6c1FCUVQ3Uzl1NE1rZmpkajJvZUhvRXpUST0=">http://pan.baidu.com/s/1i3ksK7N<i class="fa fa-external-link-alt"></i></span></p>
+<hr>
+<p>解压后里边的 deb 直接安装就可以</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+    <div style="text-align:center;color:#bfbfbf;font-size:16px;">
+      <span>-------- 本文结束 </span>
+      <i class="fa fa-paw"></i>
+      <span> 感谢阅读 --------</span>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/gh/tsvico/WebCDN/CDN/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
+          <div class="reward-container">
+  <div>如果您喜欢♥  可以给我赞赏一杯奶茶</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wx.png" alt="tsvico 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/zfb.png" alt="tsvico 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>tsvico
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://blog.peoplevip.cn/2018/4ebfe832.html" title="重装 Ubuntu 后的一些优化问题">http://blog.peoplevip.cn/2018/4ebfe832.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/ubuntu/" rel="tag"><i class="fa fa-tag"></i> ubuntu</a>
+              <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/36ec0175.html" rel="prev" title="python 爬虫入门到进阶（七）">
+                  <i class="fa fa-chevron-left"></i> python 爬虫入门到进阶（七）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/c592fb4d.html" rel="next" title="Ubuntu 安装 opencv3.2+contrib_modules">
+                  Ubuntu 安装 opencv3.2+contrib_modules <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div><script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tsvico</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9waXNjZXMv">NexT.Pisces</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script class="next-config" data-name="nprogress" type="application/json">{&quot;enable&quot;:true,&quot;spinner&quot;:true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{&quot;enable&quot;:true,&quot;appId&quot;:&quot;9lav0KTXaGOAWxGQoX4KeXA0-gzGzoHsz&quot;,&quot;appKey&quot;:&quot;BNSmdRks2FqczjSnUAviTs66&quot;,&quot;serverURLs&quot;:&quot;https:&#x2F;&#x2F;leancloud.peoplevip.cn&quot;,&quot;placeholder&quot;:&quot;~这里输入您的精彩评论&quot;,&quot;avatar&quot;:&quot;robohash&quot;,&quot;meta&quot;:[&quot;nick&quot;,&quot;mail&quot;,&quot;link&quot;],&quot;pageSize&quot;:10,&quot;lang&quot;:&quot;zh-cn&quot;,&quot;visitor&quot;:false,&quot;comment_count&quot;:true,&quot;recordIP&quot;:true,&quot;enableQQ&quot;:true,&quot;requiredFields&quot;:[],&quot;emojiCDN&quot;:&quot;https:&#x2F;&#x2F;valinecdn.bili33.top&#x2F;&quot;,&quot;emojiMaps&quot;:{&quot;Tieba-New2&quot;:&quot;Tieba-New&#x2F;image_emoticon.png&quot;,&quot;Tieba-New3&quot;:&quot;Tieba-New&#x2F;image_emoticon10.png&quot;,&quot;Tieba-New4&quot;:&quot;Tieba-New&#x2F;image_emoticon100.png&quot;,&quot;Tieba-New5&quot;:&quot;Tieba-New&#x2F;image_emoticon101.png&quot;,&quot;Tieba-New6&quot;:&quot;Tieba-New&#x2F;image_emoticon102.png&quot;,&quot;Tieba-New7&quot;:&quot;Tieba-New&#x2F;image_emoticon103.png&quot;,&quot;Tieba-New8&quot;:&quot;Tieba-New&#x2F;image_emoticon104.png&quot;,&quot;Tieba-New9&quot;:&quot;Tieba-New&#x2F;image_emoticon105.png&quot;,&quot;Tieba-New10&quot;:&quot;Tieba-New&#x2F;image_emoticon106.png&quot;,&quot;Tieba-New11&quot;:&quot;Tieba-New&#x2F;image_emoticon107.png&quot;,&quot;Tieba-New12&quot;:&quot;Tieba-New&#x2F;image_emoticon108.png&quot;,&quot;Tieba-New13&quot;:&quot;Tieba-New&#x2F;image_emoticon109.png&quot;,&quot;Tieba-New14&quot;:&quot;Tieba-New&#x2F;image_emoticon11.png&quot;,&quot;Tieba-New15&quot;:&quot;Tieba-New&#x2F;image_emoticon110.png&quot;,&quot;Tieba-New16&quot;:&quot;Tieba-New&#x2F;image_emoticon111.png&quot;,&quot;Tieba-New17&quot;:&quot;Tieba-New&#x2F;image_emoticon112.png&quot;,&quot;Tieba-New18&quot;:&quot;Tieba-New&#x2F;image_emoticon113.png&quot;,&quot;Tieba-New19&quot;:&quot;Tieba-New&#x2F;image_emoticon114.png&quot;,&quot;Tieba-New20&quot;:&quot;Tieba-New&#x2F;image_emoticon115.png&quot;,&quot;Tieba-New21&quot;:&quot;Tieba-New&#x2F;image_emoticon116.png&quot;,&quot;Tieba-New22&quot;:&quot;Tieba-New&#x2F;image_emoticon117.png&quot;,&quot;Tieba-New23&quot;:&quot;Tieba-New&#x2F;image_emoticon118.png&quot;,&quot;Tieba-New24&quot;:&quot;Tieba-New&#x2F;image_emoticon119.png&quot;,&quot;Tieba-New25&quot;:&quot;Tieba-New&#x2F;image_emoticon12.png&quot;,&quot;Tieba-New26&quot;:&quot;Tieba-New&#x2F;image_emoticon120.png&quot;,&quot;Tieba-New27&quot;:&quot;Tieba-New&#x2F;image_emoticon121.png&quot;,&quot;Tieba-New28&quot;:&quot;Tieba-New&#x2F;image_emoticon122.png&quot;,&quot;Tieba-New29&quot;:&quot;Tieba-New&#x2F;image_emoticon123.png&quot;,&quot;Tieba-New30&quot;:&quot;Tieba-New&#x2F;image_emoticon124.png&quot;,&quot;Tieba-New31&quot;:&quot;Tieba-New&#x2F;image_emoticon13.png&quot;,&quot;Tieba-New32&quot;:&quot;Tieba-New&#x2F;image_emoticon14.png&quot;,&quot;Tieba-New33&quot;:&quot;Tieba-New&#x2F;image_emoticon15.png&quot;,&quot;Tieba-New34&quot;:&quot;Tieba-New&#x2F;image_emoticon16.png&quot;,&quot;Tieba-New35&quot;:&quot;Tieba-New&#x2F;image_emoticon17.png&quot;,&quot;Tieba-New36&quot;:&quot;Tieba-New&#x2F;image_emoticon18.png&quot;,&quot;Tieba-New37&quot;:&quot;Tieba-New&#x2F;image_emoticon19.png&quot;,&quot;Tieba-New38&quot;:&quot;Tieba-New&#x2F;image_emoticon2.png&quot;,&quot;Tieba-New39&quot;:&quot;Tieba-New&#x2F;image_emoticon20.png&quot;,&quot;Tieba-New40&quot;:&quot;Tieba-New&#x2F;image_emoticon21.png&quot;,&quot;Tieba-New41&quot;:&quot;Tieba-New&#x2F;image_emoticon22.png&quot;,&quot;Tieba-New42&quot;:&quot;Tieba-New&#x2F;image_emoticon23.png&quot;,&quot;Tieba-New43&quot;:&quot;Tieba-New&#x2F;image_emoticon24.png&quot;,&quot;Tieba-New44&quot;:&quot;Tieba-New&#x2F;image_emoticon25.png&quot;,&quot;Tieba-New45&quot;:&quot;Tieba-New&#x2F;image_emoticon26.png&quot;,&quot;Tieba-New46&quot;:&quot;Tieba-New&#x2F;image_emoticon27.png&quot;,&quot;Tieba-New47&quot;:&quot;Tieba-New&#x2F;image_emoticon28.png&quot;,&quot;Tieba-New48&quot;:&quot;Tieba-New&#x2F;image_emoticon29.png&quot;,&quot;Tieba-New49&quot;:&quot;Tieba-New&#x2F;image_emoticon3.png&quot;,&quot;Tieba-New50&quot;:&quot;Tieba-New&#x2F;image_emoticon30.png&quot;,&quot;Tieba-New51&quot;:&quot;Tieba-New&#x2F;image_emoticon31.png&quot;,&quot;Tieba-New52&quot;:&quot;Tieba-New&#x2F;image_emoticon32.png&quot;,&quot;Tieba-New53&quot;:&quot;Tieba-New&#x2F;image_emoticon33.png&quot;,&quot;Tieba-New54&quot;:&quot;Tieba-New&#x2F;image_emoticon34.png&quot;,&quot;Tieba-New55&quot;:&quot;Tieba-New&#x2F;image_emoticon35.png&quot;,&quot;Tieba-New56&quot;:&quot;Tieba-New&#x2F;image_emoticon36.png&quot;,&quot;Tieba-New57&quot;:&quot;Tieba-New&#x2F;image_emoticon37.png&quot;,&quot;Tieba-New58&quot;:&quot;Tieba-New&#x2F;image_emoticon38.png&quot;,&quot;Tieba-New59&quot;:&quot;Tieba-New&#x2F;image_emoticon39.png&quot;,&quot;Tieba-New60&quot;:&quot;Tieba-New&#x2F;image_emoticon4.png&quot;,&quot;Tieba-New61&quot;:&quot;Tieba-New&#x2F;image_emoticon40.png&quot;,&quot;Tieba-New62&quot;:&quot;Tieba-New&#x2F;image_emoticon41.png&quot;,&quot;Tieba-New63&quot;:&quot;Tieba-New&#x2F;image_emoticon42.png&quot;,&quot;Tieba-New64&quot;:&quot;Tieba-New&#x2F;image_emoticon43.png&quot;,&quot;Tieba-New65&quot;:&quot;Tieba-New&#x2F;image_emoticon44.png&quot;,&quot;Tieba-New66&quot;:&quot;Tieba-New&#x2F;image_emoticon45.png&quot;,&quot;Tieba-New67&quot;:&quot;Tieba-New&#x2F;image_emoticon46.png&quot;,&quot;Tieba-New68&quot;:&quot;Tieba-New&#x2F;image_emoticon47.png&quot;,&quot;Tieba-New69&quot;:&quot;Tieba-New&#x2F;image_emoticon48.png&quot;,&quot;Tieba-New70&quot;:&quot;Tieba-New&#x2F;image_emoticon49.png&quot;,&quot;Tieba-New71&quot;:&quot;Tieba-New&#x2F;image_emoticon5.png&quot;,&quot;Tieba-New72&quot;:&quot;Tieba-New&#x2F;image_emoticon50.png&quot;,&quot;Tieba-New73&quot;:&quot;Tieba-New&#x2F;image_emoticon6.png&quot;,&quot;Tieba-New74&quot;:&quot;Tieba-New&#x2F;image_emoticon66.png&quot;,&quot;Tieba-New75&quot;:&quot;Tieba-New&#x2F;image_emoticon67.png&quot;,&quot;Tieba-New76&quot;:&quot;Tieba-New&#x2F;image_emoticon68.png&quot;,&quot;Tieba-New77&quot;:&quot;Tieba-New&#x2F;image_emoticon69.png&quot;,&quot;Tieba-New78&quot;:&quot;Tieba-New&#x2F;image_emoticon7.png&quot;,&quot;Tieba-New79&quot;:&quot;Tieba-New&#x2F;image_emoticon70.png&quot;,&quot;Tieba-New80&quot;:&quot;Tieba-New&#x2F;image_emoticon71.png&quot;,&quot;Tieba-New81&quot;:&quot;Tieba-New&#x2F;image_emoticon72.png&quot;,&quot;Tieba-New82&quot;:&quot;Tieba-New&#x2F;image_emoticon73.png&quot;,&quot;Tieba-New83&quot;:&quot;Tieba-New&#x2F;image_emoticon74.png&quot;,&quot;Tieba-New84&quot;:&quot;Tieba-New&#x2F;image_emoticon75.png&quot;,&quot;Tieba-New85&quot;:&quot;Tieba-New&#x2F;image_emoticon76.png&quot;,&quot;Tieba-New86&quot;:&quot;Tieba-New&#x2F;image_emoticon77.png&quot;,&quot;Tieba-New87&quot;:&quot;Tieba-New&#x2F;image_emoticon78.png&quot;,&quot;Tieba-New88&quot;:&quot;Tieba-New&#x2F;image_emoticon79.png&quot;,&quot;Tieba-New89&quot;:&quot;Tieba-New&#x2F;image_emoticon8.png&quot;,&quot;Tieba-New90&quot;:&quot;Tieba-New&#x2F;image_emoticon80.png&quot;,&quot;Tieba-New91&quot;:&quot;Tieba-New&#x2F;image_emoticon81.png&quot;,&quot;Tieba-New92&quot;:&quot;Tieba-New&#x2F;image_emoticon82.png&quot;,&quot;Tieba-New93&quot;:&quot;Tieba-New&#x2F;image_emoticon83.png&quot;,&quot;Tieba-New94&quot;:&quot;Tieba-New&#x2F;image_emoticon84.png&quot;,&quot;Tieba-New95&quot;:&quot;Tieba-New&#x2F;image_emoticon85.png&quot;,&quot;Tieba-New96&quot;:&quot;Tieba-New&#x2F;image_emoticon86.png&quot;,&quot;Tieba-New97&quot;:&quot;Tieba-New&#x2F;image_emoticon87.png&quot;,&quot;Tieba-New98&quot;:&quot;Tieba-New&#x2F;image_emoticon88.png&quot;,&quot;Tieba-New99&quot;:&quot;Tieba-New&#x2F;image_emoticon89.png&quot;,&quot;Tieba-New100&quot;:&quot;Tieba-New&#x2F;image_emoticon9.png&quot;,&quot;Tieba-New101&quot;:&quot;Tieba-New&#x2F;image_emoticon90.png&quot;,&quot;Tieba-New102&quot;:&quot;Tieba-New&#x2F;image_emoticon91.png&quot;,&quot;Tieba-New103&quot;:&quot;Tieba-New&#x2F;image_emoticon92.png&quot;,&quot;Tieba-New104&quot;:&quot;Tieba-New&#x2F;image_emoticon93.png&quot;,&quot;Tieba-New105&quot;:&quot;Tieba-New&#x2F;image_emoticon94.png&quot;,&quot;Tieba-New106&quot;:&quot;Tieba-New&#x2F;image_emoticon95.png&quot;,&quot;Tieba-New107&quot;:&quot;Tieba-New&#x2F;image_emoticon96.png&quot;,&quot;Tieba-New108&quot;:&quot;Tieba-New&#x2F;image_emoticon97.png&quot;,&quot;Tieba-New109&quot;:&quot;Tieba-New&#x2F;image_emoticon98.png&quot;,&quot;Tieba-New110&quot;:&quot;Tieba-New&#x2F;image_emoticon99.png&quot;,&quot;bilibiliHotKey1&quot;:&quot;bilibiliHotKey&#x2F;1.jpg&quot;,&quot;bilibiliHotKey2&quot;:&quot;bilibiliHotKey&#x2F;10.jpg&quot;,&quot;bilibiliHotKey3&quot;:&quot;bilibiliHotKey&#x2F;11.jpg&quot;,&quot;bilibiliHotKey4&quot;:&quot;bilibiliHotKey&#x2F;12.jpg&quot;,&quot;bilibiliHotKey5&quot;:&quot;bilibiliHotKey&#x2F;13.jpg&quot;,&quot;bilibiliHotKey6&quot;:&quot;bilibiliHotKey&#x2F;14.jpg&quot;,&quot;bilibiliHotKey7&quot;:&quot;bilibiliHotKey&#x2F;15.jpg&quot;,&quot;bilibiliHotKey8&quot;:&quot;bilibiliHotKey&#x2F;16.jpg&quot;,&quot;bilibiliHotKey9&quot;:&quot;bilibiliHotKey&#x2F;17.jpg&quot;,&quot;bilibiliHotKey10&quot;:&quot;bilibiliHotKey&#x2F;18.jpg&quot;,&quot;bilibiliHotKey11&quot;:&quot;bilibiliHotKey&#x2F;19.jpg&quot;,&quot;bilibiliHotKey12&quot;:&quot;bilibiliHotKey&#x2F;2.jpg&quot;,&quot;bilibiliHotKey13&quot;:&quot;bilibiliHotKey&#x2F;20.jpg&quot;,&quot;bilibiliHotKey14&quot;:&quot;bilibiliHotKey&#x2F;21.jpg&quot;,&quot;bilibiliHotKey15&quot;:&quot;bilibiliHotKey&#x2F;22.jpg&quot;,&quot;bilibiliHotKey16&quot;:&quot;bilibiliHotKey&#x2F;23.jpg&quot;,&quot;bilibiliHotKey17&quot;:&quot;bilibiliHotKey&#x2F;24.jpg&quot;,&quot;bilibiliHotKey18&quot;:&quot;bilibiliHotKey&#x2F;25.jpg&quot;,&quot;bilibiliHotKey19&quot;:&quot;bilibiliHotKey&#x2F;26.jpg&quot;,&quot;bilibiliHotKey20&quot;:&quot;bilibiliHotKey&#x2F;27.jpg&quot;,&quot;bilibiliHotKey21&quot;:&quot;bilibiliHotKey&#x2F;28.jpg&quot;,&quot;bilibiliHotKey22&quot;:&quot;bilibiliHotKey&#x2F;29.jpg&quot;,&quot;bilibiliHotKey23&quot;:&quot;bilibiliHotKey&#x2F;3.jpg&quot;,&quot;bilibiliHotKey24&quot;:&quot;bilibiliHotKey&#x2F;30.jpg&quot;,&quot;bilibiliHotKey25&quot;:&quot;bilibiliHotKey&#x2F;31.jpg&quot;,&quot;bilibiliHotKey26&quot;:&quot;bilibiliHotKey&#x2F;32.jpg&quot;,&quot;bilibiliHotKey27&quot;:&quot;bilibiliHotKey&#x2F;4.jpg&quot;,&quot;bilibiliHotKey28&quot;:&quot;bilibiliHotKey&#x2F;5.jpg&quot;,&quot;bilibiliHotKey29&quot;:&quot;bilibiliHotKey&#x2F;6.jpg&quot;,&quot;bilibiliHotKey30&quot;:&quot;bilibiliHotKey&#x2F;7.jpg&quot;,&quot;bilibiliHotKey31&quot;:&quot;bilibiliHotKey&#x2F;8.jpg&quot;,&quot;bilibiliHotKey32&quot;:&quot;bilibiliHotKey&#x2F;9.jpg&quot;,&quot;bilibilitv2&quot;:&quot;bilibilitv&#x2F;[tv_doge].png&quot;,&quot;bilibilitv3&quot;:&quot;bilibilitv&#x2F;[tv_亲亲].png&quot;,&quot;bilibilitv4&quot;:&quot;bilibilitv&#x2F;[tv_偷笑].png&quot;,&quot;bilibilitv5&quot;:&quot;bilibilitv&#x2F;[tv_再见].png&quot;,&quot;bilibilitv6&quot;:&quot;bilibilitv&#x2F;[tv_冷漠].png&quot;,&quot;bilibilitv7&quot;:&quot;bilibilitv&#x2F;[tv_发怒].png&quot;,&quot;bilibilitv8&quot;:&quot;bilibilitv&#x2F;[tv_发财].png&quot;,&quot;bilibilitv9&quot;:&quot;bilibilitv&#x2F;[tv_可爱].png&quot;,&quot;bilibilitv10&quot;:&quot;bilibilitv&#x2F;[tv_吐血].png&quot;,&quot;bilibilitv11&quot;:&quot;bilibilitv&#x2F;[tv_呆].png&quot;,&quot;bilibilitv12&quot;:&quot;bilibilitv&#x2F;[tv_呕吐].png&quot;,&quot;bilibilitv13&quot;:&quot;bilibilitv&#x2F;[tv_困].png&quot;,&quot;bilibilitv14&quot;:&quot;bilibilitv&#x2F;[tv_坏笑].png&quot;,&quot;bilibilitv15&quot;:&quot;bilibilitv&#x2F;[tv_大佬].png&quot;,&quot;bilibilitv16&quot;:&quot;bilibilitv&#x2F;[tv_大哭].png&quot;,&quot;bilibilitv17&quot;:&quot;bilibilitv&#x2F;[tv_委屈].png&quot;,&quot;bilibilitv18&quot;:&quot;bilibilitv&#x2F;[tv_害羞].png&quot;,&quot;bilibilitv19&quot;:&quot;bilibilitv&#x2F;[tv_尴尬].png&quot;,&quot;bilibilitv20&quot;:&quot;bilibilitv&#x2F;[tv_微笑].png&quot;,&quot;bilibilitv21&quot;:&quot;bilibilitv&#x2F;[tv_思考].png&quot;,&quot;bilibilitv22&quot;:&quot;bilibilitv&#x2F;[tv_惊吓].png&quot;,&quot;bilibilitv23&quot;:&quot;bilibilitv&#x2F;[tv_打脸].png&quot;,&quot;bilibilitv24&quot;:&quot;bilibilitv&#x2F;[tv_抓狂].png&quot;,&quot;bilibilitv25&quot;:&quot;bilibilitv&#x2F;[tv_抠鼻].png&quot;,&quot;bilibilitv26&quot;:&quot;bilibilitv&#x2F;[tv_斜眼笑].png&quot;,&quot;bilibilitv27&quot;:&quot;bilibilitv&#x2F;[tv_无奈].png&quot;,&quot;bilibilitv28&quot;:&quot;bilibilitv&#x2F;[tv_晕].png&quot;,&quot;bilibilitv29&quot;:&quot;bilibilitv&#x2F;[tv_流汗].png&quot;,&quot;bilibilitv30&quot;:&quot;bilibilitv&#x2F;[tv_流泪].png&quot;,&quot;bilibilitv31&quot;:&quot;bilibilitv&#x2F;[tv_流鼻血].png&quot;,&quot;bilibilitv32&quot;:&quot;bilibilitv&#x2F;[tv_点赞].png&quot;,&quot;bilibilitv33&quot;:&quot;bilibilitv&#x2F;[tv_生气].png&quot;,&quot;bilibilitv34&quot;:&quot;bilibilitv&#x2F;[tv_生病].png&quot;,&quot;bilibilitv35&quot;:&quot;bilibilitv&#x2F;[tv_疑问].png&quot;,&quot;bilibilitv36&quot;:&quot;bilibilitv&#x2F;[tv_白眼].png&quot;,&quot;bilibilitv37&quot;:&quot;bilibilitv&#x2F;[tv_皱眉].png&quot;,&quot;bilibilitv38&quot;:&quot;bilibilitv&#x2F;[tv_目瞪口呆].png&quot;,&quot;bilibilitv39&quot;:&quot;bilibilitv&#x2F;[tv_睡着].png&quot;,&quot;bilibilitv40&quot;:&quot;bilibilitv&#x2F;[tv_笑哭].png&quot;,&quot;bilibilitv41&quot;:&quot;bilibilitv&#x2F;[tv_腼腆].png&quot;,&quot;bilibilitv42&quot;:&quot;bilibilitv&#x2F;[tv_色].png&quot;,&quot;bilibilitv43&quot;:&quot;bilibilitv&#x2F;[tv_调侃].png&quot;,&quot;bilibilitv44&quot;:&quot;bilibilitv&#x2F;[tv_调皮].png&quot;,&quot;bilibilitv45&quot;:&quot;bilibilitv&#x2F;[tv_鄙视].png&quot;,&quot;bilibilitv46&quot;:&quot;bilibilitv&#x2F;[tv_闭嘴].png&quot;,&quot;bilibilitv47&quot;:&quot;bilibilitv&#x2F;[tv_难过].png&quot;,&quot;bilibilitv48&quot;:&quot;bilibilitv&#x2F;[tv_馋].png&quot;,&quot;bilibilitv49&quot;:&quot;bilibilitv&#x2F;[tv_鬼脸].png&quot;,&quot;bilibilitv50&quot;:&quot;bilibilitv&#x2F;[tv_黑人问号].png&quot;,&quot;bilibilitv51&quot;:&quot;bilibilitv&#x2F;[tv_鼓掌].png&quot;,&quot;Coolapk2&quot;:&quot;Coolapk&#x2F;coolapk_emotion_100_qqdoge.png&quot;,&quot;Coolapk3&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1010.png&quot;,&quot;Coolapk4&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1011.png&quot;,&quot;Coolapk5&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1012.png&quot;,&quot;Coolapk6&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1013.png&quot;,&quot;Coolapk7&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1014.png&quot;,&quot;Coolapk8&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1015.png&quot;,&quot;Coolapk9&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1016.png&quot;,&quot;Coolapk10&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1017.png&quot;,&quot;Coolapk11&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1018.png&quot;,&quot;Coolapk12&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1019.png&quot;,&quot;Coolapk13&quot;:&quot;Coolapk&#x2F;coolapk_emotion_101_pyjiaoyi.png&quot;,&quot;Coolapk14&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1020.png&quot;,&quot;Coolapk15&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1021.png&quot;,&quot;Coolapk16&quot;:&quot;Coolapk&#x2F;coolapk_emotion_102_fadai.png&quot;,&quot;Coolapk17&quot;:&quot;Coolapk&#x2F;coolapk_emotion_103_nb.png&quot;,&quot;Coolapk18&quot;:&quot;Coolapk&#x2F;coolapk_emotion_104.png&quot;,&quot;Coolapk19&quot;:&quot;Coolapk&#x2F;coolapk_emotion_105.png&quot;,&quot;Coolapk20&quot;:&quot;Coolapk&#x2F;coolapk_emotion_106.png&quot;,&quot;Coolapk21&quot;:&quot;Coolapk&#x2F;coolapk_emotion_107.png&quot;,&quot;Coolapk22&quot;:&quot;Coolapk&#x2F;coolapk_emotion_108.png&quot;,&quot;Coolapk23&quot;:&quot;Coolapk&#x2F;coolapk_emotion_109.png&quot;,&quot;Coolapk24&quot;:&quot;Coolapk&#x2F;coolapk_emotion_10_aoman.png&quot;,&quot;Coolapk25&quot;:&quot;Coolapk&#x2F;coolapk_emotion_11_yiwen.png&quot;,&quot;Coolapk26&quot;:&quot;Coolapk&#x2F;coolapk_emotion_12_wuyu.png&quot;,&quot;Coolapk27&quot;:&quot;Coolapk&#x2F;coolapk_emotion_13_huaixiao.png&quot;,&quot;Coolapk28&quot;:&quot;Coolapk&#x2F;coolapk_emotion_14_bishi.png&quot;,&quot;Coolapk29&quot;:&quot;Coolapk&#x2F;coolapk_emotion_15_fanu.png&quot;,&quot;Coolapk30&quot;:&quot;Coolapk&#x2F;coolapk_emotion_16_tuosai.png&quot;,&quot;Coolapk31&quot;:&quot;Coolapk&#x2F;coolapk_emotion_17_tushe.png&quot;,&quot;Coolapk32&quot;:&quot;Coolapk&#x2F;coolapk_emotion_18_han.png&quot;,&quot;Coolapk33&quot;:&quot;Coolapk&#x2F;coolapk_emotion_19_koubi.png&quot;,&quot;Coolapk34&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1_hahaha.png&quot;,&quot;Coolapk35&quot;:&quot;Coolapk&#x2F;coolapk_emotion_20_qinqin.png&quot;,&quot;Coolapk36&quot;:&quot;Coolapk&#x2F;coolapk_emotion_21_penxue.png&quot;,&quot;Coolapk37&quot;:&quot;Coolapk&#x2F;coolapk_emotion_22_xiaoyan.png&quot;,&quot;Coolapk38&quot;:&quot;Coolapk&#x2F;coolapk_emotion_23_shui.png&quot;,&quot;Coolapk39&quot;:&quot;Coolapk&#x2F;coolapk_emotion_24_wuzuixiao.png&quot;,&quot;Coolapk40&quot;:&quot;Coolapk&#x2F;coolapk_emotion_25_zaijian.png&quot;,&quot;Coolapk41&quot;:&quot;Coolapk&#x2F;coolapk_emotion_26_kelian.png&quot;,&quot;Coolapk42&quot;:&quot;Coolapk&#x2F;coolapk_emotion_27_qiang.png&quot;,&quot;Coolapk43&quot;:&quot;Coolapk&#x2F;coolapk_emotion_28_ruo.png&quot;,&quot;Coolapk44&quot;:&quot;Coolapk&#x2F;coolapk_emotion_29_baoquan.png&quot;,&quot;Coolapk45&quot;:&quot;Coolapk&#x2F;coolapk_emotion_2_jingya.png&quot;,&quot;Coolapk46&quot;:&quot;Coolapk&#x2F;coolapk_emotion_30_ok.png&quot;,&quot;Coolapk47&quot;:&quot;Coolapk&#x2F;coolapk_emotion_31_xiaoku.png&quot;,&quot;Coolapk48&quot;:&quot;Coolapk&#x2F;coolapk_emotion_32_heiha.png&quot;,&quot;Coolapk49&quot;:&quot;Coolapk&#x2F;coolapk_emotion_33_wulian.png&quot;,&quot;Coolapk50&quot;:&quot;Coolapk&#x2F;coolapk_emotion_34_jizhi.png&quot;,&quot;Coolapk51&quot;:&quot;Coolapk&#x2F;coolapk_emotion_35_ye.png&quot;,&quot;Coolapk52&quot;:&quot;Coolapk&#x2F;coolapk_emotion_36_ku.png&quot;,&quot;Coolapk53&quot;:&quot;Coolapk&#x2F;coolapk_emotion_37_doge.png&quot;,&quot;Coolapk54&quot;:&quot;Coolapk&#x2F;coolapk_emotion_38_wozuimei.png&quot;,&quot;Coolapk55&quot;:&quot;Coolapk&#x2F;coolapk_emotion_39_caidao.png&quot;,&quot;Coolapk56&quot;:&quot;Coolapk&#x2F;coolapk_emotion_3_ciya.png&quot;,&quot;Coolapk57&quot;:&quot;Coolapk&#x2F;coolapk_emotion_40_aixin.png&quot;,&quot;Coolapk58&quot;:&quot;Coolapk&#x2F;coolapk_emotion_41_meigui.png&quot;,&quot;Coolapk59&quot;:&quot;Coolapk&#x2F;coolapk_emotion_42_diaoxie.png&quot;,&quot;Coolapk60&quot;:&quot;Coolapk&#x2F;coolapk_emotion_43_heixian.png&quot;,&quot;Coolapk61&quot;:&quot;Coolapk&#x2F;coolapk_emotion_44_pen.png&quot;,&quot;Coolapk62&quot;:&quot;Coolapk&#x2F;coolapk_emotion_45_yinxian.png&quot;,&quot;Coolapk63&quot;:&quot;Coolapk&#x2F;coolapk_emotion_46_nanguo.png&quot;,&quot;Coolapk64&quot;:&quot;Coolapk&#x2F;coolapk_emotion_47_weiqu.png&quot;,&quot;Coolapk65&quot;:&quot;Coolapk&#x2F;coolapk_emotion_48_weiweiyixiao.png&quot;,&quot;Coolapk66&quot;:&quot;Coolapk&#x2F;coolapk_emotion_49_huanhu.png&quot;,&quot;Coolapk67&quot;:&quot;Coolapk&#x2F;coolapk_emotion_4_liulei.png&quot;,&quot;Coolapk68&quot;:&quot;Coolapk&#x2F;coolapk_emotion_50_xinsui.png&quot;,&quot;Coolapk69&quot;:&quot;Coolapk&#x2F;coolapk_emotion_51_chigua.png&quot;,&quot;Coolapk70&quot;:&quot;Coolapk&#x2F;coolapk_emotion_52_hejiu.png&quot;,&quot;Coolapk71&quot;:&quot;Coolapk&#x2F;coolapk_emotion_53_pu.png&quot;,&quot;Coolapk72&quot;:&quot;Coolapk&#x2F;coolapk_emotion_54_hongyaowan.png&quot;,&quot;Coolapk73&quot;:&quot;Coolapk&#x2F;coolapk_emotion_55_lvyaowan.png&quot;,&quot;Coolapk74&quot;:&quot;Coolapk&#x2F;coolapk_emotion_56_dogexiaoku.png&quot;,&quot;Coolapk75&quot;:&quot;Coolapk&#x2F;coolapk_emotion_57_dogehechi.png&quot;,&quot;Coolapk76&quot;:&quot;Coolapk&#x2F;coolapk_emotion_58_dogeyuanliangta.png&quot;,&quot;Coolapk77&quot;:&quot;Coolapk&#x2F;coolapk_emotion_59_erha.png&quot;,&quot;Coolapk78&quot;:&quot;Coolapk&#x2F;coolapk_emotion_5_keai.png&quot;,&quot;Coolapk79&quot;:&quot;Coolapk&#x2F;coolapk_emotion_60_kuan.png&quot;,&quot;Coolapk80&quot;:&quot;Coolapk&#x2F;coolapk_emotion_61_lvmao.png&quot;,&quot;Coolapk81&quot;:&quot;Coolapk&#x2F;coolapk_emotion_62_huaji.png&quot;,&quot;Coolapk82&quot;:&quot;Coolapk&#x2F;coolapk_emotion_63_liuhanhuaji.png&quot;,&quot;Coolapk83&quot;:&quot;Coolapk&#x2F;coolapk_emotion_64_shounuehuaji.png&quot;,&quot;Coolapk84&quot;:&quot;Coolapk&#x2F;coolapk_emotion_65_coshuaji.png&quot;,&quot;Coolapk85&quot;:&quot;Coolapk&#x2F;coolapk_emotion_66_doujiyanhuaji.png&quot;,&quot;Coolapk86&quot;:&quot;Coolapk&#x2F;coolapk_emotion_67_mojinghuaji.png&quot;,&quot;Coolapk87&quot;:&quot;Coolapk&#x2F;coolapk_emotion_68.png&quot;,&quot;Coolapk88&quot;:&quot;Coolapk&#x2F;coolapk_emotion_69.png&quot;,&quot;Coolapk89&quot;:&quot;Coolapk&#x2F;coolapk_emotion_6_weixiao.png&quot;,&quot;Coolapk90&quot;:&quot;Coolapk&#x2F;coolapk_emotion_70.png&quot;,&quot;Coolapk91&quot;:&quot;Coolapk&#x2F;coolapk_emotion_71.png&quot;,&quot;Coolapk92&quot;:&quot;Coolapk&#x2F;coolapk_emotion_72.png&quot;,&quot;Coolapk93&quot;:&quot;Coolapk&#x2F;coolapk_emotion_73.png&quot;,&quot;Coolapk94&quot;:&quot;Coolapk&#x2F;coolapk_emotion_74.png&quot;,&quot;Coolapk95&quot;:&quot;Coolapk&#x2F;coolapk_emotion_75.png&quot;,&quot;Coolapk96&quot;:&quot;Coolapk&#x2F;coolapk_emotion_76.png&quot;,&quot;Coolapk97&quot;:&quot;Coolapk&#x2F;coolapk_emotion_77.png&quot;,&quot;Coolapk98&quot;:&quot;Coolapk&#x2F;coolapk_emotion_78.png&quot;,&quot;Coolapk99&quot;:&quot;Coolapk&#x2F;coolapk_emotion_79.png&quot;,&quot;Coolapk100&quot;:&quot;Coolapk&#x2F;coolapk_emotion_7_hehe.png&quot;,&quot;Coolapk101&quot;:&quot;Coolapk&#x2F;coolapk_emotion_80.png&quot;,&quot;Coolapk102&quot;:&quot;Coolapk&#x2F;coolapk_emotion_81_naikezui.png&quot;,&quot;Coolapk103&quot;:&quot;Coolapk&#x2F;coolapk_emotion_82_miaomiao.png&quot;,&quot;Coolapk104&quot;:&quot;Coolapk&#x2F;coolapk_emotion_83_huoba.png&quot;,&quot;Coolapk105&quot;:&quot;Coolapk&#x2F;coolapk_emotion_84_baiyan.png&quot;,&quot;Coolapk106&quot;:&quot;Coolapk&#x2F;coolapk_emotion_85.png&quot;,&quot;Coolapk107&quot;:&quot;Coolapk&#x2F;coolapk_emotion_86.png&quot;,&quot;Coolapk108&quot;:&quot;Coolapk&#x2F;coolapk_emotion_87.png&quot;,&quot;Coolapk109&quot;:&quot;Coolapk&#x2F;coolapk_emotion_88.png&quot;,&quot;Coolapk110&quot;:&quot;Coolapk&#x2F;coolapk_emotion_89.png&quot;,&quot;Coolapk111&quot;:&quot;Coolapk&#x2F;coolapk_emotion_8_piezui.png&quot;,&quot;Coolapk112&quot;:&quot;Coolapk&#x2F;coolapk_emotion_90.png&quot;,&quot;Coolapk113&quot;:&quot;Coolapk&#x2F;coolapk_emotion_91.png&quot;,&quot;Coolapk114&quot;:&quot;Coolapk&#x2F;coolapk_emotion_92.png&quot;,&quot;Coolapk115&quot;:&quot;Coolapk&#x2F;coolapk_emotion_93.png&quot;,&quot;Coolapk116&quot;:&quot;Coolapk&#x2F;coolapk_emotion_94.png&quot;,&quot;Coolapk117&quot;:&quot;Coolapk&#x2F;coolapk_emotion_95_erhading.png&quot;,&quot;Coolapk118&quot;:&quot;Coolapk&#x2F;coolapk_emotion_96_kuanlvmao.png&quot;,&quot;Coolapk119&quot;:&quot;Coolapk&#x2F;coolapk_emotion_97_haixiu.png&quot;,&quot;Coolapk120&quot;:&quot;Coolapk&#x2F;coolapk_emotion_98_wunai.png&quot;,&quot;Coolapk121&quot;:&quot;Coolapk&#x2F;coolapk_emotion_99_zhoumei.png&quot;,&quot;Coolapk122&quot;:&quot;Coolapk&#x2F;coolapk_emotion_9_se.png&quot;,&quot;Coolapk123&quot;:&quot;Coolapk&#x2F;c_coolb.png&quot;,&quot;Coolapk124&quot;:&quot;Coolapk&#x2F;c_fived.png&quot;,&quot;Coolapk125&quot;:&quot;Coolapk&#x2F;c_fivef.png&quot;,&quot;Coolapk126&quot;:&quot;Coolapk&#x2F;c_fivem.png&quot;,&quot;Coolapk127&quot;:&quot;Coolapk&#x2F;c_fiveo.png&quot;,&quot;Coolapk128&quot;:&quot;Coolapk&#x2F;c_fivey.png&quot;,&quot;Coolapk129&quot;:&quot;Coolapk&#x2F;c_fy.png&quot;,&quot;Coolapk130&quot;:&quot;Coolapk&#x2F;c_oned.png&quot;,&quot;Coolapk131&quot;:&quot;Coolapk&#x2F;c_onef.png&quot;,&quot;Coolapk132&quot;:&quot;Coolapk&#x2F;c_onem.png&quot;,&quot;Coolapk133&quot;:&quot;Coolapk&#x2F;c_oneo.png&quot;,&quot;Coolapk134&quot;:&quot;Coolapk&#x2F;c_oney.png&quot;,&quot;Coolapk135&quot;:&quot;Coolapk&#x2F;c_oy.png&quot;,&quot;Coolapk136&quot;:&quot;Coolapk&#x2F;c_teny.png&quot;,&quot;Coolapk137&quot;:&quot;Coolapk&#x2F;c_twod.png&quot;,&quot;Coolapk138&quot;:&quot;Coolapk&#x2F;c_twof.png&quot;,&quot;Coolapk139&quot;:&quot;Coolapk&#x2F;c_twom.png&quot;,&quot;Coolapk140&quot;:&quot;Coolapk&#x2F;c_twoo.png&quot;,&quot;Coolapk141&quot;:&quot;Coolapk&#x2F;c_twoy.png&quot;,&quot;Coolapk142&quot;:&quot;Coolapk&#x2F;c_ty.png&quot;},&quot;el&quot;:&quot;#valine-comments&quot;,&quot;path&quot;:&quot;&#x2F;2018&#x2F;4ebfe832.html&quot;}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+</body>
+</html>

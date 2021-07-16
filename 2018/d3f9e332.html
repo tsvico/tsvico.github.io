@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="kBGM6zmK4yGaRcpq">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CZhi+Mang+Xing:300,300italic,400,400italic,700,700italic%7CMa+Shan+Zheng:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;blog.peoplevip.cn&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.4.0&quot;,&quot;exturl&quot;:true,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;hide&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:true,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:true,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;},&quot;path&quot;:&quot;&#x2F;search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:3,&quot;unescape&quot;:false,&quot;preload&quot;:false}}</script>
+<meta name="description" content="前言目前最主流的网盘还是当属百度云，虽然有不限速的蓝凑云，但是文件大小有着 100M 限制，坚果云只适合日常文档的使用，大文件存储还是百度云 “天下没有免费的午餐”，百度网盘的会员制也无可厚非。然而，当我去充值会员时发现：买了会员也依然会限速，只有 “超级会员” 才能满速下载！ 还好，我们还有其他的方法，来打破限速，实现满速下载。 有能力还请支持百度云，购买 svip">
+<meta property="og:type" content="article">
+<meta property="og:title" content="百度云下载的一些骚操作">
+<meta property="og:url" content="http://blog.peoplevip.cn/2018/d3f9e332.html">
+<meta property="og:site_name" content="tsvico的博客">
+<meta property="og:description" content="前言目前最主流的网盘还是当属百度云，虽然有不限速的蓝凑云，但是文件大小有着 100M 限制，坚果云只适合日常文档的使用，大文件存储还是百度云 “天下没有免费的午餐”，百度网盘的会员制也无可厚非。然而，当我去充值会员时发现：买了会员也依然会限速，只有 “超级会员” 才能满速下载！ 还好，我们还有其他的方法，来打破限速，实现满速下载。 有能力还请支持百度云，购买 svip">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://updata-1253372089.cossh.myqcloud.com/image/github/baiduyun.jpg">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/3334975-f566019fa330a954.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/457">
+<meta property="og:image" content="https://camo.githubusercontent.com/956fc884c84feafe715133171028bd64ce3138ad/68747470733a2f2f692e696d6775722e636f6d2f6455764e676d642e6a7067">
+<meta property="og:image" content="https://camo.githubusercontent.com/e7d9bbd0c3ec4105e152bfc026e8367a844cfe8c/68747470733a2f2f75706c6f61642e63632f69312f323031382f30392f31342f687a435a624a2e706e67">
+<meta property="og:image" content="https://img.shields.io/badge/JAVA-1.8%2B-brightgreen.svg">
+<meta property="og:image" content="https://img.shields.io/badge/maven-3.0%2B-brightgreen.svg">
+<meta property="og:image" content="https://img.shields.io/badge/node.js-8.0%2B-brightgreen.svg">
+<meta property="og:image" content="https://attach.52pojie.cn/forum/201805/21/110232zm8q51oolttbqgru.png">
+<meta property="og:image" content="https://attach.52pojie.cn/forum/201805/21/110233nu81eogke83z98kq.png">
+<meta property="og:image" content="http://wx4.sinaimg.cn/large/006NPPBTly1fvg88ysrmdj30s70i5wkw.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/large/006NPPBTly1fvg850nlxgj30ih0b1di7.jpg">
+<meta property="article:published_time" content="2018-06-10T18:14:08.000Z">
+<meta property="article:modified_time" content="2021-07-16T05:47:01.208Z">
+<meta property="article:author" content="tsvico">
+<meta property="article:tag" content="baiduyun">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://updata-1253372089.cossh.myqcloud.com/image/github/baiduyun.jpg">
+
+
+<link rel="canonical" href="http://blog.peoplevip.cn/2018/d3f9e332.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;blog.peoplevip.cn&#x2F;2018&#x2F;d3f9e332.html&quot;,&quot;path&quot;:&quot;2018&#x2F;d3f9e332.html&quot;,&quot;title&quot;:&quot;百度云下载的一些骚操作&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>百度云下载的一些骚操作 | tsvico的博客</title><script src="/js/config.js"></script>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">tsvico的博客</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">好的代码像粥一样，都是用时间熬出来的</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">34</span></a></li>
+        <li class="menu-item menu-item-工具"><a href="/tools/" rel="section"><i class="fa fa-wrench fa-fw"></i>工具</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">61</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Pan-Download"><span class="nav-number">2.</span> <span class="nav-text">1.Pan Download</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%B5%8F%E8%A7%88%E5%99%A8-%E8%BF%85%E9%9B%B7-IDM-uGet"><span class="nav-number">3.</span> <span class="nav-text">2. 浏览器 + 迅雷 &#x2F; IDM&#x2F;uGet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D-1"><span class="nav-number">3.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC%E5%AE%89%E8%A3%85"><span class="nav-number">3.2.</span> <span class="nav-text">脚本安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%AE%89%E8%A3%85%E6%B2%B9%E7%8C%B4%E6%89%A9%E5%B1%95"><span class="nav-number">3.2.1.</span> <span class="nav-text">1. 安装油猴扩展</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC"><span class="nav-number">3.2.2.</span> <span class="nav-text">2. 安装脚本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-1"><span class="nav-number">3.3.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%BA%A6%E7%9B%98%E4%B8%8B%E8%BD%BD%E5%99%A8-DpDownload"><span class="nav-number">4.</span> <span class="nav-text">3. 度盘下载器 DpDownload</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D-2"><span class="nav-number">4.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-2"><span class="nav-number">4.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-proxyee-down"><span class="nav-number">5.</span> <span class="nav-text">4.proxyee-down</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D-3"><span class="nav-number">5.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%8A%9F%E8%83%BD"><span class="nav-number">5.2.</span> <span class="nav-text">常用功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E5%88%9B%E5%BB%BA%E4%BB%BB%E5%8A%A1"><span class="nav-number">5.2.1.</span> <span class="nav-text">手动创建任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%B7%E6%96%B0%E4%BB%BB%E5%8A%A1%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5"><span class="nav-number">5.2.2.</span> <span class="nav-text">刷新任务下载链接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BE%E5%BA%A6%E4%BA%91%E7%A0%B4%E8%A7%A3"><span class="nav-number">5.2.3.</span> <span class="nav-text">百度云破解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2018-03-29%E6%9B%B4%E6%96%B0"><span class="nav-number">5.2.3.1.</span> <span class="nav-text">2018-03-29 更新</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D"><span class="nav-number">5.2.3.2.</span> <span class="nav-text">功能介绍</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BE%E5%BA%A6%E4%BA%91%E8%A7%A3%E5%8E%8B%E5%B7%A5%E5%85%B7"><span class="nav-number">5.2.4.</span> <span class="nav-text">百度云解压工具</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#l%E7%8E%AF%E5%A2%83"><span class="nav-number">5.3.</span> <span class="nav-text">l 环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">5.4.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C"><span class="nav-number">5.5.</span> <span class="nav-text">运行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-BaiduPCS-Go"><span class="nav-number">6.</span> <span class="nav-text">5.BaiduPCS-Go</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D-4"><span class="nav-number">6.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E8%89%B2"><span class="nav-number">6.2.</span> <span class="nav-text">特色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-3"><span class="nav-number">6.3.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-YunDownload"><span class="nav-number">7.</span> <span class="nav-text">6.YunDownload</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD-amp-%E7%89%B9%E8%89%B2"><span class="nav-number">7.1.</span> <span class="nav-text">功能 &amp; 特色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E5%B0%81%E5%8F%B7%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%BA%BF%EF%BC%81"><span class="nav-number">7.2.</span> <span class="nav-text">防封号系统上线！</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-speedpan%E9%80%9F%E7%9B%98"><span class="nav-number">8.</span> <span class="nav-text">7.speedpan 速盘</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="tsvico"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">tsvico</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Rzdmljbw==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;tsvico"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOnRzeHlnd2pAMTYzLmNvbQ==" title="E-Mail → mailto:tsxygwj@163.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vdHN2aWNv" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;tsvico">博客园</span>
+        </li>
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Rzdmljbw==" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;tsvico">CSDN</span>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Rzdmljbw==" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.peoplevip.cn/2018/d3f9e332.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="tsvico">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tsvico的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          百度云下载的一些骚操作
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-06-10 18:14:08" itemprop="dateCreated datePublished" datetime="2018-06-10T18:14:08+00:00">2018-06-10</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-07-16 05:47:01" itemprop="dateModified" datetime="2021-07-16T05:47:01+00:00">2021-07-16</time>
+      </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/2018/d3f9e332.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/d3f9e332.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>目前最主流的网盘还是当属百度云，虽然有不限速的蓝凑云，但是文件大小有着 100M 限制，坚果云只适合日常文档的使用，大文件存储还是百度云</p>
+<p>“天下没有免费的午餐”，百度网盘的会员制也无可厚非。然而，当我去充值会员时发现：买了会员也依然会限速，<strong>只有 “超级会员” 才能满速下载！</strong></p>
+<p>还好，我们还有其他的方法，来打破限速，实现满速下载。</p>
+<p>有能力还请支持百度云，购买 svip</p>
+<a id="more"></a>
+
+<p>2018.9.20 更新 </p>
+<blockquote>
+<p>BaiduPCS-Go 若无法使用，可以试试 <code>config set -appid=266719</code> 更改 appid 接口</p>
+<p>新增软件 <code>YunDownload</code>、<code>speedpan速盘</code>、手机版度盘下载器</p>
+</blockquote>
+<p>这里我要介绍 pc 端的几款工具，放飞你的度盘</p>
+<p><img data-src="http://updata-1253372089.cossh.myqcloud.com/image/github/baiduyun.jpg" alt="度盘"></p>
+<h2 id="1-Pan-Download"><a href="#1-Pan-Download" class="headerlink" title="1.Pan Download"></a>1.Pan Download</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>Pan Download 是一个吾爱的网友自己用 C++ 编写的，原理与 IDM 法类似，通过软件获取直链后调用 aria2 下载。</p>
+<p>不过使用更为简单，只要下载一个 2M 的软件就够了，绿色软件，解压即用。测试时也能够跑满带宽。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p><span class="exturl" data-url="aHR0cDovL3BhbmRvd25sb2FkLmNvbS8=">访问官网<i class="fa fa-external-link-alt"></i></span> 解压文件，打开 PanDownload.exe 运行即可</p>
+<p>是否需要登录：需要</p>
+<p>运行环境： windows</p>
+<h2 id="2-浏览器-迅雷-IDM-uGet"><a href="#2-浏览器-迅雷-IDM-uGet" class="headerlink" title="2.浏览器+迅雷/IDM/uGet"></a>2. 浏览器 + 迅雷 / IDM/uGet</h2><h3 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h3><p>起作用的主要是直链获取脚本，下载时 windows 平台可用迅雷或者 IDM</p>
+<p>IDM<span class="exturl" data-url="aHR0cDovL2lkbWFuLnlzMTY4LmNvbS8="> 下载地址<i class="fa fa-external-link-alt"></i></span> 可以按需下载</p>
+<p>linux 平台可以使用 uGet</p>
+<h3 id="脚本安装"><a href="#脚本安装" class="headerlink" title="脚本安装"></a>脚本安装</h3><h4 id="1-安装油猴扩展"><a href="#1-安装油猴扩展" class="headerlink" title="1.安装油猴扩展"></a>1. 安装油猴扩展</h4><p>安装脚本工具：Tampermonkey 插件。Chrome 、 Firefox、Safari、Microsoft Edge、Opera 等常见浏览器都可以用。</p>
+<p>注意：国内的 360 急速这种使用 google 内核的浏览器也是可用的</p>
+<p>Tampermonkey 官网：<span class="exturl" data-url="aHR0cHM6Ly90YW1wZXJtb25rZXkubmV0Lw==">tampermonkey.net<i class="fa fa-external-link-alt"></i></span></p>
+<p>Chrome 用户如果无法访问浏览器扩展应用商店的话，可以通过网站&nbsp;<span class="exturl" data-url="aHR0cHM6Ly93d3cuY3J4NGNocm9tZS5jb20v">crx4chrome<i class="fa fa-external-link-alt"></i></span>&nbsp;来下载扩展程序 crx 文件，打开 Chrome 扩展管理页面，勾选 “开发者模式”，手动将 crx 文件拖动至扩展页面安装也可。</p>
+<h4 id="2-安装脚本"><a href="#2-安装脚本" class="headerlink" title="2.安装脚本"></a>2. 安装脚本</h4><p><span class="exturl" data-url="aHR0cHM6Ly9ncmVhc3lmb3JrLm9yZy96aC1DTi9zY3JpcHRzLzMxOTIxLSVFNyU5OSVCRSVFNSVCQSVBNiVFNyVCRCU5MSVFNyU5QiU5OCVFNyU5QiVCNCVFNiU4RSVBNSVFNCVCOCU4QiVFOCVCRCVCRCVFNSU4QSVBOSVFNiU4OSU4Qg==">百度网盘直接下载助手<i class="fa fa-external-link-alt"></i></span></p>
+<p>或者使用 <span class="exturl" data-url="aHR0cHM6Ly9ncmVhc3lmb3JrLm9yZy96aC1DTi9zY3JpcHRzLzI2NjM4LWV4LSVFNyU5OSVCRSVFNSVCQSVBNiVFNCVCQSU5MSVFNyU5QiU5OA==">EX - 百度网盘<i class="fa fa-external-link-alt"></i></span></p>
+<p><img data-src="https://upload-images.jianshu.io/upload_images/3334975-f566019fa330a954.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/457"></p>
+<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><p>打开别人分享的百度云链接，就能看到获取链接选项</p>
+<p>将获取链接直接在下载工具中新建任务，就可体验高速下载</p>
+<p>是否需要登录： 不需要</p>
+<p>运行平台：Windows 、Linux</p>
+<h2 id="3-度盘下载器-DpDownload"><a href="#3-度盘下载器-DpDownload" class="headerlink" title="3.度盘下载器 DpDownload"></a>3. 度盘下载器 DpDownload</h2><h3 id="介绍-2"><a href="#介绍-2" class="headerlink" title="介绍"></a>介绍</h3><p>官网已经关闭  <span class="exturl" data-url="aHR0cDovL3d3dy5saW5lc29mdC50b3AvYmJzY2xvc2UuaHRtbD9yPWZvcnVtLnBocA==">官网<i class="fa fa-external-link-alt"></i></span></p>
+<p>使用方法同 pandownload</p>
+<h3 id="使用-2"><a href="#使用-2" class="headerlink" title="使用"></a>使用</h3><p><span class="exturl" data-url="aHR0cHM6Ly81Zjk4ZDUubGluay55dW5wYW4uMzYwLmNuL2xrL3N1cmxfeVEyNlNlSnpocGs=">下载地址<i class="fa fa-external-link-alt"></i></span> </p>
+<p>是否需要登录：需要</p>
+<p>运行环境：Windows</p>
+<p>新增<code>度盘下载器Android版</code>（不知作者是否为同一人）</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuY29vbGFway5jb20vYXBrL2NvbS5hcHBzaGVucWkuY2xvdWRkaXNrYXBw">Android 下载地址<i class="fa fa-external-link-alt"></i></span></p>
+<p>手机版应配合 ADM 下载器达到满速下载</p>
+<h2 id="4-proxyee-down"><a href="#4-proxyee-down" class="headerlink" title="4.proxyee-down"></a>4.proxyee-down</h2><h3 id="介绍-3"><a href="#介绍-3" class="headerlink" title="介绍"></a>介绍</h3><p>本软件是一个开源项目 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Byb3h5ZWUtZG93bi1vcmcvcHJveHllZS1kb3du">项目地址<i class="fa fa-external-link-alt"></i></span></p>
+<p><img data-src="https://camo.githubusercontent.com/956fc884c84feafe715133171028bd64ce3138ad/68747470733a2f2f692e696d6775722e636f6d2f6455764e676d642e6a7067"></p>
+<h3 id="常用功能"><a href="#常用功能" class="headerlink" title="常用功能"></a>常用功能</h3><h4 id="手动创建任务"><a href="#手动创建任务" class="headerlink" title="手动创建任务"></a>手动创建任务</h4><p>可以根据链接来创建一个任务，支持自定义请求头和请求体，具体请<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21vbmtleVdpZS9wcm94eWVlLWRvd24vYmxvYi9tYXN0ZXIvLmd1aWRlL2NvbW1vbi9jcmVhdGUvcmVhZC5tZA==">查看<i class="fa fa-external-link-alt"></i></span>。</p>
+<h4 id="刷新任务下载链接"><a href="#刷新任务下载链接" class="headerlink" title="刷新任务下载链接"></a>刷新任务下载链接</h4><p>当任务下载链接失效了，下载没速度或失败则可以使用刷新下载链接的功能，使用新的链接继续下载，具体请<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21vbmtleVdpZS9wcm94eWVlLWRvd24vYmxvYi9tYXN0ZXIvLmd1aWRlL2NvbW1vbi9yZWZyZXNoL3JlYWQubWQ=">查看<i class="fa fa-external-link-alt"></i></span>。</p>
+<h4 id="百度云破解"><a href="#百度云破解" class="headerlink" title="百度云破解"></a>百度云破解</h4><h5 id="2018-03-29更新"><a href="#2018-03-29更新" class="headerlink" title="2018-03-29更新"></a>2018-03-29 更新</h5><p>百度云近期对<strong>批量下载</strong>的并发连接数做了限制，如果选择的文件里包含文件夹，分段数需要建议不要超过 64，否则可能会导致任务下载失败或下载速度慢。</p>
+<h5 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h5><p>百度云大文件、合并下载限制突破，成功安装下载器后，打开百度云页面会有如下提示，然后在选择文件后点击下载按钮即可调用 proxyee-down 下载<br><img data-src="https://camo.githubusercontent.com/e7d9bbd0c3ec4105e152bfc026e8367a844cfe8c/68747470733a2f2f75706c6f61642e63632f69312f323031382f30392f31342f687a435a624a2e706e67"></p>
+<h4 id="百度云解压工具"><a href="#百度云解压工具" class="headerlink" title="百度云解压工具"></a>百度云解压工具</h4><p>由于百度批量下载的 zip 压缩包不是 zip64 格式，在压缩包里有超过 4G 文件的时候普通的解压工具并不能正确的识别文件大小从而导致压缩失败，遇到这种情况时可以在下载器左侧<strong>工具</strong>栏目里找到百度云解压工具进行解压 [</p>
+<h3 id="l环境"><a href="#l环境" class="headerlink" title="l环境"></a>l 环境</h3><p><img data-src="https://img.shields.io/badge/JAVA-1.8%2B-brightgreen.svg"> <img data-src="https://img.shields.io/badge/maven-3.0%2B-brightgreen.svg"> <img data-src="https://img.shields.io/badge/node.js-8.0%2B-brightgreen.svg"></p>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p>linux 版</p>
+<p><code>git clone https://github.com/monkeyWie/proxyee-down.gitcd proxyee-down/front#build htmlnpm installnpm run buildcd ../mainmvn clean package -Pprd</code></p>
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><p><code>java -jar proxyee-down-main.jar</code></p>
+<p>该软件使用需要配置环境，使用前请仔细阅读项目文档</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9pbWh4LW15LnNoYXJlcG9pbnQuY29tL3BlcnNvbmFsL3BkX2ltaHhfb25taWNyb3NvZnRfY29tL0RvY3VtZW50cy9Gb3Jtcy9BbGwuYXNweD9zbHJpZD0yZWJiNmY5ZS1mMDJhLTAwMDAtMDgwMS04OTQ3N2VlMmVkNTMmUm9vdEZvbGRlcj0vcGVyc29uYWwvcGRfaW1oeF9vbm1pY3Jvc29mdF9jb20vRG9jdW1lbnRzL3Byb3h5ZWUtZG93biZGb2xkZXJDVElEPTB4MDEyMDAwNTM2REMzMTI5NEVDMjY0MDg0RkU4ODA3MzRGOTVBRUE=">下载地址<i class="fa fa-external-link-alt"></i></span></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Byb3h5ZWUtZG93bi1vcmcvcHJveHllZS1kb3duL2Jsb2IvbWFzdGVyLy5ndWlkZS9GQVEubWQ=">常见问题列表<i class="fa fa-external-link-alt"></i></span></p>
+<p>是否需要登录：否</p>
+<p>运行环境：</p>
+<ol>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21vbmtleVdpZS9wcm94eWVlLWRvd24vYmxvYi9tYXN0ZXIvLmd1aWRlL3dpbmRvd3MvcmVhZC5tZA==">Windows 安装教程<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21vbmtleVdpZS9wcm94eWVlLWRvd24vYmxvYi9tYXN0ZXIvLmd1aWRlL21hYy9yZWFkLm1k">MAC 安装教程<i class="fa fa-external-link-alt"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21vbmtleVdpZS9wcm94eWVlLWRvd24vYmxvYi9tYXN0ZXIvLmd1aWRlL2xpbnV4L3JlYWQubWQ=">Linux 安装教程<i class="fa fa-external-link-alt"></i></span></li>
+</ol>
+<p>写个简单的教程，适用于 chrome：</p>
+<p>1、下载软件，目前为 2.01 版，需要 64 位系统，<span class="exturl" data-url="aHR0cDovL3N0YXRpYy5rZXJ3aW4uY24vZmlsZS8yMDE4LzAxLzE2L3Byb3h5ZWUtZG93bi0yLjBfZnVsbC43eg==">下载地址<i class="fa fa-external-link-alt"></i></span></p>
+<p>2、解压到非中文目录，打开 proxy-down.exe</p>
+<p>3、安装证书：打开<span class="exturl" data-url="aHR0cDovLzEyNy4wLjAuMTo5OTk5Lw=="> http://127.0.0.1:9999/<i class="fa fa-external-link-alt"></i></span>下载证书，双击打开证书，安装证书–将所有证书放入下列储存–受信任的根证书颁发机构，确认安装完成。</p>
+<p>4、安装 SwitchyOmega 插件，<span class="exturl" data-url="aHR0cHM6Ly9teS5rZXJ3aW4uY24vaW5kZXgucGhwL3MvVTllRmlGSlFLUnMyUHBy">下载地址<i class="fa fa-external-link-alt"></i></span>，将 crx 文件拖拽到扩展程序中安装（或者直接从 chrome 网上应用店下载），新增一个情景模式 dl，依次填写：协议 http，代 li 服 wu 器 127.0.0.1，端口 9999，设置好之后应用一下，在 SwitchyOmega 中切换到这个模式。</p>
+<p>然后，下载百度网盘资源的时候，就会调用 proxy-down.exe 这个软件下载了，</p>
+<p>点击任务，可以看到各个线程的下载速度。</p>
+<p>软件默认的是 10 线程，我的下载速度能达到 1.5M/s，觉得速度不好就多开启一些线程。</p>
+<p>要上网的时候，SwitchyOmega 切换回正常模式。</p>
+<h2 id="5-BaiduPCS-Go"><a href="#5-BaiduPCS-Go" class="headerlink" title="5.BaiduPCS-Go"></a>5.<strong>BaiduPCS-Go</strong></h2><h3 id="介绍-4"><a href="#介绍-4" class="headerlink" title="介绍"></a>介绍</h3><p>又是一款开源神器，开源大神多啊，多终端支持，支持手机</p>
+<h3 id="特色"><a href="#特色" class="headerlink" title="特色"></a>特色</h3><p>多平台支持，支持 Windows, macOS, linux, 移动设备等.</p>
+<p>百度帐号多用户支持；</p>
+<p>通配符匹配网盘路径和 Tab 自动补齐命令和路径，<span class="exturl" data-url="aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS8lRTklODAlOUElRTklODUlOEQlRTclQUMlQTY=">通配符_百度百科<i class="fa fa-external-link-alt"></i></span>;</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lpa2lyYS9CYWlkdVBDUy1Hby8jJUU0JUI4JThCJUU4JUJEJUJEJUU2JTk2JTg3JUU0JUJCJUI2JUU2JTg4JTk2JUU3JTlCJUFFJUU1JUJEJTk1">下载<i class="fa fa-external-link-alt"></i></span>网盘内文件，支持多个文件或目录下载，支持断点续传和单文件并行下载；</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lpa2lyYS9CYWlkdVBDUy1Hby8jJUU0JUI4JThBJUU0JUJDJUEwJUU2JTk2JTg3JUU0JUJCJUI2JUU2JTg4JTk2JUU3JTlCJUFFJUU1JUJEJTk1">上传<i class="fa fa-external-link-alt"></i></span>2GB 以内的文件，支持多个文件或目录上传；</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lpa2lyYS9CYWlkdVBDUy1Hby8jJUU3JUE2JUJCJUU3JUJBJUJGJUU0JUI4JThCJUU4JUJEJUJE">离线下载<i class="fa fa-external-link-alt"></i></span>, 支持 http/https/ftp/ 电驴 / 磁力链协议.</p>
+<h3 id="使用-3"><a href="#使用-3" class="headerlink" title="使用"></a>使用</h3><p>友情提示：该软件使用命令行操作，给你不一样的感觉</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lpa2lyYS9CYWlkdVBDUy1Hby8=">开源地址<i class="fa fa-external-link-alt"></i></span>（有使用介绍）</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lpa2lyYS9CYWlkdVBDUy1Hby9yZWxlYXNlcy8=">下载地址<i class="fa fa-external-link-alt"></i></span></p>
+<p>我写的 android 安装的一个脚本，需要配合 <span class="exturl" data-url="aHR0cHM6Ly93d3cuY29vbGFway5jb20vYXBrL2NvbS50ZXJtdXg=">高级终端 Termux<i class="fa fa-external-link-alt"></i></span> 使用</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">安装</span></span><br><span class="line">wget -o install.sh http://www.peoplevip.cn/tool/1.sh &amp;&amp; bash install.sh</span><br><span class="line"><span class="meta">#</span><span class="bash">配置</span></span><br><span class="line">config set -savedir /sdcard/download</span><br><span class="line">config set -max_paralle1 80 -cache_size 5000</span><br><span class="line"><span class="meta">#</span><span class="bash">登录使用</span></span><br><span class="line">login</span><br><span class="line"><span class="meta">#</span><span class="bash">下载</span></span><br><span class="line">d 文件名</span><br><span class="line"><span class="meta">#</span><span class="bash">下次进入App直接执行 ./run.sh</span></span><br></pre></td></tr></tbody></table></figure>
+<p>是否需要登录：需要</p>
+<p>运行环境：Windows、linux、MacOS、android、ios</p>
+<h2 id="6-YunDownload"><a href="#6-YunDownload" class="headerlink" title="6.YunDownload"></a>6.YunDownload</h2><h3 id="功能-amp-特色"><a href="#功能-amp-特色" class="headerlink" title="功能&amp;特色"></a>功能 &amp; 特色</h3><p>基于 BaiduPCS_NET 项目，主要汉化了部分说明文字，修改完善了其下载功能部分，去掉了不太稳定的上传部分；模拟客户端获取百度网盘的 vip 下载链接并导入 aria2 进行高速下载（原理等同 PanDownload），实测速度可以达到宽带上限，可以下载整个文件夹（非压缩）。</p>
+<p>首发 52pojie 网，<span class="exturl" data-url="aHR0cHM6Ly93d3cuNTJwb2ppZS5jbi90aHJlYWQtNzQwMzc4LTEtMS5odG1s">链接<i class="fa fa-external-link-alt"></i></span></p>
+<h3 id="防封号系统上线！"><a href="#防封号系统上线！" class="headerlink" title="防封号系统上线！"></a>防封号系统上线！</h3><p>大号如果被限速，下载速度始终徘徊在 1M/S 怎么办？2.0 版本强势推出 防封号系统，用大号登陆软件，用小号下载文件，再也不用担心账号被限速了，当然如果小号也被限速，那就重新注册一个小号接着干！！！（至于怎么注册小号，自己百度吧，不会再来找我）<br>使用教程：打开软件设置 — 小号设置 — 点击获取账号 BDUSS— 在新窗口登陆小号 — 复制 — 回到设置界面输入 BDUSS— 点击检测 — 无误后点击确认保存，然后没了，开始急速下载之旅吧。（小号的网盘剩余空间必须大于要下载的文件，否则系统无效）还不知道怎么用的自己摸索吧</p>
+<p><img data-src="https://attach.52pojie.cn/forum/201805/21/110232zm8q51oolttbqgru.png" alt="小号1.png"><br><img data-src="https://attach.52pojie.cn/forum/201805/21/110233nu81eogke83z98kq.png" alt="小号2.png"></p>
+<p> 下载链接：</p>
+<p>链接: <span class="exturl" data-url="aHR0cHM6Ly9wYW4uYmFpZHUuY29tL3MvMUZoaG9BbUlMbWJ2OWlJRVNjUl84LUE=">https://pan.baidu.com/s/1FhhoAmILmbv9iIEScR_8-A<i class="fa fa-external-link-alt"></i></span> 密码: rmuj</p>
+<h2 id="7-speedpan速盘"><a href="#7-speedpan速盘" class="headerlink" title="7.speedpan速盘"></a>7.speedpan 速盘</h2><p>官方网站<span class="exturl" data-url="aHR0cHM6Ly93d3cuc3BlZWRwYW4uY29tLw=="> https://www.speedpan.com/<i class="fa fa-external-link-alt"></i></span></p>
+<p><img data-src="http://wx4.sinaimg.cn/large/006NPPBTly1fvg88ysrmdj30s70i5wkw.jpg" alt="image"></p>
+<p><img data-src="http://wx3.sinaimg.cn/large/006NPPBTly1fvg850nlxgj30ih0b1di7.jpg" alt="image"></p>
+<p>下载地址  <span class="exturl" data-url="aHR0cHM6Ly93d3cubGFuem91cy5jb20vaTF4MnQzaQ==">https://www.lanzous.com/i1x2t3i<i class="fa fa-external-link-alt"></i></span></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+    <div style="text-align:center;color:#bfbfbf;font-size:16px;">
+      <span>-------- 本文结束 </span>
+      <i class="fa fa-paw"></i>
+      <span> 感谢阅读 --------</span>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/gh/tsvico/WebCDN/CDN/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
+          <div class="reward-container">
+  <div>如果您喜欢♥  可以给我赞赏一杯奶茶</div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wx.png" alt="tsvico 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/zfb.png" alt="tsvico 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>tsvico
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://blog.peoplevip.cn/2018/d3f9e332.html" title="百度云下载的一些骚操作">http://blog.peoplevip.cn/2018/d3f9e332.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/baiduyun/" rel="tag"><i class="fa fa-tag"></i> baiduyun</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/fedfaceb.html" rel="prev" title="使用 Markdown 编辑你的博客">
+                  <i class="fa fa-chevron-left"></i> 使用 Markdown 编辑你的博客
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/2459ae9b.html" rel="next" title="python 爬虫入门到进阶（一）">
+                  python 爬虫入门到进阶（一） <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div><script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">tsvico</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9waXNjZXMv">NexT.Pisces</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  <script class="next-config" data-name="nprogress" type="application/json">{&quot;enable&quot;:true,&quot;spinner&quot;:true}</script>
+  <script src="/js/third-party/nprogress.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{&quot;enable&quot;:true,&quot;appId&quot;:&quot;9lav0KTXaGOAWxGQoX4KeXA0-gzGzoHsz&quot;,&quot;appKey&quot;:&quot;BNSmdRks2FqczjSnUAviTs66&quot;,&quot;serverURLs&quot;:&quot;https:&#x2F;&#x2F;leancloud.peoplevip.cn&quot;,&quot;placeholder&quot;:&quot;~这里输入您的精彩评论&quot;,&quot;avatar&quot;:&quot;robohash&quot;,&quot;meta&quot;:[&quot;nick&quot;,&quot;mail&quot;,&quot;link&quot;],&quot;pageSize&quot;:10,&quot;lang&quot;:&quot;zh-cn&quot;,&quot;visitor&quot;:false,&quot;comment_count&quot;:true,&quot;recordIP&quot;:true,&quot;enableQQ&quot;:true,&quot;requiredFields&quot;:[],&quot;emojiCDN&quot;:&quot;https:&#x2F;&#x2F;valinecdn.bili33.top&#x2F;&quot;,&quot;emojiMaps&quot;:{&quot;Tieba-New2&quot;:&quot;Tieba-New&#x2F;image_emoticon.png&quot;,&quot;Tieba-New3&quot;:&quot;Tieba-New&#x2F;image_emoticon10.png&quot;,&quot;Tieba-New4&quot;:&quot;Tieba-New&#x2F;image_emoticon100.png&quot;,&quot;Tieba-New5&quot;:&quot;Tieba-New&#x2F;image_emoticon101.png&quot;,&quot;Tieba-New6&quot;:&quot;Tieba-New&#x2F;image_emoticon102.png&quot;,&quot;Tieba-New7&quot;:&quot;Tieba-New&#x2F;image_emoticon103.png&quot;,&quot;Tieba-New8&quot;:&quot;Tieba-New&#x2F;image_emoticon104.png&quot;,&quot;Tieba-New9&quot;:&quot;Tieba-New&#x2F;image_emoticon105.png&quot;,&quot;Tieba-New10&quot;:&quot;Tieba-New&#x2F;image_emoticon106.png&quot;,&quot;Tieba-New11&quot;:&quot;Tieba-New&#x2F;image_emoticon107.png&quot;,&quot;Tieba-New12&quot;:&quot;Tieba-New&#x2F;image_emoticon108.png&quot;,&quot;Tieba-New13&quot;:&quot;Tieba-New&#x2F;image_emoticon109.png&quot;,&quot;Tieba-New14&quot;:&quot;Tieba-New&#x2F;image_emoticon11.png&quot;,&quot;Tieba-New15&quot;:&quot;Tieba-New&#x2F;image_emoticon110.png&quot;,&quot;Tieba-New16&quot;:&quot;Tieba-New&#x2F;image_emoticon111.png&quot;,&quot;Tieba-New17&quot;:&quot;Tieba-New&#x2F;image_emoticon112.png&quot;,&quot;Tieba-New18&quot;:&quot;Tieba-New&#x2F;image_emoticon113.png&quot;,&quot;Tieba-New19&quot;:&quot;Tieba-New&#x2F;image_emoticon114.png&quot;,&quot;Tieba-New20&quot;:&quot;Tieba-New&#x2F;image_emoticon115.png&quot;,&quot;Tieba-New21&quot;:&quot;Tieba-New&#x2F;image_emoticon116.png&quot;,&quot;Tieba-New22&quot;:&quot;Tieba-New&#x2F;image_emoticon117.png&quot;,&quot;Tieba-New23&quot;:&quot;Tieba-New&#x2F;image_emoticon118.png&quot;,&quot;Tieba-New24&quot;:&quot;Tieba-New&#x2F;image_emoticon119.png&quot;,&quot;Tieba-New25&quot;:&quot;Tieba-New&#x2F;image_emoticon12.png&quot;,&quot;Tieba-New26&quot;:&quot;Tieba-New&#x2F;image_emoticon120.png&quot;,&quot;Tieba-New27&quot;:&quot;Tieba-New&#x2F;image_emoticon121.png&quot;,&quot;Tieba-New28&quot;:&quot;Tieba-New&#x2F;image_emoticon122.png&quot;,&quot;Tieba-New29&quot;:&quot;Tieba-New&#x2F;image_emoticon123.png&quot;,&quot;Tieba-New30&quot;:&quot;Tieba-New&#x2F;image_emoticon124.png&quot;,&quot;Tieba-New31&quot;:&quot;Tieba-New&#x2F;image_emoticon13.png&quot;,&quot;Tieba-New32&quot;:&quot;Tieba-New&#x2F;image_emoticon14.png&quot;,&quot;Tieba-New33&quot;:&quot;Tieba-New&#x2F;image_emoticon15.png&quot;,&quot;Tieba-New34&quot;:&quot;Tieba-New&#x2F;image_emoticon16.png&quot;,&quot;Tieba-New35&quot;:&quot;Tieba-New&#x2F;image_emoticon17.png&quot;,&quot;Tieba-New36&quot;:&quot;Tieba-New&#x2F;image_emoticon18.png&quot;,&quot;Tieba-New37&quot;:&quot;Tieba-New&#x2F;image_emoticon19.png&quot;,&quot;Tieba-New38&quot;:&quot;Tieba-New&#x2F;image_emoticon2.png&quot;,&quot;Tieba-New39&quot;:&quot;Tieba-New&#x2F;image_emoticon20.png&quot;,&quot;Tieba-New40&quot;:&quot;Tieba-New&#x2F;image_emoticon21.png&quot;,&quot;Tieba-New41&quot;:&quot;Tieba-New&#x2F;image_emoticon22.png&quot;,&quot;Tieba-New42&quot;:&quot;Tieba-New&#x2F;image_emoticon23.png&quot;,&quot;Tieba-New43&quot;:&quot;Tieba-New&#x2F;image_emoticon24.png&quot;,&quot;Tieba-New44&quot;:&quot;Tieba-New&#x2F;image_emoticon25.png&quot;,&quot;Tieba-New45&quot;:&quot;Tieba-New&#x2F;image_emoticon26.png&quot;,&quot;Tieba-New46&quot;:&quot;Tieba-New&#x2F;image_emoticon27.png&quot;,&quot;Tieba-New47&quot;:&quot;Tieba-New&#x2F;image_emoticon28.png&quot;,&quot;Tieba-New48&quot;:&quot;Tieba-New&#x2F;image_emoticon29.png&quot;,&quot;Tieba-New49&quot;:&quot;Tieba-New&#x2F;image_emoticon3.png&quot;,&quot;Tieba-New50&quot;:&quot;Tieba-New&#x2F;image_emoticon30.png&quot;,&quot;Tieba-New51&quot;:&quot;Tieba-New&#x2F;image_emoticon31.png&quot;,&quot;Tieba-New52&quot;:&quot;Tieba-New&#x2F;image_emoticon32.png&quot;,&quot;Tieba-New53&quot;:&quot;Tieba-New&#x2F;image_emoticon33.png&quot;,&quot;Tieba-New54&quot;:&quot;Tieba-New&#x2F;image_emoticon34.png&quot;,&quot;Tieba-New55&quot;:&quot;Tieba-New&#x2F;image_emoticon35.png&quot;,&quot;Tieba-New56&quot;:&quot;Tieba-New&#x2F;image_emoticon36.png&quot;,&quot;Tieba-New57&quot;:&quot;Tieba-New&#x2F;image_emoticon37.png&quot;,&quot;Tieba-New58&quot;:&quot;Tieba-New&#x2F;image_emoticon38.png&quot;,&quot;Tieba-New59&quot;:&quot;Tieba-New&#x2F;image_emoticon39.png&quot;,&quot;Tieba-New60&quot;:&quot;Tieba-New&#x2F;image_emoticon4.png&quot;,&quot;Tieba-New61&quot;:&quot;Tieba-New&#x2F;image_emoticon40.png&quot;,&quot;Tieba-New62&quot;:&quot;Tieba-New&#x2F;image_emoticon41.png&quot;,&quot;Tieba-New63&quot;:&quot;Tieba-New&#x2F;image_emoticon42.png&quot;,&quot;Tieba-New64&quot;:&quot;Tieba-New&#x2F;image_emoticon43.png&quot;,&quot;Tieba-New65&quot;:&quot;Tieba-New&#x2F;image_emoticon44.png&quot;,&quot;Tieba-New66&quot;:&quot;Tieba-New&#x2F;image_emoticon45.png&quot;,&quot;Tieba-New67&quot;:&quot;Tieba-New&#x2F;image_emoticon46.png&quot;,&quot;Tieba-New68&quot;:&quot;Tieba-New&#x2F;image_emoticon47.png&quot;,&quot;Tieba-New69&quot;:&quot;Tieba-New&#x2F;image_emoticon48.png&quot;,&quot;Tieba-New70&quot;:&quot;Tieba-New&#x2F;image_emoticon49.png&quot;,&quot;Tieba-New71&quot;:&quot;Tieba-New&#x2F;image_emoticon5.png&quot;,&quot;Tieba-New72&quot;:&quot;Tieba-New&#x2F;image_emoticon50.png&quot;,&quot;Tieba-New73&quot;:&quot;Tieba-New&#x2F;image_emoticon6.png&quot;,&quot;Tieba-New74&quot;:&quot;Tieba-New&#x2F;image_emoticon66.png&quot;,&quot;Tieba-New75&quot;:&quot;Tieba-New&#x2F;image_emoticon67.png&quot;,&quot;Tieba-New76&quot;:&quot;Tieba-New&#x2F;image_emoticon68.png&quot;,&quot;Tieba-New77&quot;:&quot;Tieba-New&#x2F;image_emoticon69.png&quot;,&quot;Tieba-New78&quot;:&quot;Tieba-New&#x2F;image_emoticon7.png&quot;,&quot;Tieba-New79&quot;:&quot;Tieba-New&#x2F;image_emoticon70.png&quot;,&quot;Tieba-New80&quot;:&quot;Tieba-New&#x2F;image_emoticon71.png&quot;,&quot;Tieba-New81&quot;:&quot;Tieba-New&#x2F;image_emoticon72.png&quot;,&quot;Tieba-New82&quot;:&quot;Tieba-New&#x2F;image_emoticon73.png&quot;,&quot;Tieba-New83&quot;:&quot;Tieba-New&#x2F;image_emoticon74.png&quot;,&quot;Tieba-New84&quot;:&quot;Tieba-New&#x2F;image_emoticon75.png&quot;,&quot;Tieba-New85&quot;:&quot;Tieba-New&#x2F;image_emoticon76.png&quot;,&quot;Tieba-New86&quot;:&quot;Tieba-New&#x2F;image_emoticon77.png&quot;,&quot;Tieba-New87&quot;:&quot;Tieba-New&#x2F;image_emoticon78.png&quot;,&quot;Tieba-New88&quot;:&quot;Tieba-New&#x2F;image_emoticon79.png&quot;,&quot;Tieba-New89&quot;:&quot;Tieba-New&#x2F;image_emoticon8.png&quot;,&quot;Tieba-New90&quot;:&quot;Tieba-New&#x2F;image_emoticon80.png&quot;,&quot;Tieba-New91&quot;:&quot;Tieba-New&#x2F;image_emoticon81.png&quot;,&quot;Tieba-New92&quot;:&quot;Tieba-New&#x2F;image_emoticon82.png&quot;,&quot;Tieba-New93&quot;:&quot;Tieba-New&#x2F;image_emoticon83.png&quot;,&quot;Tieba-New94&quot;:&quot;Tieba-New&#x2F;image_emoticon84.png&quot;,&quot;Tieba-New95&quot;:&quot;Tieba-New&#x2F;image_emoticon85.png&quot;,&quot;Tieba-New96&quot;:&quot;Tieba-New&#x2F;image_emoticon86.png&quot;,&quot;Tieba-New97&quot;:&quot;Tieba-New&#x2F;image_emoticon87.png&quot;,&quot;Tieba-New98&quot;:&quot;Tieba-New&#x2F;image_emoticon88.png&quot;,&quot;Tieba-New99&quot;:&quot;Tieba-New&#x2F;image_emoticon89.png&quot;,&quot;Tieba-New100&quot;:&quot;Tieba-New&#x2F;image_emoticon9.png&quot;,&quot;Tieba-New101&quot;:&quot;Tieba-New&#x2F;image_emoticon90.png&quot;,&quot;Tieba-New102&quot;:&quot;Tieba-New&#x2F;image_emoticon91.png&quot;,&quot;Tieba-New103&quot;:&quot;Tieba-New&#x2F;image_emoticon92.png&quot;,&quot;Tieba-New104&quot;:&quot;Tieba-New&#x2F;image_emoticon93.png&quot;,&quot;Tieba-New105&quot;:&quot;Tieba-New&#x2F;image_emoticon94.png&quot;,&quot;Tieba-New106&quot;:&quot;Tieba-New&#x2F;image_emoticon95.png&quot;,&quot;Tieba-New107&quot;:&quot;Tieba-New&#x2F;image_emoticon96.png&quot;,&quot;Tieba-New108&quot;:&quot;Tieba-New&#x2F;image_emoticon97.png&quot;,&quot;Tieba-New109&quot;:&quot;Tieba-New&#x2F;image_emoticon98.png&quot;,&quot;Tieba-New110&quot;:&quot;Tieba-New&#x2F;image_emoticon99.png&quot;,&quot;bilibiliHotKey1&quot;:&quot;bilibiliHotKey&#x2F;1.jpg&quot;,&quot;bilibiliHotKey2&quot;:&quot;bilibiliHotKey&#x2F;10.jpg&quot;,&quot;bilibiliHotKey3&quot;:&quot;bilibiliHotKey&#x2F;11.jpg&quot;,&quot;bilibiliHotKey4&quot;:&quot;bilibiliHotKey&#x2F;12.jpg&quot;,&quot;bilibiliHotKey5&quot;:&quot;bilibiliHotKey&#x2F;13.jpg&quot;,&quot;bilibiliHotKey6&quot;:&quot;bilibiliHotKey&#x2F;14.jpg&quot;,&quot;bilibiliHotKey7&quot;:&quot;bilibiliHotKey&#x2F;15.jpg&quot;,&quot;bilibiliHotKey8&quot;:&quot;bilibiliHotKey&#x2F;16.jpg&quot;,&quot;bilibiliHotKey9&quot;:&quot;bilibiliHotKey&#x2F;17.jpg&quot;,&quot;bilibiliHotKey10&quot;:&quot;bilibiliHotKey&#x2F;18.jpg&quot;,&quot;bilibiliHotKey11&quot;:&quot;bilibiliHotKey&#x2F;19.jpg&quot;,&quot;bilibiliHotKey12&quot;:&quot;bilibiliHotKey&#x2F;2.jpg&quot;,&quot;bilibiliHotKey13&quot;:&quot;bilibiliHotKey&#x2F;20.jpg&quot;,&quot;bilibiliHotKey14&quot;:&quot;bilibiliHotKey&#x2F;21.jpg&quot;,&quot;bilibiliHotKey15&quot;:&quot;bilibiliHotKey&#x2F;22.jpg&quot;,&quot;bilibiliHotKey16&quot;:&quot;bilibiliHotKey&#x2F;23.jpg&quot;,&quot;bilibiliHotKey17&quot;:&quot;bilibiliHotKey&#x2F;24.jpg&quot;,&quot;bilibiliHotKey18&quot;:&quot;bilibiliHotKey&#x2F;25.jpg&quot;,&quot;bilibiliHotKey19&quot;:&quot;bilibiliHotKey&#x2F;26.jpg&quot;,&quot;bilibiliHotKey20&quot;:&quot;bilibiliHotKey&#x2F;27.jpg&quot;,&quot;bilibiliHotKey21&quot;:&quot;bilibiliHotKey&#x2F;28.jpg&quot;,&quot;bilibiliHotKey22&quot;:&quot;bilibiliHotKey&#x2F;29.jpg&quot;,&quot;bilibiliHotKey23&quot;:&quot;bilibiliHotKey&#x2F;3.jpg&quot;,&quot;bilibiliHotKey24&quot;:&quot;bilibiliHotKey&#x2F;30.jpg&quot;,&quot;bilibiliHotKey25&quot;:&quot;bilibiliHotKey&#x2F;31.jpg&quot;,&quot;bilibiliHotKey26&quot;:&quot;bilibiliHotKey&#x2F;32.jpg&quot;,&quot;bilibiliHotKey27&quot;:&quot;bilibiliHotKey&#x2F;4.jpg&quot;,&quot;bilibiliHotKey28&quot;:&quot;bilibiliHotKey&#x2F;5.jpg&quot;,&quot;bilibiliHotKey29&quot;:&quot;bilibiliHotKey&#x2F;6.jpg&quot;,&quot;bilibiliHotKey30&quot;:&quot;bilibiliHotKey&#x2F;7.jpg&quot;,&quot;bilibiliHotKey31&quot;:&quot;bilibiliHotKey&#x2F;8.jpg&quot;,&quot;bilibiliHotKey32&quot;:&quot;bilibiliHotKey&#x2F;9.jpg&quot;,&quot;bilibilitv2&quot;:&quot;bilibilitv&#x2F;[tv_doge].png&quot;,&quot;bilibilitv3&quot;:&quot;bilibilitv&#x2F;[tv_亲亲].png&quot;,&quot;bilibilitv4&quot;:&quot;bilibilitv&#x2F;[tv_偷笑].png&quot;,&quot;bilibilitv5&quot;:&quot;bilibilitv&#x2F;[tv_再见].png&quot;,&quot;bilibilitv6&quot;:&quot;bilibilitv&#x2F;[tv_冷漠].png&quot;,&quot;bilibilitv7&quot;:&quot;bilibilitv&#x2F;[tv_发怒].png&quot;,&quot;bilibilitv8&quot;:&quot;bilibilitv&#x2F;[tv_发财].png&quot;,&quot;bilibilitv9&quot;:&quot;bilibilitv&#x2F;[tv_可爱].png&quot;,&quot;bilibilitv10&quot;:&quot;bilibilitv&#x2F;[tv_吐血].png&quot;,&quot;bilibilitv11&quot;:&quot;bilibilitv&#x2F;[tv_呆].png&quot;,&quot;bilibilitv12&quot;:&quot;bilibilitv&#x2F;[tv_呕吐].png&quot;,&quot;bilibilitv13&quot;:&quot;bilibilitv&#x2F;[tv_困].png&quot;,&quot;bilibilitv14&quot;:&quot;bilibilitv&#x2F;[tv_坏笑].png&quot;,&quot;bilibilitv15&quot;:&quot;bilibilitv&#x2F;[tv_大佬].png&quot;,&quot;bilibilitv16&quot;:&quot;bilibilitv&#x2F;[tv_大哭].png&quot;,&quot;bilibilitv17&quot;:&quot;bilibilitv&#x2F;[tv_委屈].png&quot;,&quot;bilibilitv18&quot;:&quot;bilibilitv&#x2F;[tv_害羞].png&quot;,&quot;bilibilitv19&quot;:&quot;bilibilitv&#x2F;[tv_尴尬].png&quot;,&quot;bilibilitv20&quot;:&quot;bilibilitv&#x2F;[tv_微笑].png&quot;,&quot;bilibilitv21&quot;:&quot;bilibilitv&#x2F;[tv_思考].png&quot;,&quot;bilibilitv22&quot;:&quot;bilibilitv&#x2F;[tv_惊吓].png&quot;,&quot;bilibilitv23&quot;:&quot;bilibilitv&#x2F;[tv_打脸].png&quot;,&quot;bilibilitv24&quot;:&quot;bilibilitv&#x2F;[tv_抓狂].png&quot;,&quot;bilibilitv25&quot;:&quot;bilibilitv&#x2F;[tv_抠鼻].png&quot;,&quot;bilibilitv26&quot;:&quot;bilibilitv&#x2F;[tv_斜眼笑].png&quot;,&quot;bilibilitv27&quot;:&quot;bilibilitv&#x2F;[tv_无奈].png&quot;,&quot;bilibilitv28&quot;:&quot;bilibilitv&#x2F;[tv_晕].png&quot;,&quot;bilibilitv29&quot;:&quot;bilibilitv&#x2F;[tv_流汗].png&quot;,&quot;bilibilitv30&quot;:&quot;bilibilitv&#x2F;[tv_流泪].png&quot;,&quot;bilibilitv31&quot;:&quot;bilibilitv&#x2F;[tv_流鼻血].png&quot;,&quot;bilibilitv32&quot;:&quot;bilibilitv&#x2F;[tv_点赞].png&quot;,&quot;bilibilitv33&quot;:&quot;bilibilitv&#x2F;[tv_生气].png&quot;,&quot;bilibilitv34&quot;:&quot;bilibilitv&#x2F;[tv_生病].png&quot;,&quot;bilibilitv35&quot;:&quot;bilibilitv&#x2F;[tv_疑问].png&quot;,&quot;bilibilitv36&quot;:&quot;bilibilitv&#x2F;[tv_白眼].png&quot;,&quot;bilibilitv37&quot;:&quot;bilibilitv&#x2F;[tv_皱眉].png&quot;,&quot;bilibilitv38&quot;:&quot;bilibilitv&#x2F;[tv_目瞪口呆].png&quot;,&quot;bilibilitv39&quot;:&quot;bilibilitv&#x2F;[tv_睡着].png&quot;,&quot;bilibilitv40&quot;:&quot;bilibilitv&#x2F;[tv_笑哭].png&quot;,&quot;bilibilitv41&quot;:&quot;bilibilitv&#x2F;[tv_腼腆].png&quot;,&quot;bilibilitv42&quot;:&quot;bilibilitv&#x2F;[tv_色].png&quot;,&quot;bilibilitv43&quot;:&quot;bilibilitv&#x2F;[tv_调侃].png&quot;,&quot;bilibilitv44&quot;:&quot;bilibilitv&#x2F;[tv_调皮].png&quot;,&quot;bilibilitv45&quot;:&quot;bilibilitv&#x2F;[tv_鄙视].png&quot;,&quot;bilibilitv46&quot;:&quot;bilibilitv&#x2F;[tv_闭嘴].png&quot;,&quot;bilibilitv47&quot;:&quot;bilibilitv&#x2F;[tv_难过].png&quot;,&quot;bilibilitv48&quot;:&quot;bilibilitv&#x2F;[tv_馋].png&quot;,&quot;bilibilitv49&quot;:&quot;bilibilitv&#x2F;[tv_鬼脸].png&quot;,&quot;bilibilitv50&quot;:&quot;bilibilitv&#x2F;[tv_黑人问号].png&quot;,&quot;bilibilitv51&quot;:&quot;bilibilitv&#x2F;[tv_鼓掌].png&quot;,&quot;Coolapk2&quot;:&quot;Coolapk&#x2F;coolapk_emotion_100_qqdoge.png&quot;,&quot;Coolapk3&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1010.png&quot;,&quot;Coolapk4&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1011.png&quot;,&quot;Coolapk5&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1012.png&quot;,&quot;Coolapk6&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1013.png&quot;,&quot;Coolapk7&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1014.png&quot;,&quot;Coolapk8&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1015.png&quot;,&quot;Coolapk9&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1016.png&quot;,&quot;Coolapk10&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1017.png&quot;,&quot;Coolapk11&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1018.png&quot;,&quot;Coolapk12&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1019.png&quot;,&quot;Coolapk13&quot;:&quot;Coolapk&#x2F;coolapk_emotion_101_pyjiaoyi.png&quot;,&quot;Coolapk14&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1020.png&quot;,&quot;Coolapk15&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1021.png&quot;,&quot;Coolapk16&quot;:&quot;Coolapk&#x2F;coolapk_emotion_102_fadai.png&quot;,&quot;Coolapk17&quot;:&quot;Coolapk&#x2F;coolapk_emotion_103_nb.png&quot;,&quot;Coolapk18&quot;:&quot;Coolapk&#x2F;coolapk_emotion_104.png&quot;,&quot;Coolapk19&quot;:&quot;Coolapk&#x2F;coolapk_emotion_105.png&quot;,&quot;Coolapk20&quot;:&quot;Coolapk&#x2F;coolapk_emotion_106.png&quot;,&quot;Coolapk21&quot;:&quot;Coolapk&#x2F;coolapk_emotion_107.png&quot;,&quot;Coolapk22&quot;:&quot;Coolapk&#x2F;coolapk_emotion_108.png&quot;,&quot;Coolapk23&quot;:&quot;Coolapk&#x2F;coolapk_emotion_109.png&quot;,&quot;Coolapk24&quot;:&quot;Coolapk&#x2F;coolapk_emotion_10_aoman.png&quot;,&quot;Coolapk25&quot;:&quot;Coolapk&#x2F;coolapk_emotion_11_yiwen.png&quot;,&quot;Coolapk26&quot;:&quot;Coolapk&#x2F;coolapk_emotion_12_wuyu.png&quot;,&quot;Coolapk27&quot;:&quot;Coolapk&#x2F;coolapk_emotion_13_huaixiao.png&quot;,&quot;Coolapk28&quot;:&quot;Coolapk&#x2F;coolapk_emotion_14_bishi.png&quot;,&quot;Coolapk29&quot;:&quot;Coolapk&#x2F;coolapk_emotion_15_fanu.png&quot;,&quot;Coolapk30&quot;:&quot;Coolapk&#x2F;coolapk_emotion_16_tuosai.png&quot;,&quot;Coolapk31&quot;:&quot;Coolapk&#x2F;coolapk_emotion_17_tushe.png&quot;,&quot;Coolapk32&quot;:&quot;Coolapk&#x2F;coolapk_emotion_18_han.png&quot;,&quot;Coolapk33&quot;:&quot;Coolapk&#x2F;coolapk_emotion_19_koubi.png&quot;,&quot;Coolapk34&quot;:&quot;Coolapk&#x2F;coolapk_emotion_1_hahaha.png&quot;,&quot;Coolapk35&quot;:&quot;Coolapk&#x2F;coolapk_emotion_20_qinqin.png&quot;,&quot;Coolapk36&quot;:&quot;Coolapk&#x2F;coolapk_emotion_21_penxue.png&quot;,&quot;Coolapk37&quot;:&quot;Coolapk&#x2F;coolapk_emotion_22_xiaoyan.png&quot;,&quot;Coolapk38&quot;:&quot;Coolapk&#x2F;coolapk_emotion_23_shui.png&quot;,&quot;Coolapk39&quot;:&quot;Coolapk&#x2F;coolapk_emotion_24_wuzuixiao.png&quot;,&quot;Coolapk40&quot;:&quot;Coolapk&#x2F;coolapk_emotion_25_zaijian.png&quot;,&quot;Coolapk41&quot;:&quot;Coolapk&#x2F;coolapk_emotion_26_kelian.png&quot;,&quot;Coolapk42&quot;:&quot;Coolapk&#x2F;coolapk_emotion_27_qiang.png&quot;,&quot;Coolapk43&quot;:&quot;Coolapk&#x2F;coolapk_emotion_28_ruo.png&quot;,&quot;Coolapk44&quot;:&quot;Coolapk&#x2F;coolapk_emotion_29_baoquan.png&quot;,&quot;Coolapk45&quot;:&quot;Coolapk&#x2F;coolapk_emotion_2_jingya.png&quot;,&quot;Coolapk46&quot;:&quot;Coolapk&#x2F;coolapk_emotion_30_ok.png&quot;,&quot;Coolapk47&quot;:&quot;Coolapk&#x2F;coolapk_emotion_31_xiaoku.png&quot;,&quot;Coolapk48&quot;:&quot;Coolapk&#x2F;coolapk_emotion_32_heiha.png&quot;,&quot;Coolapk49&quot;:&quot;Coolapk&#x2F;coolapk_emotion_33_wulian.png&quot;,&quot;Coolapk50&quot;:&quot;Coolapk&#x2F;coolapk_emotion_34_jizhi.png&quot;,&quot;Coolapk51&quot;:&quot;Coolapk&#x2F;coolapk_emotion_35_ye.png&quot;,&quot;Coolapk52&quot;:&quot;Coolapk&#x2F;coolapk_emotion_36_ku.png&quot;,&quot;Coolapk53&quot;:&quot;Coolapk&#x2F;coolapk_emotion_37_doge.png&quot;,&quot;Coolapk54&quot;:&quot;Coolapk&#x2F;coolapk_emotion_38_wozuimei.png&quot;,&quot;Coolapk55&quot;:&quot;Coolapk&#x2F;coolapk_emotion_39_caidao.png&quot;,&quot;Coolapk56&quot;:&quot;Coolapk&#x2F;coolapk_emotion_3_ciya.png&quot;,&quot;Coolapk57&quot;:&quot;Coolapk&#x2F;coolapk_emotion_40_aixin.png&quot;,&quot;Coolapk58&quot;:&quot;Coolapk&#x2F;coolapk_emotion_41_meigui.png&quot;,&quot;Coolapk59&quot;:&quot;Coolapk&#x2F;coolapk_emotion_42_diaoxie.png&quot;,&quot;Coolapk60&quot;:&quot;Coolapk&#x2F;coolapk_emotion_43_heixian.png&quot;,&quot;Coolapk61&quot;:&quot;Coolapk&#x2F;coolapk_emotion_44_pen.png&quot;,&quot;Coolapk62&quot;:&quot;Coolapk&#x2F;coolapk_emotion_45_yinxian.png&quot;,&quot;Coolapk63&quot;:&quot;Coolapk&#x2F;coolapk_emotion_46_nanguo.png&quot;,&quot;Coolapk64&quot;:&quot;Coolapk&#x2F;coolapk_emotion_47_weiqu.png&quot;,&quot;Coolapk65&quot;:&quot;Coolapk&#x2F;coolapk_emotion_48_weiweiyixiao.png&quot;,&quot;Coolapk66&quot;:&quot;Coolapk&#x2F;coolapk_emotion_49_huanhu.png&quot;,&quot;Coolapk67&quot;:&quot;Coolapk&#x2F;coolapk_emotion_4_liulei.png&quot;,&quot;Coolapk68&quot;:&quot;Coolapk&#x2F;coolapk_emotion_50_xinsui.png&quot;,&quot;Coolapk69&quot;:&quot;Coolapk&#x2F;coolapk_emotion_51_chigua.png&quot;,&quot;Coolapk70&quot;:&quot;Coolapk&#x2F;coolapk_emotion_52_hejiu.png&quot;,&quot;Coolapk71&quot;:&quot;Coolapk&#x2F;coolapk_emotion_53_pu.png&quot;,&quot;Coolapk72&quot;:&quot;Coolapk&#x2F;coolapk_emotion_54_hongyaowan.png&quot;,&quot;Coolapk73&quot;:&quot;Coolapk&#x2F;coolapk_emotion_55_lvyaowan.png&quot;,&quot;Coolapk74&quot;:&quot;Coolapk&#x2F;coolapk_emotion_56_dogexiaoku.png&quot;,&quot;Coolapk75&quot;:&quot;Coolapk&#x2F;coolapk_emotion_57_dogehechi.png&quot;,&quot;Coolapk76&quot;:&quot;Coolapk&#x2F;coolapk_emotion_58_dogeyuanliangta.png&quot;,&quot;Coolapk77&quot;:&quot;Coolapk&#x2F;coolapk_emotion_59_erha.png&quot;,&quot;Coolapk78&quot;:&quot;Coolapk&#x2F;coolapk_emotion_5_keai.png&quot;,&quot;Coolapk79&quot;:&quot;Coolapk&#x2F;coolapk_emotion_60_kuan.png&quot;,&quot;Coolapk80&quot;:&quot;Coolapk&#x2F;coolapk_emotion_61_lvmao.png&quot;,&quot;Coolapk81&quot;:&quot;Coolapk&#x2F;coolapk_emotion_62_huaji.png&quot;,&quot;Coolapk82&quot;:&quot;Coolapk&#x2F;coolapk_emotion_63_liuhanhuaji.png&quot;,&quot;Coolapk83&quot;:&quot;Coolapk&#x2F;coolapk_emotion_64_shounuehuaji.png&quot;,&quot;Coolapk84&quot;:&quot;Coolapk&#x2F;coolapk_emotion_65_coshuaji.png&quot;,&quot;Coolapk85&quot;:&quot;Coolapk&#x2F;coolapk_emotion_66_doujiyanhuaji.png&quot;,&quot;Coolapk86&quot;:&quot;Coolapk&#x2F;coolapk_emotion_67_mojinghuaji.png&quot;,&quot;Coolapk87&quot;:&quot;Coolapk&#x2F;coolapk_emotion_68.png&quot;,&quot;Coolapk88&quot;:&quot;Coolapk&#x2F;coolapk_emotion_69.png&quot;,&quot;Coolapk89&quot;:&quot;Coolapk&#x2F;coolapk_emotion_6_weixiao.png&quot;,&quot;Coolapk90&quot;:&quot;Coolapk&#x2F;coolapk_emotion_70.png&quot;,&quot;Coolapk91&quot;:&quot;Coolapk&#x2F;coolapk_emotion_71.png&quot;,&quot;Coolapk92&quot;:&quot;Coolapk&#x2F;coolapk_emotion_72.png&quot;,&quot;Coolapk93&quot;:&quot;Coolapk&#x2F;coolapk_emotion_73.png&quot;,&quot;Coolapk94&quot;:&quot;Coolapk&#x2F;coolapk_emotion_74.png&quot;,&quot;Coolapk95&quot;:&quot;Coolapk&#x2F;coolapk_emotion_75.png&quot;,&quot;Coolapk96&quot;:&quot;Coolapk&#x2F;coolapk_emotion_76.png&quot;,&quot;Coolapk97&quot;:&quot;Coolapk&#x2F;coolapk_emotion_77.png&quot;,&quot;Coolapk98&quot;:&quot;Coolapk&#x2F;coolapk_emotion_78.png&quot;,&quot;Coolapk99&quot;:&quot;Coolapk&#x2F;coolapk_emotion_79.png&quot;,&quot;Coolapk100&quot;:&quot;Coolapk&#x2F;coolapk_emotion_7_hehe.png&quot;,&quot;Coolapk101&quot;:&quot;Coolapk&#x2F;coolapk_emotion_80.png&quot;,&quot;Coolapk102&quot;:&quot;Coolapk&#x2F;coolapk_emotion_81_naikezui.png&quot;,&quot;Coolapk103&quot;:&quot;Coolapk&#x2F;coolapk_emotion_82_miaomiao.png&quot;,&quot;Coolapk104&quot;:&quot;Coolapk&#x2F;coolapk_emotion_83_huoba.png&quot;,&quot;Coolapk105&quot;:&quot;Coolapk&#x2F;coolapk_emotion_84_baiyan.png&quot;,&quot;Coolapk106&quot;:&quot;Coolapk&#x2F;coolapk_emotion_85.png&quot;,&quot;Coolapk107&quot;:&quot;Coolapk&#x2F;coolapk_emotion_86.png&quot;,&quot;Coolapk108&quot;:&quot;Coolapk&#x2F;coolapk_emotion_87.png&quot;,&quot;Coolapk109&quot;:&quot;Coolapk&#x2F;coolapk_emotion_88.png&quot;,&quot;Coolapk110&quot;:&quot;Coolapk&#x2F;coolapk_emotion_89.png&quot;,&quot;Coolapk111&quot;:&quot;Coolapk&#x2F;coolapk_emotion_8_piezui.png&quot;,&quot;Coolapk112&quot;:&quot;Coolapk&#x2F;coolapk_emotion_90.png&quot;,&quot;Coolapk113&quot;:&quot;Coolapk&#x2F;coolapk_emotion_91.png&quot;,&quot;Coolapk114&quot;:&quot;Coolapk&#x2F;coolapk_emotion_92.png&quot;,&quot;Coolapk115&quot;:&quot;Coolapk&#x2F;coolapk_emotion_93.png&quot;,&quot;Coolapk116&quot;:&quot;Coolapk&#x2F;coolapk_emotion_94.png&quot;,&quot;Coolapk117&quot;:&quot;Coolapk&#x2F;coolapk_emotion_95_erhading.png&quot;,&quot;Coolapk118&quot;:&quot;Coolapk&#x2F;coolapk_emotion_96_kuanlvmao.png&quot;,&quot;Coolapk119&quot;:&quot;Coolapk&#x2F;coolapk_emotion_97_haixiu.png&quot;,&quot;Coolapk120&quot;:&quot;Coolapk&#x2F;coolapk_emotion_98_wunai.png&quot;,&quot;Coolapk121&quot;:&quot;Coolapk&#x2F;coolapk_emotion_99_zhoumei.png&quot;,&quot;Coolapk122&quot;:&quot;Coolapk&#x2F;coolapk_emotion_9_se.png&quot;,&quot;Coolapk123&quot;:&quot;Coolapk&#x2F;c_coolb.png&quot;,&quot;Coolapk124&quot;:&quot;Coolapk&#x2F;c_fived.png&quot;,&quot;Coolapk125&quot;:&quot;Coolapk&#x2F;c_fivef.png&quot;,&quot;Coolapk126&quot;:&quot;Coolapk&#x2F;c_fivem.png&quot;,&quot;Coolapk127&quot;:&quot;Coolapk&#x2F;c_fiveo.png&quot;,&quot;Coolapk128&quot;:&quot;Coolapk&#x2F;c_fivey.png&quot;,&quot;Coolapk129&quot;:&quot;Coolapk&#x2F;c_fy.png&quot;,&quot;Coolapk130&quot;:&quot;Coolapk&#x2F;c_oned.png&quot;,&quot;Coolapk131&quot;:&quot;Coolapk&#x2F;c_onef.png&quot;,&quot;Coolapk132&quot;:&quot;Coolapk&#x2F;c_onem.png&quot;,&quot;Coolapk133&quot;:&quot;Coolapk&#x2F;c_oneo.png&quot;,&quot;Coolapk134&quot;:&quot;Coolapk&#x2F;c_oney.png&quot;,&quot;Coolapk135&quot;:&quot;Coolapk&#x2F;c_oy.png&quot;,&quot;Coolapk136&quot;:&quot;Coolapk&#x2F;c_teny.png&quot;,&quot;Coolapk137&quot;:&quot;Coolapk&#x2F;c_twod.png&quot;,&quot;Coolapk138&quot;:&quot;Coolapk&#x2F;c_twof.png&quot;,&quot;Coolapk139&quot;:&quot;Coolapk&#x2F;c_twom.png&quot;,&quot;Coolapk140&quot;:&quot;Coolapk&#x2F;c_twoo.png&quot;,&quot;Coolapk141&quot;:&quot;Coolapk&#x2F;c_twoy.png&quot;,&quot;Coolapk142&quot;:&quot;Coolapk&#x2F;c_ty.png&quot;},&quot;el&quot;:&quot;#valine-comments&quot;,&quot;path&quot;:&quot;&#x2F;2018&#x2F;d3f9e332.html&quot;}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+</body>
+</html>
