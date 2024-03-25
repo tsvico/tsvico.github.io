@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.1.1">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="kBGM6zmK4yGaRcpq">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.yecdn.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CNoto+Serif+Simplified+Chinese:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" integrity="sha256-6cQIC71/iBIYXFK+0RHAvwmjwWzkWd+r7v/BX3/vZDc=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.tooln.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.19.1","exturl":true,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":3,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="实战项目妹子图爬取 多图预警">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python 爬虫入门到进阶（五）">
+<meta property="og:url" content="http://blog.tooln.cn/2018/81e23d33.html">
+<meta property="og:site_name" content="tsvico的博客">
+<meta property="og:description" content="实战项目妹子图爬取 多图预警">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/6d81883c33dde001cea7446cef5ec69c7c216f3d.png?imageMogr2/thumbnail/720x720/quality/90">
+<meta property="og:image" content="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/9d8662b2929934cb4638e76778768a0a4b97463f.png?imageMogr2/quality/95">
+<meta property="og:image" content="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/b58de2de8ea940bc8b584ef1dea76c419c3cc1a3.png?imageMogr2/thumbnail/720x720/quality/90">
+<meta property="og:image" content="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/bc7b8154aa5697300444bfeb5eb3c4e72d28fa0e.png?imageMogr2/thumbnail/720x720/quality/90">
+<meta property="og:image" content="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/97d866aa08105546091aab56094f89fb3a8fd77e.png?imageMogr2/thumbnail/720x720/quality/90">
+<meta property="og:image" content="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/2cebea9b3cb8b33585d1734e476330e1aea55ce1.png?imageMogr2/thumbnail/720x720/quality/90">
+<meta property="og:image" content="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/224f1af2c935e09d52b0b626d891535839bb6c61.png?imageMogr2/thumbnail/720x720/quality/90">
+<meta property="og:image" content="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/384e1eac2103c6b8789e3ce70551f914ea99c635.png?imageMogr2/thumbnail/720x720/quality/90">
+<meta property="og:image" content="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/f385a08f124ca26ce84f0f4eb99f183a8757d12e.png?imageMogr2/thumbnail/720x720/quality/90">
+<meta property="article:published_time" content="2018-06-22T08:06:30.000Z">
+<meta property="article:modified_time" content="2024-03-25T09:33:44.114Z">
+<meta property="article:author" content="tsvico">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/6d81883c33dde001cea7446cef5ec69c7c216f3d.png?imageMogr2/thumbnail/720x720/quality/90">
+
+
+<link rel="canonical" href="http://blog.tooln.cn/2018/81e23d33.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.tooln.cn/2018/81e23d33.html","path":"2018/81e23d33.html","title":"python 爬虫入门到进阶（五）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>python 爬虫入门到进阶（五） | tsvico的博客</title>
+  
+
+
+
+
+
+
+
+<link rel="dns-prefetch" href="waline.tooln.cn"><link rel="preconnect" href="//cdn.jsdelivr.net">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">tsvico的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">好的代码像粥一样，都是用时间熬出来的</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">34</span></a></li><li class="menu-item menu-item-工具"><a href="/tools/" rel="section"><i class="fa fa-wrench fa-fw"></i>工具</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">70</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="tsvico"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">tsvico</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Rzdmljbw==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;tsvico"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOnRzeHlnd2pAMTYzLmNvbQ==" title="E-Mail → mailto:tsxygwj@163.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vdHN2aWNv" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;tsvico">博客园</span>
+            </li>
+            <li class="links-of-blogroll-item">
+              <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Rzdmljbw==" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;tsvico">CSDN</span>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.tooln.cn/2018/81e23d33.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="tsvico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tsvico的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="python 爬虫入门到进阶（五） | tsvico的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python 爬虫入门到进阶（五）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-06-22 16:06:30" itemprop="dateCreated datePublished" datetime="2018-06-22T16:06:30+08:00">2018-06-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-03-25 17:33:44" itemprop="dateModified" datetime="2024-03-25T17:33:44+08:00">2024-03-25</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2018/81e23d33.html#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2018/81e23d33.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>实战项目妹子图爬取</p>
+<p>多图预警</p>
+<p><img data-src="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/6d81883c33dde001cea7446cef5ec69c7c216f3d.png?imageMogr2/thumbnail/720x720/quality/90" alt="image"></p>
+<span id="more"></span>
+
+<p><img data-src="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/9d8662b2929934cb4638e76778768a0a4b97463f.png?imageMogr2/quality/95" alt="image"></p>
+<p><img data-src="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/b58de2de8ea940bc8b584ef1dea76c419c3cc1a3.png?imageMogr2/thumbnail/720x720/quality/90" alt="image"></p>
+<p><img data-src="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/bc7b8154aa5697300444bfeb5eb3c4e72d28fa0e.png?imageMogr2/thumbnail/720x720/quality/90" alt="image"></p>
+<p>就不放太多了，等下可以自己尝试一下</p>
+<p>打开我们要爬去的网站，f12 打开控制台</p>
+<p><img data-src="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/97d866aa08105546091aab56094f89fb3a8fd77e.png?imageMogr2/thumbnail/720x720/quality/90" alt="image"></p>
+<p>导入头</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br></pre></td></tr></tbody></table></figure>
+
+<p>设置编码和头</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sys.setdefaultencoding(<span class="string">'utf8'</span>)</span><br><span class="line">url = <span class="string">'http://www.mzitu.com'</span></span><br><span class="line"><span class="comment">#头</span></span><br><span class="line">heade = {</span><br><span class="line">    <span class="string">'User-Agent'</span>:<span class="string">'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36'</span>,</span><br><span class="line">    <span class="string">'Referer'</span>:<span class="string">'http://www.mzitu.com'</span>,</span><br><span class="line">}</span><br><span class="line"><span class="comment">#构造请求</span></span><br><span class="line">request = urllib2.Request(url,headers=heade)</span><br><span class="line">respons = urllib2.urlopen(request)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>定义存储路径</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">path = <span class="string">"/home/gwj/snap/demo/image/"</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>解析获取的页面</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">soup = BeautifulSoup(respons.read(),<span class="string">"lxml"</span>)</span><br><span class="line"><span class="built_in">print</span> soup.a</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这里打印出 a 标签，lxml 是解析器，respons.read () 存储页面的内容</p>
+<p><img data-src="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/2cebea9b3cb8b33585d1734e476330e1aea55ce1.png?imageMogr2/thumbnail/720x720/quality/90" alt="image"></p>
+<p>由于我们要进入到每个子页面才能保存图片，这里我们要先找到最大页码，以此决定循环次数（每次打开子页面，保存图片是一个循环）</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#最大页数在span标签中的第１0个</span></span><br><span class="line">page = soup.find_all(<span class="string">'a'</span>,class_ = <span class="string">'page-numbers'</span>)</span><br><span class="line">max_page = page[-<span class="number">2</span>].text</span><br></pre></td></tr></tbody></table></figure>
+
+<p>解释一下 <code>soup.find() </code>查找某一个，<code>soup.find_all</code> 查找所有的，返回一个列表</p>
+<p>soup.find (‘img’)[‘src’]   查找 img 的 src 链接属性</p>
+<p>class_  获取目标的类名</p>
+<p><img data-src="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/224f1af2c935e09d52b0b626d891535839bb6c61.png?imageMogr2/thumbnail/720x720/quality/90" alt="image"></p>
+<p>不同页面之间都有相似的地方</p>
+<p><img data-src="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/384e1eac2103c6b8789e3ce70551f914ea99c635.png?imageMogr2/thumbnail/720x720/quality/90" alt="image"></p>
+<p>这里存储一下这个 url，用来构建访问子页面的链接</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">same_url = <span class="string">'http://www.mzitu.com/page/'</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>循环访问子页面 格式为 page+n</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">int</span>(max_page)+<span class="number">1</span>):</span><br><span class="line">    ul = same_url+<span class="built_in">str</span>(n)</span><br><span class="line">    request1 = urllib2.Request(ul,headers=heade)</span><br><span class="line">    start_html = urllib2.urlopen(request1)</span><br><span class="line">    soup = BeautifulSoup(start_html,<span class="string">"lxml"</span>)</span><br><span class="line">    <span class="comment">#实际上时第一个class = 'postlist'的div里的所有a标签</span></span><br><span class="line">    all_a = soup.find(<span class="string">'div'</span>,class_ =<span class="string">'postlist'</span>).find_all(<span class="string">'a'</span>,target=<span class="string">'_blank'</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>访问详情页面，提取用户名，URL</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#提取用户名</span></span><br><span class="line"><span class="keyword">for</span> a <span class="keyword">in</span> all_a:</span><br><span class="line">    title = a.get_text() <span class="comment">#提取文本</span></span><br><span class="line">    <span class="keyword">if</span>(title!=<span class="string">''</span>):</span><br><span class="line">        <span class="built_in">print</span> (<span class="string">"准备爬取:"</span>+title)</span><br><span class="line">        <span class="keyword">if</span>(os.path.exists(path+title.strip().replace(<span class="string">'?'</span>,<span class="string">''</span>))):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"目录已存在"</span>)</span><br><span class="line">            flag=<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            os.makedirs(path+title.strip().replace(<span class="string">'?'</span>,<span class="string">''</span>))</span><br><span class="line">            flag=<span class="number">0</span></span><br><span class="line">        os.chdir(path + title.strip().replace(<span class="string">'?'</span>,<span class="string">''</span>))</span><br><span class="line">        href = a[<span class="string">'href'</span>]</span><br><span class="line">        request2 = urllib2.Request(href,headers=heade)</span><br><span class="line">        html = urllib2.urlopen(request2)</span><br><span class="line">        mess = BeautifulSoup(html,<span class="string">"lxml"</span>)</span><br><span class="line">        pic_max = mess.find_all(<span class="string">'span'</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(pic_max):</span><br><span class="line">            pic_max = pic_max[<span class="number">10</span>].text <span class="comment">#最大页数</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            pic_max = <span class="string">'10'</span></span><br><span class="line">        <span class="keyword">if</span>(flag == <span class="number">1</span> <span class="keyword">and</span> <span class="built_in">len</span>(os.listdir(path+title.strip().replace(<span class="string">'?'</span>,<span class="string">''</span>))) &gt;= <span class="built_in">int</span>(pic_max)):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">'已经保存完毕，跳过'</span>)</span><br><span class="line">            <span class="keyword">continue</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>上方第 18 行代码，判断数据长度是否为空，这里是记录单个妹子的图片最大页数，同时本页包含了图片的 url</p>
+<p><img data-src="http://blog-1253372089.cos.ap-shanghai.myqcloud.com/f385a08f124ca26ce84f0f4eb99f183a8757d12e.png?imageMogr2/thumbnail/720x720/quality/90" alt="image"></p>
+<p>第 12 行代码，创建 path + 文件名的新目录</p>
+<p>22 行，判断目录是否 已经创建，如果已经创建，则跳出本次循环</p>
+<p>如有不理解可在评论区评论</p>
+<p>获取图片链接</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> num <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">int</span>(pic_max)+<span class="number">1</span>):</span><br><span class="line">    pic = href+<span class="string">'/'</span>+<span class="built_in">str</span>(num)</span><br><span class="line">    request = urllib2.Request(pic,headers=heade)</span><br><span class="line">    html = urllib2.urlopen(request)</span><br><span class="line">    mess = BeautifulSoup(html,<span class="string">"lxml"</span>)</span><br><span class="line">    pic_url = mess.find(<span class="string">'img'</span>,alt = title)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>判断链接是否为空（防止报错）</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> pic_url <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">    <span class="keyword">continue</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    request = urllib2.Request(pic_url[<span class="string">'src'</span>],headers=heade)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>截取链接<code>'/</code> 后的字符作为文件名，写入文件</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">file_name = pic_url[<span class="string">'src'</span>].split(<span class="string">r'/'</span>)[-<span class="number">1</span>]</span><br><span class="line">f = <span class="built_in">open</span>(file_name,<span class="string">'wb'</span>)</span><br><span class="line">f.write(html.read())</span><br><span class="line">f.close()</span><br></pre></td></tr></tbody></table></figure>
+
+<p>完整代码</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">reload(sys)</span><br><span class="line">sys.setdefaultencoding(<span class="string">'utf8'</span>)</span><br><span class="line">url = <span class="string">'http://www.mzitu.com'</span></span><br><span class="line"><span class="comment">#头</span></span><br><span class="line">heade = {</span><br><span class="line">    <span class="string">'User-Agent'</span>:<span class="string">'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36'</span>,</span><br><span class="line">    <span class="string">'Referer'</span>:<span class="string">'http://www.mzitu.com'</span>,</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">request = urllib2.Request(url,headers=heade)</span><br><span class="line"><span class="comment">#########</span></span><br><span class="line"><span class="comment">#get方式提交的另一种方法</span></span><br><span class="line"><span class="comment">#request.add_header('User-Agent','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.139 Safari/537.36')</span></span><br><span class="line"><span class="comment">#request.add_header('Referer','http://www.mzitu.com/')</span></span><br><span class="line"><span class="comment">######</span></span><br><span class="line">respons = urllib2.urlopen(request)</span><br><span class="line">path = <span class="string">"/home/gwj/snap/demo/image/"</span></span><br><span class="line"><span class="comment">#print respons.read()</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#解析</span></span><br><span class="line"><span class="comment">#使用自带的html.parser解析，速度慢但通用,这里用ｌｘｍｌ解析器</span></span><br><span class="line">soup = BeautifulSoup(respons.read(),<span class="string">"lxml"</span>)</span><br><span class="line"><span class="built_in">print</span> soup.a</span><br><span class="line"><span class="comment">#最大页数在span标签中的第１0个</span></span><br><span class="line">page = soup.find_all(<span class="string">'a'</span>,class_ = <span class="string">'page-numbers'</span>)</span><br><span class="line">max_page = page[-<span class="number">2</span>].text</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">same_url = <span class="string">'http://www.mzitu.com/page/'</span></span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">int</span>(max_page)+<span class="number">1</span>):</span><br><span class="line">    ul = same_url+<span class="built_in">str</span>(n)</span><br><span class="line">    request1 = urllib2.Request(ul,headers=heade)</span><br><span class="line">    start_html = urllib2.urlopen(request1)</span><br><span class="line">    soup = BeautifulSoup(start_html,<span class="string">"lxml"</span>)</span><br><span class="line">    <span class="comment">#实际上时第一个class = 'postlist'的div里的所有a标签</span></span><br><span class="line">    all_a = soup.find(<span class="string">'div'</span>,class_ =<span class="string">'postlist'</span>).find_all(<span class="string">'a'</span>,target=<span class="string">'_blank'</span>)</span><br><span class="line">    <span class="comment">#提取用户名</span></span><br><span class="line">    <span class="keyword">for</span> a <span class="keyword">in</span> all_a:</span><br><span class="line">        title = a.get_text() <span class="comment">#提取文本</span></span><br><span class="line">        <span class="keyword">if</span>(title!=<span class="string">''</span>):</span><br><span class="line">            <span class="built_in">print</span> (<span class="string">"准备爬取:"</span>+title)</span><br><span class="line">            <span class="keyword">if</span>(os.path.exists(path+title.strip().replace(<span class="string">'?'</span>,<span class="string">''</span>))):</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">"目录已存在"</span>)</span><br><span class="line">                flag=<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                os.makedirs(path+title.strip().replace(<span class="string">'?'</span>,<span class="string">''</span>))</span><br><span class="line">                flag=<span class="number">0</span></span><br><span class="line">            os.chdir(path + title.strip().replace(<span class="string">'?'</span>,<span class="string">''</span>))</span><br><span class="line">            href = a[<span class="string">'href'</span>]</span><br><span class="line">            request2 = urllib2.Request(href,headers=heade)</span><br><span class="line">            html = urllib2.urlopen(request2)</span><br><span class="line">            mess = BeautifulSoup(html,<span class="string">"lxml"</span>)</span><br><span class="line">            pic_max = mess.find_all(<span class="string">'span'</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(pic_max):</span><br><span class="line">                pic_max = pic_max[<span class="number">10</span>].text <span class="comment">#最大页数</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                pic_max = <span class="string">'10'</span></span><br><span class="line">            <span class="keyword">if</span>(flag == <span class="number">1</span> <span class="keyword">and</span> <span class="built_in">len</span>(os.listdir(path+title.strip().replace(<span class="string">'?'</span>,<span class="string">''</span>))) &gt;= <span class="built_in">int</span>(pic_max)):</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">'已经保存完毕，跳过'</span>)</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">for</span> num <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">int</span>(pic_max)+<span class="number">1</span>):</span><br><span class="line">                pic = href+<span class="string">'/'</span>+<span class="built_in">str</span>(num)</span><br><span class="line">                request = urllib2.Request(pic,headers=heade)</span><br><span class="line">                html = urllib2.urlopen(request)</span><br><span class="line">                mess = BeautifulSoup(html,<span class="string">"lxml"</span>)</span><br><span class="line">                pic_url = mess.find(<span class="string">'img'</span>,alt = title)</span><br><span class="line">                <span class="keyword">if</span> pic_url <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    request = urllib2.Request(pic_url[<span class="string">'src'</span>],headers=heade)</span><br><span class="line"></span><br><span class="line">                html = urllib2.urlopen(request)</span><br><span class="line">                file_name = pic_url[<span class="string">'src'</span>].split(<span class="string">r'/'</span>)[-<span class="number">1</span>]</span><br><span class="line">                f = <span class="built_in">open</span>(file_name,<span class="string">'wb'</span>)</span><br><span class="line">                f.write(html.read())</span><br><span class="line">                f.close()</span><br><span class="line">            <span class="built_in">print</span> <span class="string">"完成"</span></span><br><span class="line">    <span class="built_in">print</span> <span class="string">"第"</span>,n,<span class="string">"页完成"</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>第一次写不太完善，有问题评论</p>
+<p>下一节：另一种方式爬取妹子图</p>
+<p>表情包获取</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+    <div style="text-align:center;color:#bfbfbf;font-size:16px;">
+      <span>-------- 本文结束 </span>
+      <i class="fa fa-paw"></i>
+      <span> 感谢阅读 --------</span>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/gh/tsvico/WebCDN/CDN/js/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = false;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
+
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wx.png" alt="tsvico 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/zfb.png" alt="tsvico 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>tsvico
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://blog.tooln.cn/2018/81e23d33.html" title="python 爬虫入门到进阶（五）">http://blog.tooln.cn/2018/81e23d33.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/e36c0d6c.html" rel="prev" title="汇编学习之路">
+                  <i class="fa fa-angle-left"></i> 汇编学习之路
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/e4ec76ea.html" rel="next" title="python 爬虫入门到进阶（六）">
+                  python 爬虫入门到进阶（六） <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2018 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">tsvico</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9taXN0Lw==">NexT.Mist</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Rzdmljbw==" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://fastly.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://fastly.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://fastly.jsdelivr.net/npm/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js" integrity="sha256-ytMJGN3toR+a84u7g7NuHm91VIR06Q41kMWDr2pq7Zo=" crossorigin="anonymous"></script>
+  <script src="https://fastly.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://fastly.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://fastly.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://fastly.jsdelivr.net/npm/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"ignores":null,"url":"http://blog.tooln.cn/2018/81e23d33.html"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline.tooln.cn","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","emoji":["https://valine-emoji.bili33.top/bilibiliHotKey","https://valine-emoji.bili33.top/bilibilitv","https://valine-emoji.bili33.top/Tieba-New"],"el":"#waline","comment":true,"path":"/2018/81e23d33.html"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+</body>
+</html>
