@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.1.1">
+<link rel="preconnect" href="https://fonts.yecdn.com" crossorigin>
+<link rel="preconnect" href="https://fastly.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="codeva-PnQPf2BQvD">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.yecdn.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CNoto+Serif+Simplified+Chinese:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.css" integrity="sha256-6cQIC71/iBIYXFK+0RHAvwmjwWzkWd+r7v/BX3/vZDc=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.tbox.fun","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.19.1","exturl":true,"sidebar":{"position":"left","display":"hide","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":3,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本次设计是一个简易的局域网聊天，功能设计主要分为群聊和私聊两部分，每部分都支持基础聊天以及文件传输功能，私聊页面相较于主页面支持更多功能，例如表情发送、窗口抖动，语音聊天等。参考了《Qt 及 Qt Quick 开发实战精解》中第 5 章群聊实例，在群聊的基础设计了私聊这部分内容以及其他一些功能。下面介绍下整体的设计以及实现。  本文档将依据启动次序来写">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qt 局域网聊天">
+<meta property="og:url" content="http://blog.tbox.fun/2019/eba88ba7.html">
+<meta property="og:site_name" content="tsvico的博客">
+<meta property="og:description" content="本次设计是一个简易的局域网聊天，功能设计主要分为群聊和私聊两部分，每部分都支持基础聊天以及文件传输功能，私聊页面相较于主页面支持更多功能，例如表情发送、窗口抖动，语音聊天等。参考了《Qt 及 Qt Quick 开发实战精解》中第 5 章群聊实例，在群聊的基础设计了私聊这部分内容以及其他一些功能。下面介绍下整体的设计以及实现。  本文档将依据启动次序来写">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190705110453672.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190705111318301.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Rzdmljbw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190705111426708.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Rzdmljbw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190705112559603.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190705112718217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Rzdmljbw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190705113115208.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190705114012161.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Rzdmljbw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20190705143643709.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Rzdmljbw==,size_16,color_FFFFFF,t_70">
+<meta property="article:published_time" content="2019-07-05T07:14:23.000Z">
+<meta property="article:modified_time" content="2024-06-27T06:08:00.389Z">
+<meta property="article:author" content="tsvico">
+<meta property="article:tag" content="qt">
+<meta property="article:tag" content="c++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190705110453672.png">
+
+
+<link rel="canonical" href="http://blog.tbox.fun/2019/eba88ba7.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.tbox.fun/2019/eba88ba7.html","path":"2019/eba88ba7.html","title":"Qt 局域网聊天"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Qt 局域网聊天 | tsvico的博客</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="f2919c79-4578-4c85-aab2-731e82e05339" src="https://um.tbox.fun/script.js" data-host-url="https://um.tbox.fun"></script>
+
+<link rel="dns-prefetch" href="waline.tooln.cn"><link rel="preconnect" href="//cdn.jsdelivr.net">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">tsvico的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">好的代码像粥一样，都是用时间熬出来的</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">35</span></a></li><li class="menu-item menu-item-工具"><a href="/tools/" rel="section"><i class="fa fa-wrench fa-fw"></i>工具</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">71</span></a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="tsvico"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">tsvico</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Rzdmljbw==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;tsvico"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOnRzdmljb0BkdWNrLmNvbQ==" title="E-Mail → mailto:tsvico@duck.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vdHN2aWNv" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;tsvico">博客园</span>
+            </li>
+            <li class="links-of-blogroll-item">
+              <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Rzdmljbw==" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;tsvico">CSDN</span>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.tbox.fun/2019/eba88ba7.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="tsvico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tsvico的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Qt 局域网聊天 | tsvico的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Qt 局域网聊天
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-05 15:14:23" itemprop="dateCreated datePublished" datetime="2019-07-05T15:14:23+08:00">2019-07-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-27 14:08:00" itemprop="dateModified" datetime="2024-06-27T14:08:00+08:00">2024-06-27</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2019/eba88ba7.html#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2019/eba88ba7.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>本次设计是一个简易的局域网聊天，功能设计主要分为群聊和私聊两部分，每部分都支持基础聊天以及文件传输功能，私聊页面相较于主页面支持更多功能，例如表情发送、窗口抖动，语音聊天等。参考了《Qt 及 Qt Quick 开发实战精解》中第 5 章群聊实例，在群聊的基础设计了私聊这部分内容以及其他一些功能。下面介绍下整体的设计以及实现。</p>
+</blockquote>
+<p>本文档将依据启动次序来写</p>
+<span id="more"></span>
+
+<ul>
+<li>设计时这里用的是主机的 ip 地址，可使用多台主机运行程序进行测试，确保多台主机连接同一局域网，之前调试过程中发现可能会检测到本地多个局域网 IP，所以程序启动之初需要手动选择检测列表中的某个 IP。<br><img data-src="https://img-blog.csdnimg.cn/20190705110453672.png" alt="选择IP"></li>
+</ul>
+<p>文件的传输、私聊、语音采用的是 TCP、UDP、UDP，其中 UDP 中主要用来保存进行不同操作的消息状态（新用户的加入、消息的发送，传输文件、拒绝接受文件、用户离开、进入私聊阶段），然后通过广播发送给其他的客户端从而保证各个客户端的即时性，各个客户端接受到不同的消息状态进行响应执行操作。程序执行时属于新用户加入阶段， 此时所有用户都处于同一界面，相当于群聊阶段，可发送消息进行群聊。TCP 主要用来传输文件，当接受到由 UPD 发送的传输文件消息时，发送文件一方作为 Server 端，接受文件一方作为 Client 端，实现点到点之间的传输。</p>
+<p>1. 用户加入<br>对于新用户的加入我们会显示主机的用户名，每加入一个客户端，在其他客户端以及自己客户端中显示用户名、主机名 (此列存在但被人工隐藏)、IP 地址、并在消息记录框中显示 xxx 在线，此时某一方发送消息在其他客户端即可实时收到消息，实现群聊功能（图一）。当某个客户端关闭或退出程序时，此时在消息框记录框中显示于时间离开，当再有新用户加入时又再次显示 xxx 在线。（本机局域网的 IP 是 172.16.22.48），另一客户端 IP（172.16.22.53）</p>
+<p><img data-src="https://img-blog.csdnimg.cn/20190705111318301.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Rzdmljbw==,size_16,color_FFFFFF,t_70" alt="图一"><br> <img data-src="https://img-blog.csdnimg.cn/20190705111426708.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Rzdmljbw==,size_16,color_FFFFFF,t_70" alt="图二"><br><strong>此处的关键是在主界面的构造函数中发送上线广播，关闭时发送离线广播</strong><br>2. 界面介绍</p>
+<ul>
+<li><p>消息发送框上分别代表字体样式、字体大小、加粗、斜体、下划线、颜色、截图、选择文件；</p>
+</li>
+<li><p>消息接受框上为语音聊天、视频通话 (未实现)、文件传输、远程桌面。</p>
+</li>
+<li><p>选择 IP 左侧为切换皮肤，效果如下图</p>
+<figure class="half">
+  <img data-src="https://img-blog.csdnimg.cn/20190705112559603.png" width="400">
+  <img data-src="https://img-blog.csdnimg.cn/20190705112718217.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Rzdmljbw==,size_16,color_FFFFFF,t_70" width="230">
+</figure>
+</li>
+<li><p>截图界面展示<br><img data-src="https://img-blog.csdnimg.cn/20190705113115208.png" alt="在这里插入图片描述"><br>3. 文件的传输</p>
+</li>
+<li><p>群聊界面:</p>
+<ul>
+<li>在文件传输前，我们首先选择要发送到的 IP 地址，从右侧的显示主机信息中选择，若未选中，会提示用户未选中并重新选择，在选中接收文件的 IP 后（群聊可以选中自己 IP 进行测试），点击消息输入框上的传输文件按钮，此时进入 Server 文件发送界面。选择发送文件进行发送，此时另一选中的用户弹出 Client 文件接收界面，选择是否接收。</li>
+</ul>
+</li>
+<li><p>私聊<br>私聊界面文件发送直接点击，效果和主界面相同</p>
+</li>
+</ul>
+<p>4. 私人聊天</p>
+<ul>
+<li>从右侧显示主机信息栏中双击，为了方便测试，此处可以和自己聊天。当双击用户时，此时弹出私人聊天界面，并显示与某某聊天中，获得它的 IP 地址。对方收到消息会在主页面显示 “XXX 正在给您发送私聊消息”<br><img data-src="https://img-blog.csdnimg.cn/20190705114012161.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Rzdmljbw==,size_16,color_FFFFFF,t_70" alt="私聊"></li>
+<li>发送窗口抖动<br>建立窗口抖动标志，在发送消息里，接收端收到消息后窗口在上下左右不同幅度抖动 <figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">QPropertyAnimation *pAnimation = <span class="keyword">new</span> <span class="built_in">QPropertyAnimation</span>(<span class="keyword">this</span>, <span class="string">"pos"</span>);</span><br><span class="line">pAnimation-&gt;<span class="built_in">setDuration</span>(<span class="number">500</span>);</span><br><span class="line">pAnimation-&gt;<span class="built_in">setLoopCount</span>(<span class="number">2</span>);</span><br><span class="line">pAnimation-&gt;<span class="built_in">setKeyValueAt</span>(<span class="number">0</span>, <span class="built_in">QPoint</span>(<span class="built_in">geometry</span>().<span class="built_in">x</span>() - <span class="number">3</span>, <span class="built_in">geometry</span>().<span class="built_in">y</span>() - <span class="number">3</span>));</span><br><span class="line">pAnimation-&gt;<span class="built_in">setKeyValueAt</span>(<span class="number">0.1</span>, <span class="built_in">QPoint</span>(<span class="built_in">geometry</span>().<span class="built_in">x</span>() + <span class="number">6</span>, <span class="built_in">geometry</span>().<span class="built_in">y</span>() + <span class="number">6</span>));</span><br><span class="line">pAnimation-&gt;<span class="built_in">setKeyValueAt</span>(<span class="number">0.2</span>, <span class="built_in">QPoint</span>(<span class="built_in">geometry</span>().<span class="built_in">x</span>() - <span class="number">6</span>, <span class="built_in">geometry</span>().<span class="built_in">y</span>() + <span class="number">6</span>));</span><br><span class="line">pAnimation-&gt;<span class="built_in">setKeyValueAt</span>(<span class="number">0.3</span>, <span class="built_in">QPoint</span>(<span class="built_in">geometry</span>().<span class="built_in">x</span>() + <span class="number">6</span>, <span class="built_in">geometry</span>().<span class="built_in">y</span>() - <span class="number">6</span>));</span><br><span class="line">pAnimation-&gt;<span class="built_in">setKeyValueAt</span>(<span class="number">0.4</span>, <span class="built_in">QPoint</span>(<span class="built_in">geometry</span>().<span class="built_in">x</span>() - <span class="number">6</span>, <span class="built_in">geometry</span>().<span class="built_in">y</span>() - <span class="number">6</span>));</span><br><span class="line">pAnimation-&gt;<span class="built_in">setKeyValueAt</span>(<span class="number">0.5</span>, <span class="built_in">QPoint</span>(<span class="built_in">geometry</span>().<span class="built_in">x</span>() + <span class="number">6</span>, <span class="built_in">geometry</span>().<span class="built_in">y</span>() + <span class="number">6</span>));</span><br><span class="line">pAnimation-&gt;<span class="built_in">setKeyValueAt</span>(<span class="number">0.6</span>, <span class="built_in">QPoint</span>(<span class="built_in">geometry</span>().<span class="built_in">x</span>() - <span class="number">6</span>, <span class="built_in">geometry</span>().<span class="built_in">y</span>() + <span class="number">6</span>));</span><br><span class="line">pAnimation-&gt;<span class="built_in">setKeyValueAt</span>(<span class="number">0.7</span>, <span class="built_in">QPoint</span>(<span class="built_in">geometry</span>().<span class="built_in">x</span>() + <span class="number">6</span>, <span class="built_in">geometry</span>().<span class="built_in">y</span>() - <span class="number">6</span>));</span><br><span class="line">pAnimation-&gt;<span class="built_in">setKeyValueAt</span>(<span class="number">0.8</span>, <span class="built_in">QPoint</span>(<span class="built_in">geometry</span>().<span class="built_in">x</span>() - <span class="number">6</span>, <span class="built_in">geometry</span>().<span class="built_in">y</span>() - <span class="number">6</span>));</span><br><span class="line">pAnimation-&gt;<span class="built_in">setKeyValueAt</span>(<span class="number">0.9</span>, <span class="built_in">QPoint</span>(<span class="built_in">geometry</span>().<span class="built_in">x</span>() + <span class="number">6</span>, <span class="built_in">geometry</span>().<span class="built_in">y</span>() + <span class="number">6</span>));</span><br><span class="line">pAnimation-&gt;<span class="built_in">setKeyValueAt</span>(<span class="number">1</span>, <span class="built_in">QPoint</span>(<span class="built_in">geometry</span>().<span class="built_in">x</span>() - <span class="number">3</span>, <span class="built_in">geometry</span>().<span class="built_in">y</span>() - <span class="number">3</span>));</span><br><span class="line">pAnimation-&gt;<span class="built_in">start</span>(QAbstractAnimation::DeleteWhenStopped);</span><br></pre></td></tr></tbody></table></figure></li>
+<li>语音发送<br>创建语音标志在发送消息里，为了发语音的同时还要能听到，发送时要对语音进行接收。一方取消语音时要发送关闭语音广播，另一方同时关闭语音传输。为了保证接收端和发送端同时关闭，这里重写了关闭事件 <figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">autrans::closeEvent</span><span class="params">(QCloseEvent *e)</span></span>{</span><br><span class="line">    <span class="function">emit <span class="title">meclose</span><span class="params">()</span></span>; <span class="comment">//发送关闭信号</span></span><br><span class="line">    QWidget::<span class="built_in">closeEvent</span>(e);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
+<li>表情发送<br>创建新的 tableview 在私聊界面，将表情通过代码加载到 UI 界面 <figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">priroom::addEmotionItem</span><span class="params">(<span class="type">int</span> row,<span class="type">int</span> low,<span class="type">int</span> lo)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    QLabel* label1 = <span class="keyword">new</span> QLabel;</span><br><span class="line">    QString path = <span class="string">":/emoji/%1.gif"</span>;</span><br><span class="line">    QMovie *movie =<span class="keyword">new</span> <span class="built_in">QMovie</span>(path.<span class="built_in">arg</span>(lo+<span class="number">1</span>));</span><br><span class="line">    movie-&gt;<span class="built_in">setScaledSize</span>(<span class="built_in">QSize</span>(<span class="number">25</span>,<span class="number">25</span>));</span><br><span class="line">    label1-&gt;<span class="built_in">setMovie</span>(movie);</span><br><span class="line">    ui-&gt;tableWidget-&gt;<span class="built_in">setCellWidget</span>(row,low,label1);</span><br><span class="line">    movie-&gt;<span class="built_in">start</span>();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<img data-src="https://img-blog.csdnimg.cn/20190705143643709.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3Rzdmljbw==,size_16,color_FFFFFF,t_70" width="350"></li>
+</ul>
+<p>获取点击的行列位置，计算出图片路径，将表情发送</p>
+<ul>
+<li>等等</li>
+</ul>
+<p>5. 其他细节</p>
+<ul>
+<li>支持列表改名</li>
+</ul>
+<p>总结：基本也就这么多，目前没有注册、登录功能，对于数据库的操作，后面打算把这些也添加进去，代码解释大家可以去看《Qt 及 Qt Quick 开发实战精解》这本书，对于私聊这块大家也可以下载下面的源程序链接，添加了很多注释，以及 qDebug 调试。</p>
+<p>视频展示 (此处录制较早没有语音聊天，如果无法播放可以点击<span class="exturl" data-url="aHR0cHM6Ly9zdHJlYW1qYS5jb20vQUpHUg==">这里<i class="fa fa-external-link-alt"></i></span>)</p>
+<video id="video" controls="" preload="none" poster="https://s2.ax1x.com/2019/06/28/ZKvb60.png">
+      <source id="mp4" src="https://streamja.com/AJGR" type="video/mp4">
+</video>
+
+<p>主题部分参考</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3poYW5ncXVhbjIwMTUvYXJ0aWNsZS9kZXRhaWxzLzUyMTM3ODky">https://blog.csdn.net/zhangquan2015/article/details/52137892<i class="fa fa-external-link-alt"></i></span></p>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vZmVpeWFuZ3Fpbmd5dW4vcC8zOTE1NjU3Lmh0bWw=">https://www.cnblogs.com/feiyangqingyun/p/3915657.html<i class="fa fa-external-link-alt"></i></span></p>
+<p>应用程序测试链接 (双击.exe 文件):<br><span class="exturl" data-url="aHR0cHM6Ly93d3cubGFuem91cy5jb20vaTR1bmNlZA==">https://www.lanzous.com/i4unced<i class="fa fa-external-link-alt"></i></span></p>
+<p>源程序代码下载链接：<span class="exturl" data-url="aHR0cHM6Ly9kb3dubG9hZC5jc2RuLm5ldC9kb3dubG9hZC90c3ZpY28vMTEyODY0NDU=">https://download.csdn.net/download/tsvico/11286445<i class="fa fa-external-link-alt"></i></span></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+    <div style="text-align:center;color:#bfbfbf;font-size:16px;">
+      <span>-------- 本文结束 </span>
+      <i class="fa fa-paw"></i>
+      <span> 感谢阅读 --------</span>
+    </div>
+</div>
+
+
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wx.png" alt="tsvico 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/zfb.png" alt="tsvico 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>tsvico
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://blog.tbox.fun/2019/eba88ba7.html" title="Qt 局域网聊天">http://blog.tbox.fun/2019/eba88ba7.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/qt/" rel="tag"><i class="fa fa-tag"></i> qt</a>
+              <a href="/tags/c/" rel="tag"><i class="fa fa-tag"></i> c++</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/944b25cb.html" rel="prev" title="Colab 在线 Python 神器">
+                  <i class="fa fa-angle-left"></i> Colab 在线 Python 神器
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/9150d7e1.html" rel="next" title="java 笔试知识点">
+                  java 笔试知识点 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2018 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">tsvico</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9taXN0Lw==">NexT.Mist</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Rzdmljbw==" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://fastly.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://fastly.jsdelivr.net/npm/@next-theme/pjax@0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://fastly.jsdelivr.net/npm/@fancyapps/ui@5.0.28/dist/fancybox/fancybox.umd.js" integrity="sha256-ytMJGN3toR+a84u7g7NuHm91VIR06Q41kMWDr2pq7Zo=" crossorigin="anonymous"></script>
+  <script src="https://fastly.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://fastly.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://fastly.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://fastly.jsdelivr.net/npm/pdfobject@2.2.12/pdfobject.min.js","integrity":"sha256-g2xji1rlE3KsGVClvuxTbcR0Kn2+wtQADSff2Tbb4zA="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://fastly.jsdelivr.net/npm/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"http://blog.tbox.fun/2019/eba88ba7.html"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline.tooln.cn","cssUrl":"https://unpkg.com/@waline/client@v2/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"libUrl":"//unpkg.com/@waline/client@v2/dist/waline.js","emoji":["https://valine-emoji.bili33.top/bilibiliHotKey","https://valine-emoji.bili33.top/bilibilitv","https://valine-emoji.bili33.top/Tieba-New"],"el":"#waline","comment":true,"path":"/2019/eba88ba7.html"}</script>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+</body>
+</html>
