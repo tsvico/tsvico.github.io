@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+<link rel="preconnect" href="https://fonts.yecdn.com" crossorigin>
+<link rel="preconnect" href="https://fastly.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="googleccbe7e4fe9d6e1f1">
+  <meta name="baidu-site-verification" content="edcb470f18ec244522f0c6683d34bfa0">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.yecdn.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CNoto+Serif+Simplified+Chinese:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css" integrity="sha256-XOqroi11tY4EFQMR9ZYwZWKj5ZXiftSx36RRuC3anlA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.css" integrity="sha256-gkQVf8UKZgQ0HyuxL/VnacadJ+D2Kox2TCEBuNQg5+w=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/pace-js@1.2.4/themes/orange/pace-theme-loading-bar.css">
+  <script src="https://fastly.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.tbox.fun","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.20.0","exturl":true,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"hide","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":3,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="一些简单的算法  八皇后问题 查找（哨兵）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法分析">
+<meta property="og:url" content="https://blog.tbox.fun/2018/d68e5e2f.html">
+<meta property="og:site_name" content="tsvico的博客">
+<meta property="og:description" content="一些简单的算法  八皇后问题 查找（哨兵）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://ws2.sinaimg.cn/large/006NPPBTly1ft5851cpzwj32g416g436.jpg">
+<meta property="og:image" content="http://ws4.sinaimg.cn/large/006NPPBTly1ft58hhzx2bj309s05iq2x.jpg">
+<meta property="article:published_time" content="2018-07-10T16:06:40.000Z">
+<meta property="article:modified_time" content="2022-05-22T08:05:38.000Z">
+<meta property="article:author" content="tsvico">
+<meta property="article:tag" content="c++">
+<meta property="article:tag" content="algorithm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ws2.sinaimg.cn/large/006NPPBTly1ft5851cpzwj32g416g436.jpg">
+
+
+<link rel="canonical" href="https://blog.tbox.fun/2018/d68e5e2f.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.tbox.fun/2018/d68e5e2f.html","path":"2018/d68e5e2f.html","title":"算法分析"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>算法分析 | tsvico的博客</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="f2919c79-4578-4c85-aab2-731e82e05339" src="https://um.tbox.fun/script.js" data-host-url="https://um.tbox.fun"></script>
+
+<link rel="dns-prefetch" href="waline.tooln.cn"><link rel="preconnect" href="//cdn.jsdelivr.net">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">tsvico的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">热爱生活的每一缕晨光，亦钟情于技术的每一次闪现，愿将这份心中的火焰与世间分享</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">41</span></a></li><li class="menu-item menu-item-tools"><a href="/tools/" rel="section"><i class="fa fa-wrench fa-fw"></i>工具</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">77</span></a></li><li class="menu-item menu-item-links"><a href="/links" rel="section"><i class="fa fa-link fa-fw"></i>友链</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">八皇后问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.</span> <span class="nav-text">实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E6%9F%A5%E6%89%BE%EF%BC%88%E5%93%A8%E5%85%B5%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">遍历查找（哨兵）</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="tsvico"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">tsvico</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">77</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Rzdmljbw==" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;tsvico"><i class="fab fa-github fa-fw"></i>GitHub</span>
+      </span>
+      <span class="links-of-author-item">
+        <span class="exturl" data-url="bWFpbHRvOnRzdmljb0BkdWNrLmNvbQ==" title="E-Mail → mailto:tsvico@duck.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</span>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.tbox.fun/2018/d68e5e2f.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="tsvico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="tsvico的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="算法分析 | tsvico的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          算法分析
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-07-11 00:06:40" itemprop="dateCreated datePublished" datetime="2018-07-11T00:06:40+08:00">2018-07-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-22 16:05:38" itemprop="dateModified" datetime="2022-05-22T16:05:38+08:00">2022-05-22</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/2018/d68e5e2f.html#waline" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" data-path="/2018/d68e5e2f.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>一些简单的算法</p>
+<blockquote>
+<p>八皇后问题</p>
+<p>查找（哨兵）</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="八皇后问题"><a href="#八皇后问题" class="headerlink" title="八皇后问题"></a>八皇后问题</h2><blockquote>
+<p>八皇后问题是一个以国际象棋为背景的问题：如何能够在 8×8 的国际象棋棋盘上放置八个皇后，使得任何一个皇后都无法直接吃掉其他的皇后？为了达到此目的，任两个皇后都不能处于同一条横行、纵行或斜线上。八皇后问题可以推广为更一般的 n 皇后摆放问题：这时棋盘的大小变为 n1×n1，而皇后个数也变成 n2。而且仅当 n2 = 1 或 n1 ≥ 4 时问题有解。</p>
+</blockquote>
+<p>问题解析：8*8 棋盘上每行每列都有一个皇后，且任意两皇后不能处于同一行、同一列、同一斜线上</p>
+<p>为了简化问题，下面讨论四皇后问题。回溯法从空棋盘开始，首先把皇后 1 摆放到它所在行的第一个位置，也就是第一行第一列，得到图 8.7 (a)。</p>
+<p>对于皇后 2，在经过第一列和第二列的尝试后，摆放到第二行第三列，得到图 8.7 (b)。</p>
+<p>对于皇后 3，摆放到第三行的哪一列都会引起冲突 (即违反约束条件)，进行回溯，回<br>到对皇后 2 的处理，把皇后 2 摆放到下一个位置，也就是第二行第四列，得到图 8.7 (d)。</p>
+<p>对于皇后 3，在经过第一列的尝试后，摆放到第三行第二列，得到图 8.7 (e)。</p>
+<p>对于皇后 4，摆放到第四行的哪一列上都会引起冲突，进行回溯，回到对皇后 3 的处<br>理；皇后 3 摆放到第三行的哪一列上都会引起冲突，再次进行回溯，但此时皇后 2 位于棋<br>盘的最后一列，继续回溯，回到对皇后 1 的处理，把皇后 1 摆放到第一行第一列，得到<br>图 8.7 (g)。</p>
+<p>接下来，把皇后 2 摆放第二行第四列的位置，把皇后 3 摆放到第三行第一列的位置，把皇后 4 摆放到第四行第三列的位置，得到四皇后问题的一个解，如图 8.7 (j) 所示。</p>
+<p><img data-src="http://ws2.sinaimg.cn/large/006NPPBTly1ft5851cpzwj32g416g436.jpg" alt="image"></p>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><p>【算法】设函数 Queen 实现 n 皇后问题，皇后 k 摆放在 k 行 x [k] 列的位置，算法用伪代码描述如下。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">算法8.3:回溯法求解n皇后问题Queen</span><br><span class="line">输人:皇后的个数n</span><br><span class="line">输出:n皇后问题的解x[n]</span><br><span class="line">1.初始化解向量x[n]={-1};</span><br><span class="line">2.k=1;</span><br><span class="line">3.while(k&gt;=1)</span><br><span class="line">	3.1 把皇后k摆放在下一列的位置,即x[k]++;</span><br><span class="line">	3.2 从x[k]开始依次考察每一列,如果皇后k摆放在x[k]位置不发生冲突,则转步骤3.3;</span><br><span class="line">		否则x[k]++试探下一列;</span><br><span class="line">	3.3 若n个皇后已全部摆放,则输出一个解,算法结束;</span><br><span class="line">	3.4 若尚有皇后没摆放,则k++,转步骤3摆放下一个皇后;</span><br><span class="line">	3.5 若x[k]出界,则回溯,x[k]=-1,k--,转步骤3重新摆放皇后k;</span><br><span class="line">4.退出循环,说明n皇后问题无解;</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/***************</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">八皇后问题</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">************/</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Queen</span><span class="params">(<span class="type">int</span> k)</span></span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> n=<span class="number">8</span>;</span><br><span class="line"><span class="type">int</span> x[n];</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">	<span class="built_in">Queen</span>(n);</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Place</span><span class="params">(<span class="type">int</span> k)</span></span>{                                   <span class="comment">//考察皇后k放在 x[k]是否发生冲突</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;k;i++)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (x[i]==x[k] || <span class="built_in">abs</span>(i-k)==<span class="built_in">abs</span>(x[i]-x[k])) <span class="comment">//abs() 求绝对值 ||违反约束条件</span></span><br><span class="line">		{</span><br><span class="line">			<span class="keyword">return</span> <span class="number">1</span>;                               <span class="comment">//冲突，返回1</span></span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;                                       <span class="comment">//不冲突，返回0</span></span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Queen</span><span class="params">(<span class="type">int</span> n)</span></span>{                                    <span class="comment">//求解n皇后问题</span></span><br><span class="line">	<span class="type">int</span> k=<span class="number">0</span>;                                          <span class="comment">//皇后</span></span><br><span class="line">	<span class="keyword">while</span> (k&gt;=<span class="number">0</span>)</span><br><span class="line">	{</span><br><span class="line">		x[k]++;                                       <span class="comment">//在下一列排放皇后</span></span><br><span class="line">		<span class="keyword">while</span> (x[k]&lt;n &amp;&amp; <span class="built_in">Place</span>(k)==<span class="number">1</span>)                 <span class="comment">//发生冲突</span></span><br><span class="line">		{</span><br><span class="line">			x[k]++;                                   <span class="comment">//皇后k试探下一列</span></span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">if</span> (x[k]&lt;n &amp;&amp; k==n<span class="number">-1</span>)                         <span class="comment">//得到下一个解，输出</span></span><br><span class="line">		{</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++){</span><br><span class="line">			    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;x[i];j++){</span><br><span class="line">			    cout&lt;&lt;<span class="string">"□ "</span>;</span><br><span class="line">			    }</span><br><span class="line">			    <span class="keyword">if</span>(x[i]&lt;<span class="number">9</span>){</span><br><span class="line">			        cout&lt;&lt;x[i]<span class="number">+1</span>&lt;&lt;<span class="string">" "</span>;  <span class="comment">//数组下标从0开始，打印的序号从1开始</span></span><br><span class="line">			    }<span class="keyword">else</span>{</span><br><span class="line">			        cout&lt;&lt;x[i]<span class="number">+1</span>;  <span class="comment">//数组下标从0开始，打印的序号从1开始</span></span><br><span class="line">			    }</span><br><span class="line">				</span><br><span class="line">				<span class="keyword">for</span>(<span class="type">int</span> j=n<span class="number">-1</span>;j&gt;x[i];j--)</span><br><span class="line">			    {</span><br><span class="line">			        cout&lt;&lt;<span class="string">"□ "</span>;</span><br><span class="line">			    }</span><br><span class="line">			    cout&lt;&lt;endl;</span><br><span class="line">			}                   </span><br><span class="line">			cout&lt;&lt;endl;</span><br><span class="line">			<span class="keyword">return</span> ;                                  <span class="comment">//只求出一个解</span></span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">if</span>(x[k]&lt;n &amp;&amp; k&lt;n<span class="number">-1</span>)                           <span class="comment">//尚有皇后未摆放</span></span><br><span class="line">			k = k <span class="number">+1</span>;                                 <span class="comment">//准备拜访下一个皇后</span></span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			x[k--] = <span class="number">-1</span>;                              <span class="comment">//重置x[k],回溯，重新摆放皇后k</span></span><br><span class="line">	}</span><br><span class="line">	cout&lt;&lt;<span class="string">"无解"</span>&lt;&lt;endl;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img data-src="http://ws4.sinaimg.cn/large/006NPPBTly1ft58hhzx2bj309s05iq2x.jpg" alt="image"></p>
+<h2 id="遍历查找（哨兵）"><a href="#遍历查找（哨兵）" class="headerlink" title="遍历查找（哨兵）"></a>遍历查找（哨兵）</h2><p>利用<code>观察哨</code>，则无需判断查找是否越界</p>
+<p>较传统蛮力查找，设置<code>观察哨</code>他们的时间复杂度都是 O (n)，而系数相差一倍。实验表明，设置<code>观察哨</code>之后的算法在表长大于 1000 时，一次顺序查找的时间几乎一半</p>
+<p>算法 c++ 核心代码</p>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">SeqSearch2</span><span class="params">(<span class="type">int</span> r[],<span class="type">int</span> n,<span class="type">int</span> k)</span> <span class="comment">//数组r[1]~r[n]存放查找集合</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="type">int</span> i=n;  <span class="comment">//从数组最高端开始查找</span></span><br><span class="line">    r[<span class="number">0</span>] = k;  <span class="comment">//设置哨兵</span></span><br><span class="line">    <span class="keyword">while</span>(r[i] != k)</span><br><span class="line">        i--;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>以后想起来什么再写，先到这，继续写 python</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><div>
+    <div style="text-align:center;color:#bfbfbf;font-size:16px;">
+      <span>-------- 本文结束 </span>
+      <i class="fa fa-paw"></i>
+      <span> 感谢阅读 --------</span>
+    </div>
+</div>
+
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文博主： </strong>tsvico
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.tbox.fun/2018/d68e5e2f.html" title="算法分析">https://blog.tbox.fun/2018/d68e5e2f.html</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/c/" rel="tag"><i class="fa fa-tag"></i> c++</a>
+              <a href="/tags/algorithm/" rel="tag"><i class="fa fa-tag"></i> algorithm</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/e4ec76ea.html" rel="prev" title="python 爬虫入门到进阶（六）">
+                  <i class="fa fa-angle-left"></i> python 爬虫入门到进阶（六）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/36ec0175.html" rel="next" title="python 爬虫入门到进阶（七）">
+                  python 爬虫入门到进阶（七） <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2018 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">tsvico</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & <span class="exturl" data-url="aHR0cHM6Ly90aGVtZS1uZXh0LmpzLm9yZy9waXNjZXMv">NexT.Pisces</span> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3Rzdmljbw==" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://fastly.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://fastly.jsdelivr.net/npm/@fancyapps/ui@5.0.31/dist/fancybox/fancybox.umd.js" integrity="sha256-a+H7FYzJv6oU2hfsfDGM2Ohw/cR9v+hPfxHCLdmCrE8=" crossorigin="anonymous"></script>
+  <script src="https://fastly.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://fastly.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  <script src="https://fastly.jsdelivr.net/npm/hexo-generator-searchdb@1.4.1/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://fastly.jsdelivr.net/npm/pdfobject@2.3.0/pdfobject.min.js","integrity":"sha256-JJZNsid68vnh3/zyj0lY9BN5ynxVX/12XgOa1TlaYN0="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":"forest","js":{"url":"https://fastly.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js","integrity":"sha256-stuqcu2FrjYCXDOytWFA5SoUE/r3nkp6gTglzNSlavU="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://cn.vercount.one/js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://fastly.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://fastly.jsdelivr.net/npm/quicklink@2.3.0/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://blog.tbox.fun/2018/d68e5e2f.html"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"waline.tooln.cn","cssUrl":"https://fastly.jsdelivr.net/npm/@waline/client@2.15.8/dist/waline.css","commentCount":true,"pageview":false,"placeholder":"请文明评论呀","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"libUrl":"https://fastly.jsdelivr.net/npm/@waline/client@2.15.8/dist/waline.js","emoji":["https://valine-emoji.bili33.top/bilibiliHotKey","https://valine-emoji.bili33.top/bilibilitv","https://valine-emoji.bili33.top/Tieba-New"],"el":"#waline","comment":true,"path":"/2018/d68e5e2f.html"}</script>
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@waline/client@2.15.8/dist/waline.css">
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() =>
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => 
+    Waline.init(Object.assign({}, CONFIG.waline,{ el: document.querySelector(CONFIG.waline.el) }))
+  );
+});
+</script>
+
+<!-- hexo injector body_end start --><script src="/js/outdate.js"></script><!-- hexo injector body_end end --></body>
+</html>
