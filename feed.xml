@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>空山新雨</title>
+  <icon>https://blog.tbox.fun/icon.png</icon>
+  <subtitle>代码与生活的诗意交响</subtitle>
+  <link href="https://blog.tbox.fun/feed.xml" rel="self"/>
+  
+  <link href="https://blog.tbox.fun/"/>
+  <updated>2025-04-09T10:36:55.000Z</updated>
+  <id>https://blog.tbox.fun/</id>
+  
+  <author>
+    <name>tsvico</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用 Cloudflare Workers 构建免费图床：控制 R2 成本并使用缓存</title>
+    <link href="https://blog.tbox.fun/2025/2622120444.html"/>
+    <id>https://blog.tbox.fun/2025/2622120444.html</id>
+    <published>2025-04-09T10:20:40.000Z</published>
+    <updated>2025-04-09T10:36:55.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Cloudflare R2 确实是个好东西，10GB 免费空间加上每月一千万次免费 Class B 操作，比某 AWS 不知道高到哪里去了。但是有个坑：&lt;strong&gt;公开存储桶的请求次数是不设防的&lt;/strong&gt;。万一有人恶意刷你的桶，或者你的资源突然火了被疯狂访问，账单能直接让你破产。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="cloudflare" scheme="https://blog.tbox.fun/tags/cloudflare/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于 cloudflare 的 CacheRules 相关踩坑记录</title>
+    <link href="https://blog.tbox.fun/2025/497882046.html"/>
+    <id>https://blog.tbox.fun/2025/497882046.html</id>
+    <published>2025-03-22T03:07:03.000Z</published>
+    <updated>2025-03-22T03:15:01.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;大善人的缓存挺好用，在我一次错误配置后，导致网站后台被缓存不用登录就能访问 😱，然后就研究了下缓存&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="cloudflare" scheme="https://blog.tbox.fun/tags/cloudflare/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DDIA 书籍推荐</title>
+    <link href="https://blog.tbox.fun/2025/546910043.html"/>
+    <id>https://blog.tbox.fun/2025/546910043.html</id>
+    <published>2025-01-20T09:43:11.000Z</published>
+    <updated>2025-01-20T09:53:53.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近看的一本很不错的书：&lt;code&gt;DDIA&lt;/code&gt;&lt;br&gt;《Designing Data-Intensive Applications》，设计数据密集型应用，分布式的问题都可以在里面找到，原理讲的非常清晰易懂。豆瓣评分</summary>
+        
+      
+    
+    
+    
+    
+    <category term="book" scheme="https://blog.tbox.fun/tags/book/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>为历史文章添加 updated</title>
+    <link href="https://blog.tbox.fun/2025/3421175541.html"/>
+    <id>https://blog.tbox.fun/2025/3421175541.html</id>
+    <published>2025-01-15T10:40:21.000Z</published>
+    <updated>2025-01-15T10:50:20.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;由于我的博客迁移到了 &lt;code&gt;redefine&lt;/code&gt;, 在些许配置上有差异性，比如 &lt;code&gt;next&lt;/code&gt; 主题中版权声明是写作 &lt;code&gt;copyright: true&lt;/code&gt;，但是在 &lt;code&gt;redefine&lt;/code&gt; 这么写版权部分只会显示一个 &lt;code&gt;true&lt;/code&gt;，我在某次提交统一删除了 &lt;code&gt;copyright: true&lt;/code&gt;，但是此行为导致所有文章的修改日期变成提交的时间，所以使用脚本为所有文章添加上 &lt;code&gt;updated&lt;/code&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="hexo" scheme="https://blog.tbox.fun/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>笔记本电脑远程开关机</title>
+    <link href="https://blog.tbox.fun/2025/4151791544.html"/>
+    <id>https://blog.tbox.fun/2025/4151791544.html</id>
+    <published>2025-01-11T09:19:18.000Z</published>
+    <updated>2025-01-11T11:38:11.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;接上文&lt;a href=&quot;/2024/1104496865.htm&quot;&gt;电脑实现小爱语音关机&lt;/a&gt; , &lt;code&gt;点灯&lt;/code&gt;家的 &lt;code&gt;nodejs sdk&lt;/code&gt; 使用小爱控制老是报” 要操作的设备要出问题了，请稍候再试吧”，经过一番查找，找到 &lt;a class=&quot;link&quot; href=&quot;https://www.52pojie.cn/thread-1921792-1-1.html&quot;&gt;将电脑接入米家，远程、语音开关机，推送消息&lt;i class=&quot;fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon&quot;&gt;&lt;/i&gt;&lt;/a&gt;、&lt;a class=&quot;link&quot; href=&quot;https://www.cnblogs.com/hackyo/p/18000627&quot;&gt;电脑接入米家，控制电脑开关机（无需购买外设）&lt;i class=&quot;fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon&quot;&gt;&lt;/i&gt;&lt;/a&gt;，看了这两个方案很心动 💓，这两个方案都是部署在外部机器上的，且主要使用 &lt;code&gt;wol&lt;/code&gt;，不是很贴合我的需求，先记录，后边再慢慢搞。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="c" scheme="https://blog.tbox.fun/tags/c/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Traefik 入门及全自动 HTTPS</title>
+    <link href="https://blog.tbox.fun/2025/3450057868.html"/>
+    <id>https://blog.tbox.fun/2025/3450057868.html</id>
+    <published>2025-01-09T10:47:36.000Z</published>
+    <updated>2025-01-09T13:42:50.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;code&gt;Traefik&lt;/code&gt; 是一个云原生的新型 HTTP 反向代理、负载均衡软件。作用类似于 &lt;code&gt;nginx&lt;/code&gt;，在全 &lt;code&gt;docker&lt;/code&gt; 环境中，&lt;code&gt;Traefik&lt;/code&gt; 会比 &lt;code&gt;nginx&lt;/code&gt; 配置简略很多。我使用过 &lt;code&gt;nginx&lt;/code&gt; 反代 &lt;code&gt;docker&lt;/code&gt; 同网络（networks）下的其他服务，统一出口，使用泛域名解析，但是当 &lt;code&gt;docker&lt;/code&gt; 数量变多时，每新增一个 &lt;code&gt;docker&lt;/code&gt; 都要手动复制一份文件，尝试向 &lt;code&gt;Traefik&lt;/code&gt; 迁移&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="traefik" scheme="https://blog.tbox.fun/tags/traefik/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>电脑实现小爱语音关机</title>
+    <link href="https://blog.tbox.fun/2024/1104496865.html"/>
+    <id>https://blog.tbox.fun/2024/1104496865.html</id>
+    <published>2024-12-22T02:44:15.000Z</published>
+    <updated>2024-12-23T10:15:49.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;目前使用的是&lt;a class=&quot;link&quot; href=&quot;https://wequ.net/cn/&quot;&gt;神秘鸭&lt;i class=&quot;fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon&quot;&gt;&lt;/i&gt;&lt;/a&gt;来实现关机的，免费版本足够我的日常使用，不过我在几次失灵后，就决定自己实现一个，一般是在电脑断网后再重新连接网络就会失灵，而且&lt;code&gt;神秘鸭&lt;/code&gt;接入的是&lt;code&gt;巴法云&lt;/code&gt;，巴法云在 APP 没找到设备在线状态，不利于远程查看是否开机（偶尔会使用 &lt;code&gt;tailscale&lt;/code&gt; 远程组网控制电脑），网上没有找到满意的版本，决定基于 &lt;code&gt;TypeScript&lt;/code&gt; 实现一个 nodejs 版本的关机程序，以下是开发过程&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="nodejs" scheme="https://blog.tbox.fun/tags/nodejs/"/>
+    
+    <category term="blinker" scheme="https://blog.tbox.fun/tags/blinker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一个简单的 nodejs 目录迭代器</title>
+    <link href="https://blog.tbox.fun/2024/320884568.html"/>
+    <id>https://blog.tbox.fun/2024/320884568.html</id>
+    <published>2024-11-23T03:12:57.000Z</published>
+    <updated>2024-11-23T08:46:43.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;死去的记忆突然攻击我，一份来自四年前使用递归写的遍历目录的方案发生了内存溢出，研究了一下旧代码，发现晦涩难懂，索性重写遍历方法&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="typescript" scheme="https://blog.tbox.fun/tags/typescript/"/>
+    
+    <category term="nodejs" scheme="https://blog.tbox.fun/tags/nodejs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用坚果云备份 serv00</title>
+    <link href="https://blog.tbox.fun/2024/4181424588.html"/>
+    <id>https://blog.tbox.fun/2024/4181424588.html</id>
+    <published>2024-11-05T02:32:35.000Z</published>
+    <updated>2024-11-05T02:37:37.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Serv00 是一家来自波兰的主机服务提供商，因提供 10 年免费的虚拟主机火爆全网。&lt;br&gt;此文章是讲如何备份 Serv00 上部署的网站&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="serv00" scheme="https://blog.tbox.fun/tags/serv00/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>增加文章时效性检测及更新时间修复</title>
+    <link href="https://blog.tbox.fun/2024/1160155932.html"/>
+    <id>https://blog.tbox.fun/2024/1160155932.html</id>
+    <published>2024-08-31T07:28:38.000Z</published>
+    <updated>2024-08-31T07:44:59.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;近期查看历史文章时，发现有篇文章是 2018 年写的关于百度云网盘的，现在看来应该是已经失效了，如果增加时效性提示应该会更好一些，于是有了这篇文章&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="hexo" scheme="https://blog.tbox.fun/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>修复 Hexo-NexT 不蒜子统计被广告拦截</title>
+    <link href="https://blog.tbox.fun/2024/1137257936.html"/>
+    <id>https://blog.tbox.fun/2024/1137257936.html</id>
+    <published>2024-08-20T06:32:27.000Z</published>
+    <updated>2024-08-30T10:24:14.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;卜蒜子统计插件默认的 js 地址已经在广告拦截名单里了，导致统计异常。  &lt;/p&gt;
+&lt;p&gt;借鉴&lt;a class=&quot;link&quot; href=&quot;https://blog.cubestone.wang/2024/04/04/hexo-next-busuanzi-fix/&quot;&gt;在 Hexo 的 NexT 主题里不蒜子统计问题修复&lt;i class=&quot;fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon&quot;&gt;&lt;/i&gt;&lt;/a&gt;修改方法，并使用 &lt;code&gt;patch-package&lt;/code&gt; 实现自动化打补丁&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="hexo" scheme="https://blog.tbox.fun/tags/hexo/"/>
+    
+    <category term="next" scheme="https://blog.tbox.fun/tags/next/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一文接入 passKey</title>
+    <link href="https://blog.tbox.fun/2024/4152515392.html"/>
+    <id>https://blog.tbox.fun/2024/4152515392.html</id>
+    <published>2024-08-18T13:59:23.000Z</published>
+    <updated>2024-08-20T07:08:28.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;书接上回 &lt;a href=&quot;/2024/4120651335.html&quot;&gt;php 接入单点&lt;/a&gt; , 之前文章中说了接入 &lt;code&gt;passKey&lt;/code&gt;，但是看起来挺复杂，就先接入了单点登录，今天又查了些文章，学习了下，把 &lt;code&gt;passKey&lt;/code&gt; 也啃了下来。&lt;/p&gt;
+&lt;p&gt;&lt;img lazyload=&quot;&quot; src=&quot;/images/loading.svg&quot; data-src=&quot;https://cdn-fusion.imgimg.cc/i/2024/13e0f2a17f4c6196.png&quot; alt=&quot;1723992394254.png&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="passKey" scheme="https://blog.tbox.fun/tags/passKey/"/>
+    
+    <category term="WebAuthn" scheme="https://blog.tbox.fun/tags/WebAuthn/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>php 接入单点</title>
+    <link href="https://blog.tbox.fun/2024/4120651335.html"/>
+    <id>https://blog.tbox.fun/2024/4120651335.html</id>
+    <published>2024-08-17T11:36:23.000Z</published>
+    <updated>2024-08-17T13:45:32.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a class=&quot;link&quot; href=&quot;https://tbox.fun/&quot;&gt;工具站&lt;i class=&quot;fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon&quot;&gt;&lt;/i&gt;&lt;/a&gt;后台是极简风的登录系统，想着接入 &lt;code&gt;passKey&lt;/code&gt;，看了一下挺复杂，还是先接入下局域网部署的 &lt;code&gt;authelia&lt;/code&gt; 吧&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;前置条件：服务器可以访问到 authelia&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    
+    <category term="php" scheme="https://blog.tbox.fun/tags/php/"/>
+    
+    <category term="OIDC" scheme="https://blog.tbox.fun/tags/OIDC/"/>
+    
+    <category term="authelia" scheme="https://blog.tbox.fun/tags/authelia/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>将 gradle 缓存转换为本地 maven 仓库及上传到 nexus</title>
+    <link href="https://blog.tbox.fun/2024/4019968114.html"/>
+    <id>https://blog.tbox.fun/2024/4019968114.html</id>
+    <published>2024-07-25T11:51:54.000Z</published>
+    <updated>2024-07-28T08:22:11.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;gradle 将 maven 仓库中的所有依赖库下载到本地缓存文件夹中。但是此缓存文件夹不可移植。如果我们将此缓存文件夹从我们的 PC 传输到另一台 PC，gradle 将无法识别 gradle 缓存的复制版本。同时我们无法简单的做到将缓存的 gradle 上传到 nexus 中&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="gradle" scheme="https://blog.tbox.fun/tags/gradle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用免费域名进行 cloudflare 优选</title>
+    <link href="https://blog.tbox.fun/2024/1340794587.html"/>
+    <id>https://blog.tbox.fun/2024/1340794587.html</id>
+    <published>2024-06-27T02:34:37.000Z</published>
+    <updated>2024-07-28T08:22:11.000Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;Cloudflare SaaS 相关文章大家也都阅读过不少了，原理也很清楚了。众所周知开启 Cloudflare SaaS 回源优选需要两个域名。一般情况下我们手里只有一个主域名，而且主域名托管 Cloudflare 上还不想放到国内（DNSPOD）域名服务上，所以能不能保持主域名 Cloudflare 托管，再白嫖一个免费域名情况下开启 cf 优选呢&lt;/p&gt;
+&lt;p&gt;正常情况下每个子域名优选都将消耗一个备用域名，用免费域名可以优选 N 个子域名了 [/spoiler]&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="cloudflare" scheme="https://blog.tbox.fun/tags/cloudflare/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>debian11/12 系统如何开启 ipv6</title>
+    <link href="https://blog.tbox.fun/2024/1889416420.html"/>
+    <id>https://blog.tbox.fun/2024/1889416420.html</id>
+    <published>2024-01-30T07:38:04.000Z</published>
+    <updated>2024-01-30T08:07:01.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;debian 系统默认只配置了 ipv4, 参考 &lt;a class=&quot;link&quot; href=&quot;https://www.v2ex.com/t/884267&quot;&gt;v2ex&lt;i class=&quot;fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon&quot;&gt;&lt;/i&gt;&lt;/a&gt;上的一篇讨论，快速 dhcp ipv6&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="debian" scheme="https://blog.tbox.fun/tags/debian/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ssh 端口反代与内网穿透</title>
+    <link href="https://blog.tbox.fun/2022/1074997287.html"/>
+    <id>https://blog.tbox.fun/2022/1074997287.html</id>
+    <published>2022-11-16T08:51:00.000Z</published>
+    <updated>2024-06-27T06:07:36.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;ssh 端口反向代理与内网穿透&lt;/p&gt;
+&lt;h2 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h2&gt;&lt;p&gt; 出于安全考虑公网 IP 仅暴露了内网跳板机的 22 端口，想借用 ssh 端口转发实现简易内网穿透。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="ssh" scheme="https://blog.tbox.fun/tags/ssh/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>宝塔自建 bitwarden 密码管理器</title>
+    <link href="https://blog.tbox.fun/2022/2406815975.html"/>
+    <id>https://blog.tbox.fun/2022/2406815975.html</id>
+    <published>2022-07-26T06:20:29.000Z</published>
+    <updated>2024-07-28T08:22:11.000Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;宝塔自建-bitwarden-密码管理器&quot;&gt;&lt;a href=&quot;#宝塔自建-bitwarden-密码管理器&quot; class=&quot;headerlink&quot; title=&quot;宝塔自建 bitwarden 密码管理器&quot;&gt;&lt;/a&gt;宝塔自建 bitwarden 密码管理器&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;我们生活在被数字包围的世界里。为了证明你是你，你对某个资源拥有所有权。那么就需要密码。最常用的各种网站，还别说银行密码信用卡等等。市面上虽然有 1Password 等优秀商业方案，但是要付费。主流浏览器 Chrome，Firefox 等也提供原生的密码保存方案。 但是， 密码毕竟是个人数据， 自部署（self-hosted）是最佳方案 &lt;a class=&quot;link&quot; href=&quot;https://www.zhihu.com/question/58299407/answer/2147233885&quot;&gt;免费密码管理器 bitwarden 的实际使用体验如何&lt;i class=&quot;fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    
+    <category term="docker" scheme="https://blog.tbox.fun/tags/docker/"/>
+    
+    <category term="bitwarden" scheme="https://blog.tbox.fun/tags/bitwarden/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>程序启动器</title>
+    <link href="https://blog.tbox.fun/2022/218063510.html"/>
+    <id>https://blog.tbox.fun/2022/218063510.html</id>
+    <published>2022-06-26T09:46:05.000Z</published>
+    <updated>2022-06-26T10:24:41.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;顾名思义，程序启动器仅作为一个程序的独立入口，和命令行 &lt;code&gt;start xxx&lt;/code&gt; 有一样的功能，多一个启动器，也就是为程序入口加个 LOGO&lt;br&gt;本启动器使用 &lt;code&gt;GO&lt;/code&gt; 实现&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="go" scheme="https://blog.tbox.fun/tags/go/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>jsdelivr 被墙，hexo-next 切换为自定义 CDN</title>
+    <link href="https://blog.tbox.fun/2022/2394798680.html"/>
+    <id>https://blog.tbox.fun/2022/2394798680.html</id>
+    <published>2022-05-18T05:19:57.000Z</published>
+    <updated>2024-01-30T08:07:01.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Thank you all for your tests, feedback and support. I am personally sorry for the issues we had today.&lt;br&gt;We can consider the issue as resolved, now its a question of DNS propagation getting to everyone.&lt;br&gt;Our official announcement regarding the problems today:&lt;br&gt;Unfortunately today jsDelivr unexpectedly lost its ICP license in China. As effect the regional CDN disabled our account.&lt;/p&gt;
+&lt;p&gt;This resulted in the extended outage we had in mainland China and Taiwan.&lt;/p&gt;
+&lt;p&gt;Other regions were unaffected.&lt;/p&gt;
+&lt;p&gt;We understand how difficult it was for our users to experience this unique situation.&lt;/p&gt;
+&lt;p&gt;From now on all Chinese traffic will be served by “near China” locations provided by global CDN providers.&lt;/p&gt;
+&lt;p&gt;This will have the additional benefit of better failover logic in the future.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a class=&quot;link&quot; href=&quot;https://github.com/jsdelivr/jsdelivr/issues/18348#issuecomment-997777996&quot;&gt;https://github.com/jsdelivr/jsdelivr/issues/18348#issuecomment-997777996&lt;i class=&quot;fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在 &lt;code&gt;jsDelivr&lt;/code&gt; 被吊销 ICP 许可证五个月后，&lt;code&gt;fastly.jsdelivr.net&lt;/code&gt; 开始遭到污染，非魔法上网已经不能正常加载，各中原因不做讨论，无外乎&lt;font color=&quot;red&quot;&gt;滥用&lt;/font&gt;&lt;/p&gt;
+&lt;p&gt;本博客使用 Hexo 框架和 NexT 主题，默认使用的是 JSDelivr 作为 静态资源的 CDN 服务提供商，为了能正常访问，所以需要切换到国内 CDN&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="hexo" scheme="https://blog.tbox.fun/tags/hexo/"/>
+    
+    <category term="cdn" scheme="https://blog.tbox.fun/tags/cdn/"/>
+    
+  </entry>
+  
+</feed>
