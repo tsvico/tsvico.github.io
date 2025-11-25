@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>空山新雨</title>
+  <icon>https://blog.tbox.fun/icon.png</icon>
+  <subtitle>代码与生活的诗意交响</subtitle>
+  <link href="https://blog.tbox.fun/feed.xml" rel="self"/>
+  
+  <link href="https://blog.tbox.fun/"/>
+  <updated>2025-11-25T14:32:15.000Z</updated>
+  <id>https://blog.tbox.fun/</id>
+  
+  <author>
+    <name>tsvico</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Jar 包替换内部依赖后 ClassNotFoundException 问题排查</title>
+    <link href="https://blog.tbox.fun/2025/2294519147.html"/>
+    <id>https://blog.tbox.fun/2025/2294519147.html</id>
+    <published>2025-11-25T14:32:15.000Z</published>
+    <updated>2025-11-25T14:32:15.000Z</updated>
+    
+    
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;问题描述&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;在维护 Spring Boot 项目时，需更新外部 Jar 包 &lt;code&gt;app.jar&lt;/code&gt; 中 &lt;code&gt;BOOT-INF/lib/&lt;/code&gt; 目录下的内部依赖 &lt;code&gt;core-service.jar&lt;/code&gt;。按常规步骤替换后，程序启动抛出 &lt;code&gt;ClassNotFoundException&lt;/code&gt;，但通过压缩工具及命令行验证，缺失的 Class 文件实际存在于新替换的 Jar 包中。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="java" scheme="https://blog.tbox.fun/tags/java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>转:win11 开机黑屏只有鼠标，且无法通过快捷键调出任务管理器的一种解决尝试</title>
+    <link href="https://blog.tbox.fun/2025/413569592.html"/>
+    <id>https://blog.tbox.fun/2025/413569592.html</id>
+    <published>2025-11-10T01:19:12.000Z</published>
+    <updated>2025-11-10T01:19:12.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;本篇文章转载自 &lt;a class=&quot;link&quot; href=&quot;https://www.bilibili.com/opus/894493644567871489&quot;&gt;bilibili&lt;i class=&quot;fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon&quot;&gt;&lt;/i&gt;&lt;/a&gt;，经过实践发现非常有实用价值，故进行转载&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="win11" scheme="https://blog.tbox.fun/tags/win11/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>debian13 双网口开启桥接</title>
+    <link href="https://blog.tbox.fun/2025/38671282.html"/>
+    <id>https://blog.tbox.fun/2025/38671282.html</id>
+    <published>2025-09-10T06:46:49.000Z</published>
+    <updated>2025-09-10T12:46:49.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;书接上文，&lt;a href=&quot;https://blog.tbox.fun/2025/3600149751.html&quot;&gt;双网口飞牛 NAS 设置二级路由&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;后来作为系统的 U 盘挂掉了，现在索性重装 &lt;code&gt;debian13&lt;/code&gt;，并启用双网口桥接，使 &lt;code&gt;NAS&lt;/code&gt; 作为作为交换机使用&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="debian" scheme="https://blog.tbox.fun/tags/debian/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>远程升级 Debian13 翻车与 GRUB 手动引导修复记录</title>
+    <link href="https://blog.tbox.fun/2025/2235114744.html"/>
+    <id>https://blog.tbox.fun/2025/2235114744.html</id>
+    <published>2025-08-11T13:08:56.000Z</published>
+    <updated>2025-08-12T01:08:56.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;code&gt;Debian13&lt;/code&gt; 发布于 2025 年 8 月 9 日，代号 &lt;code&gt;trixie&lt;/code&gt;，抱着尝鲜的念头在中午休息的时候给家里的小主机做了个升级，因为考虑不周最终翻车无法开机，记录下升级与救回的过程。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="debian" scheme="https://blog.tbox.fun/tags/debian/"/>
+    
+    <category term="linux" scheme="https://blog.tbox.fun/tags/linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>双网口飞牛 NAS 设置二级路由</title>
+    <link href="https://blog.tbox.fun/2025/3600149751.html"/>
+    <id>https://blog.tbox.fun/2025/3600149751.html</id>
+    <published>2025-05-08T04:20:37.000Z</published>
+    <updated>2025-05-08T04:20:37.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;手里闲置了一台工控机（装了飞牛 NAS），双网口，就想着能不能利用一下搞个旁路由给电脑，第二个网口当交换机，电脑连接第二个网口，初步方案是将两个网口都通过 docker 的 macvlan 映射给 openwrt，但是尝试后发现无论怎么修改电脑最多可以获取 DHCP 下发的 IP，但是无法上网。折腾一番后放弃第二个网口当交换机，直接第二网口接我电脑，当我电脑的主路由，并配置 &lt;code&gt;DMZ&lt;/code&gt; 模式，全部请求都转发到我电脑&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="openwrt" scheme="https://blog.tbox.fun/tags/openwrt/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Cloudflare Workers 构建免费图床：控制 R2 成本并使用缓存</title>
+    <link href="https://blog.tbox.fun/2025/2622120444.html"/>
+    <id>https://blog.tbox.fun/2025/2622120444.html</id>
+    <published>2025-04-09T10:20:40.000Z</published>
+    <updated>2025-08-05T14:25:41.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Cloudflare R2 确实是个好东西，10GB 免费空间加上每月一千万次免费 Class B 操作，比某 AWS 不知道高到哪里去了。但是有个坑：&lt;strong&gt;公开存储桶的请求次数是不设防的&lt;/strong&gt;。万一有人恶意刷你的桶，或者你的资源突然火了被疯狂访问，账单能直接让你破产。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="cloudflare" scheme="https://blog.tbox.fun/tags/cloudflare/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于 cloudflare 的 CacheRules 相关踩坑记录</title>
+    <link href="https://blog.tbox.fun/2025/497882046.html"/>
+    <id>https://blog.tbox.fun/2025/497882046.html</id>
+    <published>2025-03-22T03:07:03.000Z</published>
+    <updated>2025-03-22T03:15:01.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;大善人的缓存挺好用，在我一次错误配置后，导致网站后台被缓存不用登录就能访问 😱，然后就研究了下缓存&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="cloudflare" scheme="https://blog.tbox.fun/tags/cloudflare/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DDIA 书籍推荐</title>
+    <link href="https://blog.tbox.fun/2025/546910043.html"/>
+    <id>https://blog.tbox.fun/2025/546910043.html</id>
+    <published>2025-01-20T09:43:11.000Z</published>
+    <updated>2025-01-20T09:53:53.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近看的一本很不错的书：&lt;code&gt;DDIA&lt;/code&gt;&lt;br&gt;《Designing Data-Intensive Applications》，设计数据密集型应用，分布式的问题都可以在里面找到，原理讲的非常清晰易懂。豆瓣评分</summary>
+        
+      
+    
+    
+    
+    
+    <category term="book" scheme="https://blog.tbox.fun/tags/book/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>为历史文章添加 updated</title>
+    <link href="https://blog.tbox.fun/2025/3421175541.html"/>
+    <id>https://blog.tbox.fun/2025/3421175541.html</id>
+    <published>2025-01-15T10:40:21.000Z</published>
+    <updated>2025-01-15T10:50:20.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;由于我的博客迁移到了 &lt;code&gt;redefine&lt;/code&gt;, 在些许配置上有差异性，比如 &lt;code&gt;next&lt;/code&gt; 主题中版权声明是写作 &lt;code&gt;copyright: true&lt;/code&gt;，但是在 &lt;code&gt;redefine&lt;/code&gt; 这么写版权部分只会显示一个 &lt;code&gt;true&lt;/code&gt;，我在某次提交统一删除了 &lt;code&gt;copyright: true&lt;/code&gt;，但是此行为导致所有文章的修改日期变成提交的时间，所以使用脚本为所有文章添加上 &lt;code&gt;updated&lt;/code&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="hexo" scheme="https://blog.tbox.fun/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>笔记本电脑远程开关机</title>
+    <link href="https://blog.tbox.fun/2025/4151791544.html"/>
+    <id>https://blog.tbox.fun/2025/4151791544.html</id>
+    <published>2025-01-11T09:19:18.000Z</published>
+    <updated>2025-01-11T11:38:11.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;接上文&lt;a href=&quot;/2024/1104496865.htm&quot;&gt;电脑实现小爱语音关机&lt;/a&gt; , &lt;code&gt;点灯&lt;/code&gt;家的 &lt;code&gt;nodejs sdk&lt;/code&gt; 使用小爱控制老是报” 要操作的设备要出问题了，请稍候再试吧”，经过一番查找，找到 &lt;a class=&quot;link&quot; href=&quot;https://www.52pojie.cn/thread-1921792-1-1.html&quot;&gt;将电脑接入米家，远程、语音开关机，推送消息&lt;i class=&quot;fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon&quot;&gt;&lt;/i&gt;&lt;/a&gt;、&lt;a class=&quot;link&quot; href=&quot;https://www.cnblogs.com/hackyo/p/18000627&quot;&gt;电脑接入米家，控制电脑开关机（无需购买外设）&lt;i class=&quot;fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon&quot;&gt;&lt;/i&gt;&lt;/a&gt;，看了这两个方案很心动 💓，这两个方案都是部署在外部机器上的，且主要使用 &lt;code&gt;wol&lt;/code&gt;，不是很贴合我的需求，先记录，后边再慢慢搞。&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="c" scheme="https://blog.tbox.fun/tags/c/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Traefik 入门及全自动 HTTPS</title>
+    <link href="https://blog.tbox.fun/2025/3450057868.html"/>
+    <id>https://blog.tbox.fun/2025/3450057868.html</id>
+    <published>2025-01-09T10:47:36.000Z</published>
+    <updated>2025-01-09T13:42:50.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;code&gt;Traefik&lt;/code&gt; 是一个云原生的新型 HTTP 反向代理、负载均衡软件。作用类似于 &lt;code&gt;nginx&lt;/code&gt;，在全 &lt;code&gt;docker&lt;/code&gt; 环境中，&lt;code&gt;Traefik&lt;/code&gt; 会比 &lt;code&gt;nginx&lt;/code&gt; 配置简略很多。我使用过 &lt;code&gt;nginx&lt;/code&gt; 反代 &lt;code&gt;docker&lt;/code&gt; 同网络（networks）下的其他服务，统一出口，使用泛域名解析，但是当 &lt;code&gt;docker&lt;/code&gt; 数量变多时，每新增一个 &lt;code&gt;docker&lt;/code&gt; 都要手动复制一份文件，尝试向 &lt;code&gt;Traefik&lt;/code&gt; 迁移&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="traefik" scheme="https://blog.tbox.fun/tags/traefik/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>电脑实现小爱语音关机</title>
+    <link href="https://blog.tbox.fun/2024/1104496865.html"/>
+    <id>https://blog.tbox.fun/2024/1104496865.html</id>
+    <published>2024-12-22T02:44:15.000Z</published>
+    <updated>2024-12-23T10:15:49.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;目前使用的是&lt;a class=&quot;link&quot; href=&quot;https://wequ.net/cn/&quot;&gt;神秘鸭&lt;i class=&quot;fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon&quot;&gt;&lt;/i&gt;&lt;/a&gt;来实现关机的，免费版本足够我的日常使用，不过我在几次失灵后，就决定自己实现一个，一般是在电脑断网后再重新连接网络就会失灵，而且&lt;code&gt;神秘鸭&lt;/code&gt;接入的是&lt;code&gt;巴法云&lt;/code&gt;，巴法云在 APP 没找到设备在线状态，不利于远程查看是否开机（偶尔会使用 &lt;code&gt;tailscale&lt;/code&gt; 远程组网控制电脑），网上没有找到满意的版本，决定基于 &lt;code&gt;TypeScript&lt;/code&gt; 实现一个 nodejs 版本的关机程序，以下是开发过程&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="nodejs" scheme="https://blog.tbox.fun/tags/nodejs/"/>
+    
+    <category term="blinker" scheme="https://blog.tbox.fun/tags/blinker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一个简单的 nodejs 目录迭代器</title>
+    <link href="https://blog.tbox.fun/2024/320884568.html"/>
+    <id>https://blog.tbox.fun/2024/320884568.html</id>
+    <published>2024-11-23T03:12:57.000Z</published>
+    <updated>2024-11-23T08:46:43.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;死去的记忆突然攻击我，一份来自四年前使用递归写的遍历目录的方案发生了内存溢出，研究了一下旧代码，发现晦涩难懂，索性重写遍历方法&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="typescript" scheme="https://blog.tbox.fun/tags/typescript/"/>
+    
+    <category term="nodejs" scheme="https://blog.tbox.fun/tags/nodejs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用坚果云备份 serv00</title>
+    <link href="https://blog.tbox.fun/2024/4181424588.html"/>
+    <id>https://blog.tbox.fun/2024/4181424588.html</id>
+    <published>2024-11-05T02:32:35.000Z</published>
+    <updated>2024-11-05T02:37:37.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;Serv00 是一家来自波兰的主机服务提供商，因提供 10 年免费的虚拟主机火爆全网。&lt;br&gt;此文章是讲如何备份 Serv00 上部署的网站&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="serv00" scheme="https://blog.tbox.fun/tags/serv00/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>增加文章时效性检测及更新时间修复</title>
+    <link href="https://blog.tbox.fun/2024/1160155932.html"/>
+    <id>https://blog.tbox.fun/2024/1160155932.html</id>
+    <published>2024-08-31T07:28:38.000Z</published>
+    <updated>2024-08-31T07:44:59.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;近期查看历史文章时，发现有篇文章是 2018 年写的关于百度云网盘的，现在看来应该是已经失效了，如果增加时效性提示应该会更好一些，于是有了这篇文章&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="hexo" scheme="https://blog.tbox.fun/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>修复 Hexo-NexT 不蒜子统计被广告拦截</title>
+    <link href="https://blog.tbox.fun/2024/1137257936.html"/>
+    <id>https://blog.tbox.fun/2024/1137257936.html</id>
+    <published>2024-08-20T06:32:27.000Z</published>
+    <updated>2024-08-30T10:24:14.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;卜蒜子统计插件默认的 js 地址已经在广告拦截名单里了，导致统计异常。  &lt;/p&gt;
+&lt;p&gt;借鉴&lt;a class=&quot;link&quot; href=&quot;https://blog.cubestone.wang/2024/04/04/hexo-next-busuanzi-fix/&quot;&gt;在 Hexo 的 NexT 主题里不蒜子统计问题修复&lt;i class=&quot;fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon&quot;&gt;&lt;/i&gt;&lt;/a&gt;修改方法，并使用 &lt;code&gt;patch-package&lt;/code&gt; 实现自动化打补丁&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="hexo" scheme="https://blog.tbox.fun/tags/hexo/"/>
+    
+    <category term="next" scheme="https://blog.tbox.fun/tags/next/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一文接入 passKey</title>
+    <link href="https://blog.tbox.fun/2024/4152515392.html"/>
+    <id>https://blog.tbox.fun/2024/4152515392.html</id>
+    <published>2024-08-18T13:59:23.000Z</published>
+    <updated>2024-08-20T07:08:28.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;书接上回 &lt;a href=&quot;/2024/4120651335.html&quot;&gt;php 接入单点&lt;/a&gt; , 之前文章中说了接入 &lt;code&gt;passKey&lt;/code&gt;，但是看起来挺复杂，就先接入了单点登录，今天又查了些文章，学习了下，把 &lt;code&gt;passKey&lt;/code&gt; 也啃了下来。&lt;/p&gt;
+&lt;p&gt;&lt;img lazyload=&quot;&quot; src=&quot;/images/loading.svg&quot; data-src=&quot;https://cdn-fusion.imgimg.cc/i/2024/13e0f2a17f4c6196.png&quot; alt=&quot;1723992394254.png&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="passKey" scheme="https://blog.tbox.fun/tags/passKey/"/>
+    
+    <category term="WebAuthn" scheme="https://blog.tbox.fun/tags/WebAuthn/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>php 接入单点</title>
+    <link href="https://blog.tbox.fun/2024/4120651335.html"/>
+    <id>https://blog.tbox.fun/2024/4120651335.html</id>
+    <published>2024-08-17T11:36:23.000Z</published>
+    <updated>2024-08-17T13:45:32.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;&lt;a class=&quot;link&quot; href=&quot;https://tbox.fun/&quot;&gt;工具站&lt;i class=&quot;fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon&quot;&gt;&lt;/i&gt;&lt;/a&gt;后台是极简风的登录系统，想着接入 &lt;code&gt;passKey&lt;/code&gt;，看了一下挺复杂，还是先接入下局域网部署的 &lt;code&gt;authelia&lt;/code&gt; 吧&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;前置条件：服务器可以访问到 authelia&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    
+    <category term="php" scheme="https://blog.tbox.fun/tags/php/"/>
+    
+    <category term="OIDC" scheme="https://blog.tbox.fun/tags/OIDC/"/>
+    
+    <category term="authelia" scheme="https://blog.tbox.fun/tags/authelia/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>将 gradle 缓存转换为本地 maven 仓库及上传到 nexus</title>
+    <link href="https://blog.tbox.fun/2024/4019968114.html"/>
+    <id>https://blog.tbox.fun/2024/4019968114.html</id>
+    <published>2024-07-25T11:51:54.000Z</published>
+    <updated>2024-07-28T08:22:11.000Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;gradle 将 maven 仓库中的所有依赖库下载到本地缓存文件夹中。但是此缓存文件夹不可移植。如果我们将此缓存文件夹从我们的 PC 传输到另一台 PC，gradle 将无法识别 gradle 缓存的复制版本。同时我们无法简单的做到将缓存的 gradle 上传到 nexus 中&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="gradle" scheme="https://blog.tbox.fun/tags/gradle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用免费域名进行 cloudflare 优选</title>
+    <link href="https://blog.tbox.fun/2024/1340794587.html"/>
+    <id>https://blog.tbox.fun/2024/1340794587.html</id>
+    <published>2024-06-27T02:34:37.000Z</published>
+    <updated>2024-07-28T08:22:11.000Z</updated>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;Cloudflare SaaS 相关文章大家也都阅读过不少了，原理也很清楚了。众所周知开启 Cloudflare SaaS 回源优选需要两个域名。一般情况下我们手里只有一个主域名，而且主域名托管 Cloudflare 上还不想放到国内（DNSPOD）域名服务上，所以能不能保持主域名 Cloudflare 托管，再白嫖一个免费域名情况下开启 cf 优选呢&lt;/p&gt;
+&lt;p&gt;正常情况下每个子域名优选都将消耗一个备用域名，用免费域名可以优选 N 个子域名了 [/spoiler]&lt;/p&gt;</summary>
+    
+    
+    
+    
+    <category term="cloudflare" scheme="https://blog.tbox.fun/tags/cloudflare/"/>
+    
+  </entry>
+  
+</feed>
