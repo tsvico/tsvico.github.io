@@ -1,0 +1,9 @@
+# hexo robots.txt
+User-agent: Baiduspider
+
+Sitemap: https://blog.tbox.fun/baidusitemap.xml
+
+User-agent: *
+Disallow:
+
+Sitemap: https://blog.tbox.fun/sitemap.xml
